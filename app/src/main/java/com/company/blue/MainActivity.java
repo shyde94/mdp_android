@@ -22,6 +22,8 @@ import android.widget.ListView;
 import android.widget.ArrayAdapter;
 import android.widget.AdapterView;
 
+import com.company.blue.R;
+
 public class MainActivity extends AppCompatActivity {
 
     private static final int REQUEST_ENABLE_BT = 0;
