@@ -6,9 +6,11 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/bluetooth_config"/>
+        android:id="@+id/bluetooth_config"
+        android:text="@string/bluetooth_config"/>
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/map_config"/>
+        android:id="@+id/map_config"
+        android:text="@string/map_config"/>
 </LinearLayout>

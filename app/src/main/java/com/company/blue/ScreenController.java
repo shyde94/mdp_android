@@ -78,7 +78,7 @@ public class ScreenController {
                 frag = new MainMenuFragment();
                 break;
             case Bluetooth:
-                //frag = new MyCustomMap();
+                frag = new BluetoothFrag();
                 break;
             case Map:
                 //frag = new TestFrag();

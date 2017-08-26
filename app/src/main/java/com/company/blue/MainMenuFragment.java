@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import static com.company.blue.ScreenController.Screen.Bluetooth;
+
 /**
  * Created by Shide on 26/8/17.
  */
@@ -22,12 +24,13 @@ public class MainMenuFragment extends Fragment{
         View view = inflater.inflate(R.layout.menu_fragment, container, false);
         mBluetoothConfig = view.findViewById(R.id.bluetooth_config);
         mMapConfig = view.findViewById(R.id.map_config);
+        mBluetoothConfig.setText("Bluetooth");
 
         mBluetoothConfig.setOnClickListener(
                 new View.OnClickListener(){
                     @Override
                     public void onClick(View view) {
-
+                        Shared.SC.openScreen(Bluetooth);
                     }
                 }
         );

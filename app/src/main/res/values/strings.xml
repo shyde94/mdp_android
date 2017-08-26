@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Blue</string>
+    <string name="bluetooth_config">Bluetooth Config</string>
+    <string name="map_config">Map Config</string>
 </resources>
