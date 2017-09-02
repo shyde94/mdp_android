@@ -3,6 +3,7 @@ package com.company.blue;
 import android.app.Fragment;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothSocket;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -10,9 +11,11 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -20,19 +23,32 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.UUID;
 
 
 public class BluetoothFrag extends Fragment {
     private static final int REQUEST_ENABLE_BT = 0;
     private static final int REQUEST_DISCOVERABLE_BT = 0;
     private ProgressBar bluetoothProgress;
+    private static final String TAG = "Huangkai";
+
 
     //huangkai
     private ListView nearbyDevicesList;
     private ArrayList<String> nearbyDevices = new ArrayList<String>();
     private ArrayAdapter<String> nearbyDevicesAdapter;
     IntentFilter filter;
+    private Thread connectionThread, listenThread;
+    private BluetoothSocket mmSocket, connectedSocket;
+    private BluetoothDevice mmDevice;
+    private OutputStream outputStream;
+    private InputStream inStream;
+    final BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+    private byte[] mmBuffer; // mmBuffer store for the stream
 
     @Nullable
     @Override
@@ -45,6 +61,7 @@ public class BluetoothFrag extends Fragment {
         final Button button2 = view.findViewById(R.id.button2);
         final Button button3 = view.findViewById(R.id.button3);
         final Button button4 = view.findViewById(R.id.button4);
+        final Button button5 = view.findViewById(R.id.send);
 
         //huangkai
         bluetoothProgress =  view.findViewById(R.id.bluetooth_progress);
@@ -56,7 +73,7 @@ public class BluetoothFrag extends Fragment {
         //final IntentFilter filter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
         //registerReceiver(mReceiver, filter);
 
-        final BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+
         if (mBluetoothAdapter == null) {
             out.append("device not supported");
         }
@@ -113,6 +130,36 @@ public class BluetoothFrag extends Fragment {
 
             }
         });
+
+        button5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                try {
+                    write("Hi Dhaslie, what did you have for lunch");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        nearbyDevicesList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+
+                String selected = (String) nearbyDevicesList.getItemAtPosition(position);
+                String []deviceInfo = selected.split("\n");
+                Log.d(TAG,deviceInfo[1]);
+                BluetoothDevice mBluetoothDevice = mBluetoothAdapter.getRemoteDevice(deviceInfo[1]);
+                ConnectToDevice(mBluetoothDevice);
+
+
+
+                //Intent intent = new Intent(MainActivity.this, RobotActivity.class);
+                //intent.putExtra("deviceAdd", deviceInfo[1]);
+                //finish();
+                //startActivity(intent);
+            }
+        });
         return view;
     }
     // Create a BroadcastReceiver for ACTION_FOUND. This is just a container
@@ -140,6 +187,92 @@ public class BluetoothFrag extends Fragment {
             }
         }
     };
+
+    // Selecting a connection
+    private void ConnectToDevice (final BluetoothDevice device) {
+        connectionThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                UUID uuid = UUID.fromString("94f39d29-7d6d-437d-973b-fba39e49d4ee");
+                // Cancel discovery because it otherwise slows down the connection.
+                try {
+                    mmSocket = device.createRfcommSocketToServiceRecord(uuid);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                connectedSocket = mmSocket;
+                mBluetoothAdapter.cancelDiscovery();
+                try {
+                    connectedSocket.connect();
+                    outputStream = connectedSocket.getOutputStream();
+                    inStream = connectedSocket.getInputStream();
+                    Log.d(TAG, "connected");
+                } catch (IOException e) {
+                    Log.d(TAG, "bad");
+                    e.printStackTrace();
+                }
+
+                //Being listening for data
+
+                listenForData();
+
+            }
+
+            // Closes the client socket and causes the thread to finish.
+            public void cancel() {
+                try {
+                    mmSocket.close();
+                } catch (IOException e) {
+                    Log.e(TAG, "Could not close the client socket", e);
+                }
+            }
+        });
+        connectionThread.start();
+    }
+
+    public void listenForData(){
+
+        listenThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                mmBuffer = new byte[1024];
+                int numBytes; // bytes returned from read()
+                // hk - handler and message constant are needed to do stuffs
+                while (true) {
+                    try {
+                        // Read from the InputStream.
+                        //while(!(inStream.available()>0)){};
+
+                        Log.d(TAG,"prepare to receive");
+                        numBytes = inStream.read(mmBuffer);
+
+                        final String readMessage = new String(mmBuffer, 0, numBytes);
+                        //see if correct get
+                        Log.d(TAG,readMessage);
+                        //readMsg.sendToTarget();
+
+                        //*
+                        //=========== a lot of other logic over here such as runOnUIThread
+                        //*
+
+                    } catch (IOException e) {
+                        Log.d(TAG, "Input stream was disconnected", e);
+                        break;
+                    }
+
+
+                }
+            }
+
+        });
+        listenThread.start();
+    }
+
+    // write method to outputstream
+    public void write(String s) throws IOException {
+        Log.d(TAG, "Last send: "+s);
+        outputStream.write((s+"|").getBytes());
+    }
 
     @Override
     public void onDestroy() {
