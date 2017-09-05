@@ -15,9 +15,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -50,18 +52,17 @@ public class BluetoothFrag extends Fragment {
     final BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
     private byte[] mmBuffer; // mmBuffer store for the stream
 
-    @Nullable
+    @org.jetbrains.annotations.Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         View view = inflater.inflate(R.layout.bluetooth_frag, container, false);
 
         final TextView out= view.findViewById(R.id.out);
-        final Button button1 = view.findViewById(R.id.button1);
-        final Button button2 = view.findViewById(R.id.button2);
-        final Button button3 = view.findViewById(R.id.button3);
-        final Button button4 = view.findViewById(R.id.button4);
-        final Button button5 = view.findViewById(R.id.send);
+        final Button onDiscoverBtn = view.findViewById(R.id.button2);
+        final Button offBtn = view.findViewById(R.id.button3);
+        final Button discoverBtn = view.findViewById(R.id.button4);
+        final Button sendBtn = view.findViewById(R.id.send);
 
         //huangkai
         bluetoothProgress =  view.findViewById(R.id.bluetooth_progress);
@@ -77,17 +78,9 @@ public class BluetoothFrag extends Fragment {
         if (mBluetoothAdapter == null) {
             out.append("device not supported");
         }
-        //turn on
-        button1.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                if (!mBluetoothAdapter.isEnabled()) {
-                    Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-                    startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
-                }
-            }
-        });
+
         //discoverable
-        button2.setOnClickListener(new View.OnClickListener() {
+        onDiscoverBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
                 if (!mBluetoothAdapter.isDiscovering()) {
@@ -102,7 +95,7 @@ public class BluetoothFrag extends Fragment {
             }
         });
         //turn off
-        button3.setOnClickListener(new View.OnClickListener() {
+        offBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
                 mBluetoothAdapter.disable();
@@ -113,7 +106,7 @@ public class BluetoothFrag extends Fragment {
         });
 
         //turn off
-        button4.setOnClickListener(new View.OnClickListener() {
+        discoverBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
                 if (mBluetoothAdapter.isDiscovering()) {
@@ -131,14 +124,18 @@ public class BluetoothFrag extends Fragment {
             }
         });
 
-        button5.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View arg0) {
+
+        sendBtn.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                EditText transmitEditText = (EditText)v.findViewById(R.id.ck_send);
                 try {
-                    write("Hi Dhaslie, what did you have for lunch");
+                    write(transmitEditText.getText().toString());
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+                transmitEditText.setText("");
+                // this method hide keyboard
+                //removeFocus();
             }
         });
 
@@ -279,4 +276,6 @@ public class BluetoothFrag extends Fragment {
         super.onDestroy();
         Shared.activity.unregisterReceiver(mReceiver);
     }
+
+
 }
