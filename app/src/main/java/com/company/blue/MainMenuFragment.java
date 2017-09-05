@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import static com.company.blue.ScreenController.Screen.Bluetooth;
+import static com.company.blue.ScreenController.Screen.Map;
 
 /**
  * Created by Shide on 26/8/17.
@@ -38,7 +39,7 @@ public class MainMenuFragment extends Fragment{
                 new View.OnClickListener(){
                     @Override
                     public void onClick(View view) {
-
+                        Shared.SC.openScreen(Map);
                     }
                 }
         );

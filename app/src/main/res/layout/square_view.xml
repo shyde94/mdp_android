@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<test.test.SquareView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.company.blue.SquareView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_height="match_parent" android:layout_width="match_parent">
 
     <TextView
@@ -13,4 +13,4 @@
         android:layout_height="match_parent"
         android:src="@drawable/white_box_with_border"/>
 
-</test.test.SquareView>
+</com.company.blue.SquareView>

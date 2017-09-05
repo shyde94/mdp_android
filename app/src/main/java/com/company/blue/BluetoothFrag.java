@@ -60,7 +60,7 @@ public class BluetoothFrag extends Fragment {
         View view = inflater.inflate(R.layout.bluetooth_frag, container, false);
 
         final TextView out= view.findViewById(R.id.out);
-        final Button button1 = (Button) findViewById(R.id.button1);
+        final Button button1 = view.findViewById(R.id.button1);
         final Button onDiscoverBtn = view.findViewById(R.id.button2);
         final Button offBtn = view.findViewById(R.id.button3);
         final Button discoverBtn = view.findViewById(R.id.button4);
@@ -131,7 +131,7 @@ public class BluetoothFrag extends Fragment {
                 filter.addAction(BluetoothAdapter.ACTION_DISCOVERY_FINISHED);
                 // the registerReceiver pairs up with startdiscovery i guess
                 Log.i(TAG,"apple");
-                Shared.activity.registerReceiver(mReceiver, filter);
+                Shared.context.registerReceiver(mReceiver, filter);
                 Log.i(TAG,"banana");
                 mBluetoothAdapter.startDiscovery();
 
@@ -185,11 +185,13 @@ public class BluetoothFrag extends Fragment {
         });
         return view;
     }
+
     // Create a BroadcastReceiver for ACTION_FOUND. This is just a container
     private final BroadcastReceiver mReceiver = new BroadcastReceiver() {
         // this method does something
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
+            Log.i(TAG,"Action:" + action);
             Log.i(TAG,"Here");
 
             if (BluetoothAdapter.ACTION_DISCOVERY_FINISHED.equals(action)) {
@@ -212,6 +214,8 @@ public class BluetoothFrag extends Fragment {
                 nearbyDevices.add(device.getName() + "\n" + device.getAddress());
                 nearbyDevicesAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_list_item_1, nearbyDevices);
                 nearbyDevicesList.setAdapter(nearbyDevicesAdapter);
+            }else{
+                Log.i(TAG,"Action:"+action);
             }
         }
     };

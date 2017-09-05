@@ -41,6 +41,7 @@ public class ScreenController {
         mFragmentManager = Shared.activity.getFragmentManager();
         Fragment fragment = getFragment(screen);
         if(fragment!= null){
+            Log.i(TAG, "open screen");
             FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
             fragmentTransaction.replace(R.id.fragment_container,fragment, "CURRENT_FRAG");
             fragmentTransaction.commit();
@@ -81,7 +82,7 @@ public class ScreenController {
                 frag = new BluetoothFrag();
                 break;
             case Map:
-                //frag = new TestFrag();
+                frag = new MapContainerFrag();
                 break;
         }
         return frag;
