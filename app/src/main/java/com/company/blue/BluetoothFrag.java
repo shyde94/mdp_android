@@ -117,8 +117,9 @@ public class BluetoothFrag extends Fragment {
                 filter.addAction(BluetoothAdapter.ACTION_DISCOVERY_STARTED);
                 filter.addAction(BluetoothAdapter.ACTION_DISCOVERY_FINISHED);
                 // the registerReceiver pairs up with startdiscovery i guess
+                Log.i(TAG,"apple");
                 Shared.activity.registerReceiver(mReceiver, filter);
-
+                Log.i(TAG,"banana");
                 mBluetoothAdapter.startDiscovery();
 
             }
@@ -164,20 +165,25 @@ public class BluetoothFrag extends Fragment {
         // this method does something
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
+            Log.i(TAG,"Here");
 
             if (BluetoothAdapter.ACTION_DISCOVERY_FINISHED.equals(action)) {
                 //discovery finishes, dismiss progress dialog
+                Log.i(TAG, "action finish");
                 bluetoothProgress.setVisibility(View.INVISIBLE);
             }
             else if (BluetoothAdapter.ACTION_DISCOVERY_STARTED.equals(action)) {
+                Log.i(TAG,"action started");
                 //discovery starts, show progress dialog
                 nearbyDevices.clear();
                 nearbyDevicesList.setAdapter(null);
                 bluetoothProgress.setVisibility(View.VISIBLE);
             }
             else if (BluetoothDevice.ACTION_FOUND.equals(action)) {
+                Log.i(TAG,"action found");
                 //bluetooth device found
                 BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
+                Log.i(TAG, "device:" + device.getName());
                 nearbyDevices.add(device.getName() + "\n" + device.getAddress());
                 nearbyDevicesAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_list_item_1, nearbyDevices);
                 nearbyDevicesList.setAdapter(nearbyDevicesAdapter);
