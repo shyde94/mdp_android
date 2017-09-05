@@ -29,6 +29,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.UUID;
 
 
@@ -59,10 +60,12 @@ public class BluetoothFrag extends Fragment {
         View view = inflater.inflate(R.layout.bluetooth_frag, container, false);
 
         final TextView out= view.findViewById(R.id.out);
+        final Button button1 = (Button) findViewById(R.id.button1);
         final Button onDiscoverBtn = view.findViewById(R.id.button2);
         final Button offBtn = view.findViewById(R.id.button3);
         final Button discoverBtn = view.findViewById(R.id.button4);
         final Button sendBtn = view.findViewById(R.id.send);
+        final Button exploreBtn = view.findViewById(R.id.explore);
 
         //huangkai
         bluetoothProgress =  view.findViewById(R.id.bluetooth_progress);
@@ -78,6 +81,16 @@ public class BluetoothFrag extends Fragment {
         if (mBluetoothAdapter == null) {
             out.append("device not supported");
         }
+
+        //turn on
+        button1.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                if (!mBluetoothAdapter.isEnabled()) {
+                    Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+                    startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
+                }
+            }
+        });
 
         //discoverable
         onDiscoverBtn.setOnClickListener(new View.OnClickListener() {
@@ -136,6 +149,18 @@ public class BluetoothFrag extends Fragment {
                 transmitEditText.setText("");
                 // this method hide keyboard
                 //removeFocus();
+            }
+        });
+
+        // explore button
+        exploreBtn.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View r){
+                String command[] = {"IDK what to put"};
+                try {
+                    write(Arrays.toString(command));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -264,6 +289,7 @@ public class BluetoothFrag extends Fragment {
         });
         listenThread.start();
     }
+
 
     // write method to outputstream
     public void write(String s) throws IOException {
