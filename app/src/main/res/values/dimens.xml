@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="margine_top">70dp</dimen>
+    <dimen name="board_padding">10dp</dimen>
+    <dimen name="card_margin">10dp</dimen>
+</resources>
