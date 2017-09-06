@@ -61,12 +61,7 @@ public class ScreenController {
             }
             Screen screen = openedScreens.get(openedScreens.size() - 1);
             openedScreens.remove(openedScreens.size() - 1);
-            /*if(screen.equals(Screen.MFH)){
-                openScreen(Screen.MFH, Shared.destination);
-            }
-            else{
-                openScreen(screen);
-            }*/
+            openScreen(screen);
             Log.i(TAG,"Post queue: " + openedScreens.toString());
             return false;
         }
