@@ -1,6 +1,7 @@
 package com.company.blue;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -24,7 +25,7 @@ class SquareView extends FrameLayout {
 
     TextView mtest;
     private ImageView gridImage;
-    private GridPoint point;
+    private GridPoint point = new GridPoint();
 
     public SquareView (Context context, AttributeSet attrs){
         super(context, attrs);
@@ -38,9 +39,14 @@ class SquareView extends FrameLayout {
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
-        mtest = findViewById(R.id.test_text);
-        gridImage = findViewById(R.id.white_box);
 
+        gridImage = findViewById(R.id.grid_box);
+        if(point.getStatus() == 0){
+            gridImage.setImageDrawable(getResources().getDrawable(R.drawable.white_box,null));
+        }
+        else if(point.getStatus() == 1) {
+            gridImage.setImageDrawable(getResources().getDrawable(R.drawable.black_box,null));
+        }
     }
 
     public GridPoint getPoint() {

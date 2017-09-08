@@ -2,15 +2,11 @@
 <com.company.blue.SquareView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_height="match_parent" android:layout_width="match_parent">
 
-    <TextView
-        android:id="@+id/test_text"
-        android:text="HAHA"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
     <ImageView
-        android:id="@+id/white_box"
+        android:id="@+id/grid_box"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src="@drawable/white_box_with_border"/>
+        android:layout_height="match_parent"/>
+
+
 
 </com.company.blue.SquareView>

@@ -21,14 +21,22 @@ import android.widget.Toast;
 public class BoardView extends LinearLayout {
 
     final public String TAG = "BoardViewClass";
-    final private int numRows = 20;
-    final private int numCol = 15;
+    final private int numRows = 4;
+    final private int numCol = 5;
 
     private LayoutParams mRowLayoutParams = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
     private LayoutParams mTileLayoutParams;
     private int mScreenWidth;
     private int mScreenHeight;
     private int mSize;
+
+    final private String Temp = "00000111110000011111";
+    //Temporary string according to map descriptor. Assume 00011111.....as string, index determines coordinates.
+    //loop through string, extract each value according to when square grid is being added to each row.
+    //How to process string?? take string, segment into number of rows. Iterate through each row based on number of col
+
+
+    
 
     public BoardView(Context context) {
         this(context, null);
@@ -88,7 +96,9 @@ public class BoardView extends LinearLayout {
 
         for(int i=0;i<numCol;i++){
             Log.i(TAG, "Adding column");
+            //Gridpoint added here, status should be inserted into GridPoint object here.
             GridPoint point = new GridPoint(i,row,0);
+
             addSquareView(linearLayout,point);
         }
 
