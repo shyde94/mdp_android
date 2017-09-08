@@ -12,7 +12,9 @@
         <FrameLayout
             android:id="@+id/map_container"
             android:layout_width="match_parent"
-            android:layout_height="411dp"></FrameLayout>
+            android:layout_height="wrap_content">
+
+        </FrameLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -25,6 +27,7 @@
                 android:layout_marginLeft="44dp"
                 android:background="@drawable/forward" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
@@ -55,12 +58,9 @@
         </LinearLayout>
 
 
-
-
     </LinearLayout>
 
-    <!--
-    -->
+
 
 
 </FrameLayout>

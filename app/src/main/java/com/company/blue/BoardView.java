@@ -40,7 +40,10 @@ public class BoardView extends LinearLayout {
         int margin = getResources().getDimensionPixelSize(R.dimen.margine_top);
         int padding = getResources().getDimensionPixelSize(R.dimen.board_padding);
         mScreenHeight = getResources().getDisplayMetrics().heightPixels - margin - padding*2;
-        mScreenWidth = getResources().getDisplayMetrics().widthPixels - padding*2;
+        mScreenWidth = getResources().getDisplayMetrics().widthPixels - padding*2 - (int) (Shared.context.getResources().getDisplayMetrics().density * 20);
+
+        Log.i(TAG, "mScreenHeight: " + mScreenHeight);
+        Log.i(TAG, "mScreenWidth: " + mScreenWidth);
 
     }
 
@@ -57,6 +60,8 @@ public class BoardView extends LinearLayout {
         for (int row = 0; row < numRows; row++) {
             sumMargin += singleMargin * 2;
         }
+        Log.i(TAG,"sumMargin: " + sumMargin);
+
         //Programmatically calculate tile size based on screen size.
         int tilesHeight = (mScreenHeight - sumMargin) / numRows;
         int tilesWidth = (mScreenWidth - sumMargin) / numCol;
@@ -78,6 +83,8 @@ public class BoardView extends LinearLayout {
         LinearLayout linearLayout = new LinearLayout(getContext());
         linearLayout.setOrientation(LinearLayout.HORIZONTAL);
         linearLayout.setGravity(Gravity.CENTER);
+
+
 
         for(int i=0;i<numCol;i++){
             Log.i(TAG, "Adding column");
