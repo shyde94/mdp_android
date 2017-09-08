@@ -35,6 +35,8 @@ public class MapContainerFrag extends Fragment {
         mReverse = view.findViewById(R.id.reverse);
         mTurnLeft = view.findViewById(R.id.turn_left);
         mTurnRight = view.findViewById(R.id.turn_right);
+
+        Log.i(TAG, "test");
         return view;
     }
 }
