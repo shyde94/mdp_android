@@ -41,6 +41,7 @@ public class ScreenController {
         mFragmentManager = Shared.activity.getFragmentManager();
         Fragment fragment = getFragment(screen);
         if(fragment!= null){
+            Log.i(TAG, "open screen");
             FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
             fragmentTransaction.replace(R.id.fragment_container,fragment, "CURRENT_FRAG");
             fragmentTransaction.commit();
@@ -60,12 +61,7 @@ public class ScreenController {
             }
             Screen screen = openedScreens.get(openedScreens.size() - 1);
             openedScreens.remove(openedScreens.size() - 1);
-            /*if(screen.equals(Screen.MFH)){
-                openScreen(Screen.MFH, Shared.destination);
-            }
-            else{
-                openScreen(screen);
-            }*/
+            openScreen(screen);
             Log.i(TAG,"Post queue: " + openedScreens.toString());
             return false;
         }
@@ -81,7 +77,7 @@ public class ScreenController {
                 frag = new BluetoothFrag();
                 break;
             case Map:
-                //frag = new TestFrag();
+                frag = new MapContainerFrag();
                 break;
         }
         return frag;

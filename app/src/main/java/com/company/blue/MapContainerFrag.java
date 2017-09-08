@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.FrameLayout;
 
 /**
@@ -16,6 +17,7 @@ import android.widget.FrameLayout;
 public class MapContainerFrag extends Fragment {
     final public String TAG = "MapContainerFragClass";
     private BoardView mBoardView;
+    Button mForward, mReverse, mTurnLeft, mTurnRight;
 
     @Nullable
     @Override
@@ -28,6 +30,11 @@ public class MapContainerFrag extends Fragment {
         frameLayout.addView(mBoardView);
         frameLayout.setClipChildren(false);
         mBoardView.setBoard();
+
+        mForward = view.findViewById(R.id.forward);
+        mReverse = view.findViewById(R.id.reverse);
+        mTurnLeft = view.findViewById(R.id.turn_left);
+        mTurnRight = view.findViewById(R.id.turn_right);
         return view;
     }
 }
