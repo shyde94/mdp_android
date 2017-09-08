@@ -60,7 +60,7 @@ public class BluetoothFrag extends Fragment {
         View view = inflater.inflate(R.layout.bluetooth_frag, container, false);
 
         final TextView out= view.findViewById(R.id.out);
-        final Button button1 = (Button) findViewById(R.id.button1);
+        final Button button1 = view.findViewById(R.id.button1);
         final Button onDiscoverBtn = view.findViewById(R.id.button2);
         final Button offBtn = view.findViewById(R.id.button3);
         final Button discoverBtn = view.findViewById(R.id.button4);
@@ -170,7 +170,7 @@ public class BluetoothFrag extends Fragment {
 
                 String selected = (String) nearbyDevicesList.getItemAtPosition(position);
                 String []deviceInfo = selected.split("\n");
-                Log.d(TAG,deviceInfo[1]);
+                Log.d(TAG,"hello huangkai2" + deviceInfo[1]);
                 BluetoothDevice mBluetoothDevice = mBluetoothAdapter.getRemoteDevice(deviceInfo[1]);
                 ConnectToDevice(mBluetoothDevice);
 
@@ -279,6 +279,9 @@ public class BluetoothFrag extends Fragment {
 
                     } catch (IOException e) {
                         Log.d(TAG, "Input stream was disconnected", e);
+                        break;
+                    }catch (NullPointerException e) {
+                        Log.d(TAG, "No input detected", e);
                         break;
                     }
 
