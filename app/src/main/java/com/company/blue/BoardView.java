@@ -92,13 +92,15 @@ public class BoardView extends LinearLayout {
         linearLayout.setOrientation(LinearLayout.HORIZONTAL);
         linearLayout.setGravity(Gravity.CENTER);
 
-
+        String[] DataStringArray = segmentString(Temp, numRows, numCol);
 
         for(int i=0;i<numCol;i++){
-            Log.i(TAG, "Adding column");
+            Log.i(TAG, "Adding column - " + i);
             //Gridpoint added here, status should be inserted into GridPoint object here.
             GridPoint point = new GridPoint(i,row,0);
-
+            char x = DataStringArray[row].charAt(i);
+            Log.i(TAG, "Setting status for coord: ("+i + ", " +row+")," + "status: " + x);
+            point.setStatus(x);
             addSquareView(linearLayout,point);
         }
 
@@ -122,4 +124,20 @@ public class BoardView extends LinearLayout {
         parent.setClipChildren(false);
     }
 
+
+    private String[] segmentString(String x, int rows, int col){
+        String[] x_array = new String[rows]; //array of strings of size 2
+        int start_pos = 0;
+        int end_pos = start_pos + col;
+        for(int i=0;i<rows;i++){
+            System.out.println("start pos: " + start_pos);
+            String a = Temp.substring(start_pos,end_pos);
+            System.out.println("insert: "+a);
+            x_array[i] = a;
+            start_pos += col;
+            end_pos = start_pos + col;
+        }
+        return x_array;
+
+    }
 }
