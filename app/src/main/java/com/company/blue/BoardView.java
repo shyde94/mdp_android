@@ -46,6 +46,14 @@ public class BoardView extends LinearLayout {
     private HashMap<GridPoint, SquareView> gpMap = new HashMap<>();
     private GridPoint[][] gpArray = new GridPoint[numRows][numCol];
 
+    public GridPoint getCurPos() {
+        return curPos;
+    }
+
+    public void setCurPos(GridPoint curPos) {
+        this.curPos = curPos;
+    }
+
 
 
     public BoardView(Context context) {
@@ -123,8 +131,10 @@ public class BoardView extends LinearLayout {
     private void addSquareView(ViewGroup parent, GridPoint point) {
         Log.i(TAG, "Adding square view");
         final SquareView sV = SquareView.fromXml(getContext(), parent, point);
+
         gpArray[point.getyCoord()][point.getxCoord()] = point;
         gpMap.put(point, sV);
+
         sV.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -172,6 +182,13 @@ public class BoardView extends LinearLayout {
 
     }
 
+
+
+
+    /*
+        How to identify boxes that car occupies? eg car is at (x,y), boxes occupied:
+        (x+1,y), (x-1,y), (x,y+1), (x,y-1), (x+1,y+1), (x+1,y-1), (x-1, y+1), (x-1,y-1), (x,y)
+        */
     public void displayCurrentPosition(){
         int x = curPos.getxCoord();
         int y = curPos.getyCoord();
@@ -189,9 +206,6 @@ public class BoardView extends LinearLayout {
         }catch (ArrayIndexOutOfBoundsException e){
             e.printStackTrace();
         }
-
-
-
         for(GridPoint tempGp: gpArray2){
             SquareView sV = gpMap.get(tempGp);
             if(sV!=null){
@@ -200,17 +214,20 @@ public class BoardView extends LinearLayout {
             }
         }
 
+    }
 
+    public void moveForward(){
+        //assume robot is facing north now, move foward 1 step, y := y+1
+        int y = curPos.getyCoord();
+        curPos.setyCoord(y+1);
+        //Cannot just set board, must remove all the views first. hmmmm
+        //setBoard();
+        displayCurrentPosition();
 
 
     }
 
-    /*
-    How to identify boxes that car occupies? eg car is at (x,y), boxes occupied:
-    (x+1,y), (x-1,y), (x,y+1), (x,y-1), (x+1,y+1), (x+1,y-1), (x-1, y+1), (x-1,y-1), (x,y)
 
-
-    */
 
 
 }

@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ToggleButton;
 
 /**
  * Created by Shide on 29/8/17.
@@ -18,6 +19,7 @@ public class MapContainerFrag extends Fragment {
     final public String TAG = "MapContainerFragClass";
     private BoardView mBoardView;
     Button mForward, mReverse, mTurnLeft, mTurnRight;
+    ToggleButton mManualUpdate, mAutoUpdate;
 
     @Nullable
     @Override
@@ -43,6 +45,17 @@ public class MapContainerFrag extends Fragment {
         mReverse = view.findViewById(R.id.reverse);
         mTurnLeft = view.findViewById(R.id.turn_left);
         mTurnRight = view.findViewById(R.id.turn_right);
+
+
+        //For now, assume that robot faces N at the start. Need to know where robot is facing!!!
+        //Forward is just forward, but need to know how to shift current position. Need variable called direction.
+        mForward.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                mBoardView.moveForward();
+            }
+        });
 
         Log.i(TAG, "test");
         return view;
