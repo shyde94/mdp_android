@@ -130,7 +130,7 @@ public class BoardView extends LinearLayout {
             public void onClick(View view) {
                 //When square box is clicked. To set way point! How to refresh from here?? Hmmm....
                 Toast.makeText(getContext(), sV.getPoint().getxCoord()+" "+sV.getPoint().getyCoord(), Toast.LENGTH_SHORT).show();
-                displayCurrentPosition(curPos);
+                //displayCurrentPosition(curPos);
             }
         });
         if(point.getStatus() == '0'){
@@ -172,7 +172,7 @@ public class BoardView extends LinearLayout {
 
     }
 
-    private void displayCurrentPosition(GridPoint curPos){
+    public void displayCurrentPosition(){
         int x = curPos.getxCoord();
         int y = curPos.getyCoord();
         GridPoint[] gpArray2 = new GridPoint[9];

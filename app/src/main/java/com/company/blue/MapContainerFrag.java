@@ -37,6 +37,7 @@ public class MapContainerFrag extends Fragment {
         frameLayout.addView(mBoardView);
         frameLayout.setClipChildren(false);
         mBoardView.setBoard();
+        mBoardView.displayCurrentPosition();
 
         mForward = view.findViewById(R.id.forward);
         mReverse = view.findViewById(R.id.reverse);
