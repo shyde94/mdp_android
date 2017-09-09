@@ -111,15 +111,22 @@ public class BoardView extends LinearLayout {
 
     private void addSquareView(ViewGroup parent, GridPoint point) {
         Log.i(TAG, "Adding square view");
-        final SquareView sV = SquareView.fromXml(getContext(), parent);
+        final SquareView sV = SquareView.fromXml(getContext(), parent, point);
         sV.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast.makeText(getContext(), sV.getPoint().getxCoord()+" "+sV.getPoint().getyCoord(), Toast.LENGTH_SHORT).show();
             }
         });
+        if(point.getStatus() == '0'){
+            Log.i(TAG,"unexplored");
+            sV.getGridImage().setImageDrawable(getResources().getDrawable(R.drawable.white_box,null));
+        }
+        else if(point.getStatus() == '1') {
+            Log.i(TAG, "explored");
+            sV.getGridImage().setImageDrawable(getResources().getDrawable(R.drawable.black_box,null));
+        }
         sV.setLayoutParams(mTileLayoutParams);
-        sV.setPoint(point);
         parent.addView(sV);
         parent.setClipChildren(false);
     }
@@ -131,7 +138,7 @@ public class BoardView extends LinearLayout {
         int end_pos = start_pos + col;
         for(int i=0;i<rows;i++){
             System.out.println("start pos: " + start_pos);
-            String a = Temp.substring(start_pos,end_pos);
+            String a = x.substring(start_pos,end_pos);
             System.out.println("insert: "+a);
             x_array[i] = a;
             start_pos += col;
