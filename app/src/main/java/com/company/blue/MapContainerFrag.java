@@ -25,6 +25,13 @@ public class MapContainerFrag extends Fragment {
         Log.i(TAG, "Creating mapcontainer frag");
         ViewGroup view = (ViewGroup) inflater.inflate(R.layout.map_container_frag, container, false);
 
+
+        /*Create map board. So everytime i want to update the map board i need to recreate this board? okay. Sounds
+        pretty inefficient.
+        - but all i need to do is change the colour on the map dynamically right. Lets see if that can be done
+        - Everytime i call for an update...I can identify the coordinates of the string that comes in. (x,y) coordinate is actually x_array[col_number].charAt(row_number)
+
+        */
         mBoardView = BoardView.fromXml(getActivity().getApplicationContext(), view);
         FrameLayout frameLayout = view.findViewById(R.id.map_container);
         frameLayout.addView(mBoardView);

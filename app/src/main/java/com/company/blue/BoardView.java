@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import java.util.HashMap;
+
 /**
  * Created by Shide on 29/8/17.
  */
@@ -21,8 +23,8 @@ import android.widget.Toast;
 public class BoardView extends LinearLayout {
 
     final public String TAG = "BoardViewClass";
-    final private int numRows = 4;
-    final private int numCol = 5;
+    final private int numRows = 20;
+    final private int numCol = 15;
 
     private LayoutParams mRowLayoutParams = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
     private LayoutParams mTileLayoutParams;
@@ -30,13 +32,21 @@ public class BoardView extends LinearLayout {
     private int mScreenHeight;
     private int mSize;
 
-    final private String Temp = "00000111110000011111";
-    //Temporary string according to map descriptor. Assume 00011111.....as string, index determines coordinates.
-    //loop through string, extract each value according to when square grid is being added to each row.
-    //How to process string?? take string, segment into number of rows. Iterate through each row based on number of col
+
+    //String length should be 300
+    private String Temp = "110000001111011010101111100101010101011000010101001000100100110010101111101101001111000111111101111111111111010101111001100110000000010001001010111100100011100100100110100100111100011011110101010011011100011100001111011010110110001100010001110111101100010111011110011010111101101100000011111001000101";
+
+    //Start, End, Current, Waypoint.
+    //Algo to decide where robot is. Take position as center of 9 squares.
+    //Based on position, identify which squares to alter? Okay.
+    private int wayPointSet = 0;
+    private GridPoint wayPoint;
+    private GridPoint curPos = new GridPoint(1,1,0);
+
+    private HashMap<GridPoint, SquareView> gpMap = new HashMap<>();
+    private GridPoint[][] gpArray = new GridPoint[numRows][numCol];
 
 
-    
 
     public BoardView(Context context) {
         this(context, null);
@@ -94,9 +104,9 @@ public class BoardView extends LinearLayout {
 
         String[] DataStringArray = segmentString(Temp, numRows, numCol);
 
+        //This gives grid points their status.
         for(int i=0;i<numCol;i++){
             Log.i(TAG, "Adding column - " + i);
-            //Gridpoint added here, status should be inserted into GridPoint object here.
             GridPoint point = new GridPoint(i,row,0);
             char x = DataStringArray[row].charAt(i);
             Log.i(TAG, "Setting status for coord: ("+i + ", " +row+")," + "status: " + x);
@@ -109,22 +119,27 @@ public class BoardView extends LinearLayout {
 
     }
 
+    //Used to initialise board. Need to add ways to update board without re-drawing entire board. lol.
     private void addSquareView(ViewGroup parent, GridPoint point) {
         Log.i(TAG, "Adding square view");
         final SquareView sV = SquareView.fromXml(getContext(), parent, point);
+        gpArray[point.getyCoord()][point.getxCoord()] = point;
+        gpMap.put(point, sV);
         sV.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
+                //When square box is clicked. To set way point! How to refresh from here?? Hmmm....
                 Toast.makeText(getContext(), sV.getPoint().getxCoord()+" "+sV.getPoint().getyCoord(), Toast.LENGTH_SHORT).show();
+                displayCurrentPosition(curPos);
             }
         });
         if(point.getStatus() == '0'){
             Log.i(TAG,"unexplored");
-            sV.getGridImage().setImageDrawable(getResources().getDrawable(R.drawable.white_box,null));
+            sV.getGridImage().setImageDrawable(getResources().getDrawable(R.drawable.black_box,null));
         }
         else if(point.getStatus() == '1') {
             Log.i(TAG, "explored");
-            sV.getGridImage().setImageDrawable(getResources().getDrawable(R.drawable.black_box,null));
+            sV.getGridImage().setImageDrawable(getResources().getDrawable(R.drawable.white_box,null));
         }
         sV.setLayoutParams(mTileLayoutParams);
         parent.addView(sV);
@@ -133,6 +148,15 @@ public class BoardView extends LinearLayout {
 
 
     private String[] segmentString(String x, int rows, int col){
+
+        //if string given somehow has less than 300 digits. discuss with dhaslie.
+        if(x.length()<(rows*col)){
+            String fill = "";
+            for(int i=0;i<(rows*col)-x.length();i++){
+                fill += "0";
+            }
+            x += fill;
+        }
         String[] x_array = new String[rows]; //array of strings of size 2
         int start_pos = 0;
         int end_pos = start_pos + col;
@@ -147,4 +171,46 @@ public class BoardView extends LinearLayout {
         return x_array;
 
     }
+
+    private void displayCurrentPosition(GridPoint curPos){
+        int x = curPos.getxCoord();
+        int y = curPos.getyCoord();
+        GridPoint[] gpArray2 = new GridPoint[9];
+        try{
+            gpArray2[0] = gpArray[y][x];
+            gpArray2[1] = gpArray[y][x+1];
+            gpArray2[2] = gpArray[y][x-1];
+            gpArray2[3] = gpArray[y+1][x];
+            gpArray2[4] = gpArray[y-1][x];
+            gpArray2[5] = gpArray[y+1][x+1];
+            gpArray2[6] = gpArray[y-1][x+1];
+            gpArray2[7]= gpArray[y-1][x-1];
+            gpArray2[8] = gpArray[y+1][x-1];
+        }catch (ArrayIndexOutOfBoundsException e){
+            e.printStackTrace();
+        }
+
+
+
+        for(GridPoint tempGp: gpArray2){
+            SquareView sV = gpMap.get(tempGp);
+            if(sV!=null){
+                Log.i(TAG,"displaying cur position");
+                sV.getGridImage().setImageDrawable(getResources().getDrawable(R.drawable.blue_box,null));
+            }
+        }
+
+
+
+
+    }
+
+    /*
+    How to identify boxes that car occupies? eg car is at (x,y), boxes occupied:
+    (x+1,y), (x-1,y), (x,y+1), (x,y-1), (x+1,y+1), (x+1,y-1), (x-1, y+1), (x-1,y-1), (x,y)
+
+
+    */
+
+
 }

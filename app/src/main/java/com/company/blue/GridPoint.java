@@ -9,7 +9,8 @@ public class GridPoint {
     private int yCoord;
     private int status;
 
-    //status: explored - 0, unexplored - 1, obstacle - 2?
+
+    //status: explored - 0, unexplored - 1, obstacle - 2? vehicle pos 3?
     public GridPoint(){}
 
     public GridPoint(int xCoord, int yCoord, int status) {
