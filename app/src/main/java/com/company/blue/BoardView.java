@@ -147,6 +147,35 @@ public class BoardView extends LinearLayout {
                 //displayCurrentPosition(curPos);
             }
         });
+
+
+        //Set waypoint. Should check if box has obstacle or not. 
+        sV.setOnLongClickListener(new OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                Log.i(TAG, "long touch");
+                if(wayPointSet==1){
+                    if(wayPoint == sV.getPoint()){
+                        wayPoint=null;
+                        removeWayPoint();
+                        refreshMap();
+                        wayPointSet = 0;
+                    }
+                    else{
+                        Toast.makeText(getContext(), "A way point has already been set. Please unset waypoint first", Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+                else if(wayPointSet==0){
+                    wayPoint = sV.getPoint();
+                    wayPointSet = 1;
+                    refreshMap();
+
+
+                }
+                return true;
+            }
+        });
         updateImage(sV);
         sV.setLayoutParams(mTileLayoutParams);
         parent.addView(sV);
@@ -183,6 +212,20 @@ public class BoardView extends LinearLayout {
 
 
 
+    public void moveForward(){
+        //assume robot is facing north now, move foward 1 step, y := y+1
+        //Should contain code to send bluetooth message to rpi to make robot move forward.
+        int y = curPos.getyCoord();
+        curPos.setyCoord(y+1);
+        //Cannot just set board, must remove all the views first. hmmmm
+        refreshMap();
+    }
+
+    public void moveBackward(){
+        int y = curPos.getyCoord();
+        curPos.setyCoord(y-1);
+        refreshMap();
+    }
 
     /*
         How to identify boxes that car occupies? eg car is at (x,y), boxes occupied:
@@ -215,22 +258,79 @@ public class BoardView extends LinearLayout {
 
     }
 
-    public void moveForward(){
-        //assume robot is facing north now, move foward 1 step, y := y+1
-        //Should contain code to send bluetooth message to rpi to make robot move forward.
-        int y = curPos.getyCoord();
-        curPos.setyCoord(y+1);
-        //Cannot just set board, must remove all the views first. hmmmm
-        refreshMap();
+    public void displayWayPoint(){
+        if(wayPoint != null){
+            Log.i(TAG, "displaying waypoint");
+            int x = wayPoint.getxCoord();
+            int y = wayPoint.getyCoord();
+
+            GridPoint[] gpArray2 = new GridPoint[9];
+            try{
+                gpArray2[0] = gpArray[y][x];
+                gpArray2[1] = gpArray[y][x+1];
+                gpArray2[2] = gpArray[y][x-1];
+                gpArray2[3] = gpArray[y+1][x];
+                gpArray2[4] = gpArray[y-1][x];
+                gpArray2[5] = gpArray[y+1][x+1];
+                gpArray2[6] = gpArray[y-1][x+1];
+                gpArray2[7]= gpArray[y-1][x-1];
+                gpArray2[8] = gpArray[y+1][x-1];
+            }catch (ArrayIndexOutOfBoundsException e){
+                e.printStackTrace();
+            }
+            for(GridPoint tempGp: gpArray2){
+                SquareView sV = gpMap.get(tempGp);
+                if(sV!=null){
+                    Log.i(TAG,"displaying cur position");
+                    sV.getGridImage().setImageDrawable(getResources().getDrawable(R.drawable.green_box,null));
+                }
+            }
+        }else{
+            Log.i(TAG, "No waypoint set");
+        }
+
     }
 
-    public void moveBackward(){
-        int y = curPos.getyCoord();
-        curPos.setyCoord(y-1);
-        refreshMap();
+    //Removes way point, sets image to white_box.png.
+    public void removeWayPoint(){
+        if(wayPoint != null){
+            Log.i(TAG, "displaying waypoint");
+            int x = wayPoint.getxCoord();
+            int y = wayPoint.getyCoord();
+
+            GridPoint[] gpArray2 = new GridPoint[9];
+            try{
+                gpArray2[0] = gpArray[y][x];
+                gpArray2[1] = gpArray[y][x+1];
+                gpArray2[2] = gpArray[y][x-1];
+                gpArray2[3] = gpArray[y+1][x];
+                gpArray2[4] = gpArray[y-1][x];
+                gpArray2[5] = gpArray[y+1][x+1];
+                gpArray2[6] = gpArray[y-1][x+1];
+                gpArray2[7]= gpArray[y-1][x-1];
+                gpArray2[8] = gpArray[y+1][x-1];
+            }catch (ArrayIndexOutOfBoundsException e){
+                e.printStackTrace();
+            }
+            for(GridPoint tempGp: gpArray2){
+                SquareView sV = gpMap.get(tempGp);
+                if(sV!=null){
+                    Log.i(TAG,"displaying cur position");
+                    sV.getGridImage().setImageDrawable(getResources().getDrawable(R.drawable.white_box,null));
+                }
+            }
+        }else{
+            Log.i(TAG, "Waypoint removed.");
+        }
+
     }
+
+
 
     //Use hash map to refresh map!
+    //Updates status of square
+    //Updates robot position
+    //Updates waypoint (if any)
     public void refreshMap(){
         //Should contain code to get updated map from rpi and current position. change variable curPos in here!
         String[] stringArray = segmentString(Temp, numRows, numCol);
@@ -244,7 +344,12 @@ public class BoardView extends LinearLayout {
             }
         }
         displayCurrentPosition();
+        displayWayPoint();
     }
+
+
+
+
 
     private void updateImage(SquareView sV){
         if(sV.getPoint().getStatus() == '0'){
