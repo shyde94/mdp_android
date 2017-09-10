@@ -222,9 +222,12 @@ public class BoardView extends LinearLayout {
         curPos.setyCoord(y+1);
         //Cannot just set board, must remove all the views first. hmmmm
         refreshMap();
+    }
 
-
-
+    public void moveBackward(){
+        int y = curPos.getyCoord();
+        curPos.setyCoord(y-1);
+        refreshMap();
     }
 
     //Use hash map to refresh map!

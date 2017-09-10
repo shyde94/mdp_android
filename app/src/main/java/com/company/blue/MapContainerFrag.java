@@ -57,6 +57,13 @@ public class MapContainerFrag extends Fragment {
             }
         });
 
+        mReverse.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                mBoardView.moveBackward();
+            }
+        });
+
         Log.i(TAG, "test");
         return view;
     }
