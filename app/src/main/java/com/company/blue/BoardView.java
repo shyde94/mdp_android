@@ -23,8 +23,8 @@ import java.util.HashMap;
 public class BoardView extends LinearLayout {
 
     final public String TAG = "BoardViewClass";
-    final private int numRows = 13;
-    final private int numCol = 18;
+    final private int numRows = 15;
+    final private int numCol = 20;
 
     private LayoutParams mRowLayoutParams = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
     private LayoutParams mTileLayoutParams;
@@ -42,7 +42,7 @@ public class BoardView extends LinearLayout {
     private int wayPointSet = 0;
     private GridPoint wayPoint;
 
-    private GridPoint curPos = new GridPoint(16,0,0);
+    private GridPoint curPos = new GridPoint(18,1,0);
 
     private HashMap<GridPoint, SquareView> gpMap = new HashMap<>();
     private GridPoint[][] gpArray = new GridPoint[numRows][numCol];
@@ -151,6 +151,7 @@ public class BoardView extends LinearLayout {
 
 
         //Set waypoint. Should check if box has obstacle or not.
+
         sV.setOnLongClickListener(new OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
@@ -235,12 +236,18 @@ public class BoardView extends LinearLayout {
     public void displayCurrentPosition(){
         int x = curPos.getxCoord();
         int y = curPos.getyCoord();
-        GridPoint[] gpArray2 = new GridPoint[4];
+        GridPoint[] gpArray2 = new GridPoint[9];
         try{
             gpArray2[0] = gpArray[y][x];
             gpArray2[1] = gpArray[y][x+1];
-            gpArray2[2] = gpArray[y+1][x];
-            gpArray2[3] = gpArray[y+1][x+1];
+            gpArray2[2] = gpArray[y][x-1];
+            gpArray2[3] = gpArray[y+1][x];
+            gpArray2[4] = gpArray[y-1][x];
+            gpArray2[5] = gpArray[y+1][x+1];
+            gpArray2[6] = gpArray[y-1][x+1];
+            gpArray2[7]= gpArray[y-1][x-1];
+            gpArray2[8] = gpArray[y+1][x-1];
+
 
         }catch (ArrayIndexOutOfBoundsException e){
             e.printStackTrace();
@@ -261,16 +268,23 @@ public class BoardView extends LinearLayout {
             int x = wayPoint.getxCoord();
             int y = wayPoint.getyCoord();
 
-            GridPoint[] gpArray2 = new GridPoint[4];
+            GridPoint[] gpArray2 = new GridPoint[9];
             try{
                 gpArray2[0] = gpArray[y][x];
                 gpArray2[1] = gpArray[y][x+1];
-                gpArray2[2] = gpArray[y+1][x];
-                gpArray2[3] = gpArray[y+1][x+1];
+                gpArray2[2] = gpArray[y][x-1];
+                gpArray2[3] = gpArray[y+1][x];
+                gpArray2[4] = gpArray[y-1][x];
+                gpArray2[5] = gpArray[y+1][x+1];
+                gpArray2[6] = gpArray[y-1][x+1];
+                gpArray2[7]= gpArray[y-1][x-1];
+                gpArray2[8] = gpArray[y+1][x-1];
+
             }catch (ArrayIndexOutOfBoundsException e){
                 e.printStackTrace();
             }
             for(GridPoint tempGp: gpArray2){
+
                 if(tempGp.getStatus() == '0'){
                     Toast.makeText(getContext(), "There is an obstacle here. Cannot set waypoint here", Toast.LENGTH_SHORT).show();
                     wayPointSet = 0;
@@ -288,6 +302,7 @@ public class BoardView extends LinearLayout {
                 }
 
             }
+
         }else{
             Log.i(TAG, "No waypoint set");
         }
@@ -301,12 +316,18 @@ public class BoardView extends LinearLayout {
             int x = wayPoint.getxCoord();
             int y = wayPoint.getyCoord();
 
-            GridPoint[] gpArray2 = new GridPoint[4];
+            GridPoint[] gpArray2 = new GridPoint[9];
             try{
                 gpArray2[0] = gpArray[y][x];
                 gpArray2[1] = gpArray[y][x+1];
-                gpArray2[2] = gpArray[y+1][x];
-                gpArray2[3] = gpArray[y+1][x+1];
+                gpArray2[2] = gpArray[y][x-1];
+                gpArray2[3] = gpArray[y+1][x];
+                gpArray2[4] = gpArray[y-1][x];
+                gpArray2[5] = gpArray[y+1][x+1];
+                gpArray2[6] = gpArray[y-1][x+1];
+                gpArray2[7]= gpArray[y-1][x-1];
+                gpArray2[8] = gpArray[y+1][x-1];
+
             }catch (ArrayIndexOutOfBoundsException e){
                 e.printStackTrace();
             }
