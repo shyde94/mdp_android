@@ -41,6 +41,7 @@ public class BoardView extends LinearLayout {
     //Based on position, identify which squares to alter? Okay.
     private int wayPointSet = 0;
     private GridPoint wayPoint;
+
     private GridPoint curPos = new GridPoint(1,1,0);
 
     private HashMap<GridPoint, SquareView> gpMap = new HashMap<>();
@@ -116,7 +117,10 @@ public class BoardView extends LinearLayout {
         for(int i=0;i<numCol;i++){
             Log.i(TAG, "Adding column - " + i);
             GridPoint point = new GridPoint(i,row,0);
+
+            //extract status from string using row and column.
             char x = DataStringArray[row].charAt(i);
+
             Log.i(TAG, "Setting status for coord: ("+i + ", " +row+")," + "status: " + x);
             point.setStatus(x);
             addSquareView(linearLayout,point);
@@ -143,20 +147,15 @@ public class BoardView extends LinearLayout {
                 //displayCurrentPosition(curPos);
             }
         });
-        if(point.getStatus() == '0'){
-            Log.i(TAG,"unexplored");
-            sV.getGridImage().setImageDrawable(getResources().getDrawable(R.drawable.black_box,null));
-        }
-        else if(point.getStatus() == '1') {
-            Log.i(TAG, "explored");
-            sV.getGridImage().setImageDrawable(getResources().getDrawable(R.drawable.white_box,null));
-        }
+        updateImage(sV);
         sV.setLayoutParams(mTileLayoutParams);
         parent.addView(sV);
         parent.setClipChildren(false);
     }
 
 
+
+    //Returns array of strings, status at coord (x,y) is indicated by array[x].charAt(y);
     private String[] segmentString(String x, int rows, int col){
 
         //if string given somehow has less than 300 digits. discuss with dhaslie.
@@ -171,9 +170,9 @@ public class BoardView extends LinearLayout {
         int start_pos = 0;
         int end_pos = start_pos + col;
         for(int i=0;i<rows;i++){
-            System.out.println("start pos: " + start_pos);
+            //System.out.println("start pos: " + start_pos);
             String a = x.substring(start_pos,end_pos);
-            System.out.println("insert: "+a);
+            //System.out.println("insert: "+a);
             x_array[i] = a;
             start_pos += col;
             end_pos = start_pos + col;
@@ -218,13 +217,41 @@ public class BoardView extends LinearLayout {
 
     public void moveForward(){
         //assume robot is facing north now, move foward 1 step, y := y+1
+        //Should contain code to send bluetooth message to rpi to make robot move forward.
         int y = curPos.getyCoord();
         curPos.setyCoord(y+1);
         //Cannot just set board, must remove all the views first. hmmmm
-        //setBoard();
+        refreshMap();
+
+
+
+    }
+
+    //Use hash map to refresh map!
+    public void refreshMap(){
+        //Should contain code to get updated map from rpi and current position. change variable curPos in here!
+        String[] stringArray = segmentString(Temp, numRows, numCol);
+        for(int i=0;i<numRows;i++){
+            for(int j=0;j<numCol;j++){
+                GridPoint tempGp = gpArray[i][j];
+                SquareView tempSv = gpMap.get(tempGp);
+                tempSv.getPoint().setStatus(stringArray[i].charAt(j));
+                updateImage(tempSv);
+
+            }
+        }
         displayCurrentPosition();
+    }
 
-
+    private void updateImage(SquareView sV){
+        if(sV.getPoint().getStatus() == '0'){
+            Log.i(TAG,"unexplored");
+            sV.getGridImage().setImageDrawable(getResources().getDrawable(R.drawable.black_box,null));
+        }
+        else if(sV.getPoint().getStatus() == '1') {
+            Log.i(TAG, "explored");
+            sV.getGridImage().setImageDrawable(getResources().getDrawable(R.drawable.white_box,null));
+        }
     }
 
 
