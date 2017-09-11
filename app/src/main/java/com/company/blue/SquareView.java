@@ -1,12 +1,14 @@
 package com.company.blue;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.TextView;
+
 
 /**
  * Created by Shide on 29/8/17.
@@ -22,25 +24,38 @@ import android.widget.TextView;
 class SquareView extends FrameLayout {
 
 
-    TextView mtest;
     private ImageView gridImage;
-    private GridPoint point;
+    private GridPoint point = new GridPoint();
+
+    private final String TAG = "SquareViewClass";
+
+
 
     public SquareView (Context context, AttributeSet attrs){
         super(context, attrs);
     }
 
 
-    public static SquareView fromXml(Context context, ViewGroup parent){
-        return (SquareView) LayoutInflater.from(context).inflate(R.layout.square_view, parent, false);
+    public static SquareView fromXml(Context context, ViewGroup parent, GridPoint point){
+        SquareView Sv = (SquareView) LayoutInflater.from(context).inflate(R.layout.square_view, parent, false);
+        Sv.setPoint(point);
+        return Sv;
     }
 
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
-        mtest = findViewById(R.id.test_text);
-        gridImage = findViewById(R.id.white_box);
 
+        gridImage = findViewById(R.id.grid_box);
+        /*Log.i(TAG, "point:" + point.getxCoord()+","+point.getyCoord() + "status: " + point.getStatus());
+        if(point.getStatus() == 0){
+            Log.i(TAG,"unexplored");
+            gridImage.setImageDrawable(getResources().getDrawable(R.drawable.white_box,null));
+        }
+        else if(point.getStatus() == 1) {
+            Log.i(TAG, "explored");
+            gridImage.setImageDrawable(getResources().getDrawable(R.drawable.black_box,null));
+        }*/
     }
 
     public GridPoint getPoint() {
@@ -49,6 +64,10 @@ class SquareView extends FrameLayout {
 
     public void setPoint(GridPoint point) {
         this.point = point;
+    }
+
+    public ImageView getGridImage() {
+        return gridImage;
     }
 
 

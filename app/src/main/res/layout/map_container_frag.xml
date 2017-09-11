@@ -12,7 +12,9 @@
         <FrameLayout
             android:id="@+id/map_container"
             android:layout_width="match_parent"
-            android:layout_height="411dp"></FrameLayout>
+            android:layout_height="wrap_content">
+
+        </FrameLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -24,7 +26,9 @@
                 android:layout_height="41dp"
                 android:layout_marginLeft="44dp"
                 android:background="@drawable/forward" />
+
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
@@ -52,15 +56,24 @@
                 android:layout_width="50dp"
                 android:layout_height="41dp"
                 android:background="@drawable/turn_right" />
+
+            <ToggleButton
+                android:id="@+id/manual_update"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/manual_update" />
+
+            <ToggleButton
+                android:id="@+id/auto_update"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/auto_update" />
         </LinearLayout>
 
 
-
-
     </LinearLayout>
-
-    <!--
-    -->
 
 
 </FrameLayout>
