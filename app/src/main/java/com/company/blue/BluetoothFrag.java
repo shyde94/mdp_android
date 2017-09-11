@@ -8,6 +8,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -38,6 +39,7 @@ public class BluetoothFrag extends Fragment {
     private static final int REQUEST_DISCOVERABLE_BT = 0;
     private ProgressBar bluetoothProgress;
     private static final String TAG = "Huangkai";
+    public static final String PREFS_NAME = "MyPrefsFile";
 
 
     //huangkai
@@ -66,6 +68,10 @@ public class BluetoothFrag extends Fragment {
         final Button discoverBtn = view.findViewById(R.id.button4);
         final Button sendBtn = view.findViewById(R.id.send);
         final Button exploreBtn = view.findViewById(R.id.explore);
+        final Button persistentBtn = view.findViewById(R.id.persistent);
+        final Button savePer_Btn = view.findViewById(R.id.save_per);
+        final EditText persistentText = (EditText)view.findViewById(R.id.persistent_send);
+
 
         //huangkai
         bluetoothProgress =  view.findViewById(R.id.bluetooth_progress);
@@ -73,9 +79,19 @@ public class BluetoothFrag extends Fragment {
         nearbyDevicesList =  view.findViewById(R.id.devices_list);
 
 
+        final IntentFilter filter = new IntentFilter();
+        filter.addAction(BluetoothDevice.ACTION_FOUND);
+        filter.addAction(BluetoothAdapter.ACTION_DISCOVERY_STARTED);
+        filter.addAction(BluetoothAdapter.ACTION_DISCOVERY_FINISHED);
+        // the registerReceiver pairs up with startdiscovery i guess
+        Shared.activity.registerReceiver(mReceiver, filter);
+
+
         // Register for broadcasts when a device is discovered.
         //final IntentFilter filter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
         //registerReceiver(mReceiver, filter);
+
+
 
 
         if (mBluetoothAdapter == null) {
@@ -125,16 +141,18 @@ public class BluetoothFrag extends Fragment {
                 if (mBluetoothAdapter.isDiscovering()) {
                     mBluetoothAdapter.cancelDiscovery();
                 }
-                final IntentFilter filter = new IntentFilter();
-                filter.addAction(BluetoothDevice.ACTION_FOUND);
-                filter.addAction(BluetoothAdapter.ACTION_DISCOVERY_STARTED);
-                filter.addAction(BluetoothAdapter.ACTION_DISCOVERY_FINISHED);
-                // the registerReceiver pairs up with startdiscovery i guess
-                Log.i(TAG,"apple");
-                Shared.context.registerReceiver(mReceiver, filter);
-                Log.i(TAG,"banana");
+
                 mBluetoothAdapter.startDiscovery();
 
+            }
+        });
+
+        persistentBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                SharedPreferences settings = Shared.context.getSharedPreferences(PREFS_NAME, 0);
+                String test = settings.getString("testing", "wrong");
+                Log.d(TAG,test);
             }
         });
 
@@ -144,10 +162,42 @@ public class BluetoothFrag extends Fragment {
                 EditText transmitEditText = (EditText)v.findViewById(R.id.ck_send);
                 try {
                     write(transmitEditText.getText().toString());
+                    transmitEditText.setText("");
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                transmitEditText.setText("");
+                catch (NullPointerException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    transmitEditText.setText("");
+                }   catch (NullPointerException e) {
+                    e.printStackTrace();
+                }
+                // this method hide keyboard
+                //removeFocus();
+            }
+        });
+
+        savePer_Btn.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+
+                try {
+                    String text = persistentText.getText().toString();
+                    SharedPreferences settings = Shared.context.getSharedPreferences(PREFS_NAME, 0);
+
+                    SharedPreferences.Editor editor = settings.edit();
+                    editor.putString("testing", text);
+                    editor.apply();
+                }
+                catch (NullPointerException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    persistentText.setText("");
+                }   catch (NullPointerException e) {
+                    e.printStackTrace();
+                }
                 // this method hide keyboard
                 //removeFocus();
             }
@@ -160,6 +210,8 @@ public class BluetoothFrag extends Fragment {
                 try {
                     write(Arrays.toString(command));
                 } catch (IOException e) {
+                    e.printStackTrace();
+                }catch (NullPointerException e) {
                     e.printStackTrace();
                 }
             }
