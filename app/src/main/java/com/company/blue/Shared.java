@@ -11,4 +11,5 @@ public class Shared {
     public static Context context;
     public static Activity activity;
     public static ScreenController SC = new ScreenController();
+    public static BluetoothClass btController = new BluetoothClass();
 }

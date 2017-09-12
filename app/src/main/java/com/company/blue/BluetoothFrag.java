@@ -43,17 +43,23 @@ public class BluetoothFrag extends Fragment {
 
 
     //huangkai
+
+    //Variables to control listview to select device to connect to
     private ListView nearbyDevicesList;
     private ArrayList<String> nearbyDevices = new ArrayList<String>();
     private ArrayAdapter<String> nearbyDevicesAdapter;
-    IntentFilter filter;
+
+
+    /*IntentFilter filter;
     private Thread connectionThread, listenThread;
     private BluetoothSocket mmSocket, connectedSocket;
     private BluetoothDevice mmDevice;
     private OutputStream outputStream;
     private InputStream inStream;
     final BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-    private byte[] mmBuffer; // mmBuffer store for the stream
+    private byte[] mmBuffer; // mmBuffer store for the stream*/
+
+    private BluetoothClass btController = Shared.btController;
 
     @org.jetbrains.annotations.Nullable
     @Override
@@ -72,19 +78,20 @@ public class BluetoothFrag extends Fragment {
         final Button savePer_Btn = view.findViewById(R.id.save_per);
         final EditText persistentText = (EditText)view.findViewById(R.id.persistent_send);
 
-
         //huangkai
         bluetoothProgress =  view.findViewById(R.id.bluetooth_progress);
         bluetoothProgress.setVisibility(View.INVISIBLE);
         nearbyDevicesList =  view.findViewById(R.id.devices_list);
 
 
-        final IntentFilter filter = new IntentFilter();
+        /*final IntentFilter filter = new IntentFilter();
         filter.addAction(BluetoothDevice.ACTION_FOUND);
         filter.addAction(BluetoothAdapter.ACTION_DISCOVERY_STARTED);
         filter.addAction(BluetoothAdapter.ACTION_DISCOVERY_FINISHED);
         // the registerReceiver pairs up with startdiscovery i guess
-        Shared.activity.registerReceiver(mReceiver, filter);
+        Shared.activity.registerReceiver(mReceiver, filter);*/
+
+        btController.init();
 
 
         // Register for broadcasts when a device is discovered.
@@ -94,17 +101,25 @@ public class BluetoothFrag extends Fragment {
 
 
 
-        if (mBluetoothAdapter == null) {
+        /*if (mBluetoothAdapter == null) {
             out.append("device not supported");
-        }
+        }*/
 
         //turn on
         button1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if (!mBluetoothAdapter.isEnabled()) {
+
+                if(btController.onBt()){
+                    Toast.makeText(getContext(),"Turning on bluetooth", Toast.LENGTH_LONG).show();
+                }
+                else{
+                    Toast.makeText(getContext(), "Device does not support bluetooth", Toast.LENGTH_LONG).show();
+                }
+
+                /*if (!mBluetoothAdapter.isEnabled()) {
                     Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
                     startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
-                }
+                }*/
             }
         });
 
@@ -112,7 +127,15 @@ public class BluetoothFrag extends Fragment {
         onDiscoverBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
-                if (!mBluetoothAdapter.isDiscovering()) {
+
+                if(btController.makeDiscoverable()){
+                    Toast.makeText(Shared.context, "MAKING YOUR DEVICE DISCOVERABLE",
+                            Toast.LENGTH_LONG).show();
+                    Log.i(TAG, "Discovering");
+                }else{
+                    Log.i(TAG, "Not discovering");
+                }
+                /*if (!mBluetoothAdapter.isDiscovering()) {
                     //out.append("MAKING YOUR DEVICE DISCOVERABLE");
                     Toast.makeText(Shared.context, "MAKING YOUR DEVICE DISCOVERABLE",
                             Toast.LENGTH_LONG);
@@ -120,16 +143,23 @@ public class BluetoothFrag extends Fragment {
                     Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
                     startActivityForResult(enableBtIntent, REQUEST_DISCOVERABLE_BT);
 
-                }
+                }*/
             }
         });
         //turn off
         offBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
-                mBluetoothAdapter.disable();
+                if(btController.offBt()){
+                    Log.i(TAG, "Turning bluetooth off");
+                }
+                else{
+                    Log.i(TAG, "offBt() returned false");
+                }
+
+                /*mBluetoothAdapter.disable();
                 //out.append("TURN_OFF BLUETOOTH");
-                Toast.makeText(Shared.context, "TURNING_OFF BLUETOOTH", Toast.LENGTH_LONG);
+                Toast.makeText(Shared.context, "TURNING_OFF BLUETOOTH", Toast.LENGTH_LONG);*/
 
             }
         });
@@ -138,11 +168,12 @@ public class BluetoothFrag extends Fragment {
         discoverBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
-                if (mBluetoothAdapter.isDiscovering()) {
+                btController.discover();
+                /*if (mBluetoothAdapter.isDiscovering()) {
                     mBluetoothAdapter.cancelDiscovery();
                 }
 
-                mBluetoothAdapter.startDiscovery();
+                mBluetoothAdapter.startDiscovery();*/
 
             }
         });
@@ -161,7 +192,7 @@ public class BluetoothFrag extends Fragment {
             public void onClick(View v){
                 EditText transmitEditText = (EditText)v.findViewById(R.id.ck_send);
                 try {
-                    write(transmitEditText.getText().toString());
+                    btController.write(transmitEditText.getText().toString());
                     transmitEditText.setText("");
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -208,7 +239,7 @@ public class BluetoothFrag extends Fragment {
             public void onClick(View r){
                 String command[] = {"IDK what to put"};
                 try {
-                    write(Arrays.toString(command));
+                    btController.write(Arrays.toString(command));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }catch (NullPointerException e) {
@@ -224,8 +255,8 @@ public class BluetoothFrag extends Fragment {
                 String selected = (String) nearbyDevicesList.getItemAtPosition(position);
                 String []deviceInfo = selected.split("\n");
                 Log.d(TAG,"hello huangkai2" + deviceInfo[1]);
-                BluetoothDevice mBluetoothDevice = mBluetoothAdapter.getRemoteDevice(deviceInfo[1]);
-                ConnectToDevice(mBluetoothDevice);
+                BluetoothDevice mBluetoothDevice = btController.getmBluetoothAdapter().getRemoteDevice(deviceInfo[1]);
+                btController.ConnectToDevice(mBluetoothDevice);
 
 
 
@@ -241,6 +272,7 @@ public class BluetoothFrag extends Fragment {
     // Create a BroadcastReceiver for ACTION_FOUND. This is just a container
     private final BroadcastReceiver mReceiver = new BroadcastReceiver() {
         // this method does something
+
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
             Log.i(TAG,"Action:" + action);
@@ -271,7 +303,7 @@ public class BluetoothFrag extends Fragment {
             }
         }
     };
-
+/*
     // Selecting a connection
     private void ConnectToDevice (final BluetoothDevice device) {
         connectionThread = new Thread(new Runnable() {
@@ -369,4 +401,5 @@ public class BluetoothFrag extends Fragment {
     }
 
 
+    */
 }

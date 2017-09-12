@@ -7,8 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 
 
 public class MainActivity extends AppCompatActivity {
-    public ScreenController screenController = new ScreenController();
-
+    //public ScreenController screenController = new ScreenController();
+    //public BluetoothClass btController = new BluetoothClass();
     private static final String TAG = "MainActivityClass";
 
     public Activity activity = this;
