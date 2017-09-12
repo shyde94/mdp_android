@@ -9,12 +9,7 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ae72bd03-39bc-4cc3-8aef-506ae17786ff" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/company/blue/BluetoothFrag.java" afterPath="$PROJECT_DIR$/src/main/java/com/company/blue/BluetoothFrag.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/bluetooth_frag.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/bluetooth_frag.xml" />
-    </list>
+    <list default="true" id="ae72bd03-39bc-4cc3-8aef-506ae17786ff" name="Default" comment="" />
     <ignored path="app.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -74,8 +69,8 @@
       <file leaf-file-name="BluetoothFrag.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/company/blue/BluetoothFrag.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="199" column="17" selection-start-line="199" selection-start-column="17" selection-end-line="199" selection-end-column="17" />
+            <state relative-caret-position="165">
+              <caret line="193" column="40" selection-start-line="193" selection-start-column="40" selection-end-line="193" selection-end-column="40" />
               <folding />
             </state>
           </provider>
@@ -2283,7 +2278,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="160" y="65" width="1091" height="701" extended-state="0" />
+    <frame x="160" y="65" width="1091" height="701" extended-state="1" />
     <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32991454" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -2410,10 +2405,10 @@
         <state relative-caret-position="120">
           <caret line="15" column="13" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
           <folding>
-            <element signature="e#2145#2307#0" expanded="true" />
-            <element signature="e#2306#2307#0" expanded="true" />
-            <element signature="e#2347#2508#0" expanded="true" />
-            <element signature="e#2507#2508#0" expanded="true" />
+            <element signature="e#2145#2307#0" expanded="false" />
+            <element signature="e#2306#2307#0" expanded="false" />
+            <element signature="e#2347#2508#0" expanded="false" />
+            <element signature="e#2507#2508#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -2485,10 +2480,10 @@
         <state relative-caret-position="120">
           <caret line="15" column="13" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
           <folding>
-            <element signature="e#2145#2307#0" expanded="true" />
-            <element signature="e#2306#2307#0" expanded="true" />
-            <element signature="e#2347#2508#0" expanded="true" />
-            <element signature="e#2507#2508#0" expanded="true" />
+            <element signature="e#2145#2307#0" expanded="false" />
+            <element signature="e#2306#2307#0" expanded="false" />
+            <element signature="e#2347#2508#0" expanded="false" />
+            <element signature="e#2507#2508#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -2560,10 +2555,10 @@
         <state relative-caret-position="120">
           <caret line="15" column="13" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
           <folding>
-            <element signature="e#2145#2307#0" expanded="true" />
-            <element signature="e#2306#2307#0" expanded="true" />
-            <element signature="e#2347#2508#0" expanded="true" />
-            <element signature="e#2507#2508#0" expanded="true" />
+            <element signature="e#2145#2307#0" expanded="false" />
+            <element signature="e#2306#2307#0" expanded="false" />
+            <element signature="e#2347#2508#0" expanded="false" />
+            <element signature="e#2507#2508#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -2635,10 +2630,10 @@
         <state relative-caret-position="120">
           <caret line="15" column="13" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
           <folding>
-            <element signature="e#2145#2307#0" expanded="true" />
-            <element signature="e#2306#2307#0" expanded="true" />
-            <element signature="e#2347#2508#0" expanded="true" />
-            <element signature="e#2507#2508#0" expanded="true" />
+            <element signature="e#2145#2307#0" expanded="false" />
+            <element signature="e#2306#2307#0" expanded="false" />
+            <element signature="e#2347#2508#0" expanded="false" />
+            <element signature="e#2507#2508#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -2792,10 +2787,10 @@
         <state relative-caret-position="-30">
           <caret line="26" column="13" selection-start-line="26" selection-start-column="13" selection-end-line="26" selection-end-column="13" />
           <folding>
-            <element signature="e#2145#2307#0" expanded="true" />
-            <element signature="e#2306#2307#0" expanded="true" />
-            <element signature="e#2347#2508#0" expanded="true" />
-            <element signature="e#2507#2508#0" expanded="true" />
+            <element signature="e#2145#2307#0" expanded="false" />
+            <element signature="e#2306#2307#0" expanded="false" />
+            <element signature="e#2347#2508#0" expanded="false" />
+            <element signature="e#2507#2508#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -2813,8 +2808,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/company/blue/BluetoothFrag.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="199" column="17" selection-start-line="199" selection-start-column="17" selection-end-line="199" selection-end-column="17" />
+        <state relative-caret-position="165">
+          <caret line="193" column="40" selection-start-line="193" selection-start-column="40" selection-end-line="193" selection-end-column="40" />
           <folding />
         </state>
       </provider>
