@@ -64,6 +64,21 @@ public class MapContainerFrag extends Fragment {
             }
         });
 
+        mTurnLeft.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                mBoardView.moveLeftward();
+            }
+        });
+
+        mTurnRight.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                mBoardView.moveRightward();
+            }
+        });
+
+
         Log.i(TAG, "test");
         return view;
     }

@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Shared.activity = MainActivity.this;
         Shared.context = getApplicationContext();
-        Shared.SC.openScreen(ScreenController.Screen.MENU);
+        Shared.SC.openScreen(ScreenController.Screen.MENU);  //what this
     }
     /**
      * Method used when the Back button on phone is pressed
