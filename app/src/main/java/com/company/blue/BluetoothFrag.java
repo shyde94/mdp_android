@@ -84,14 +84,15 @@ public class BluetoothFrag extends Fragment {
         nearbyDevicesList =  view.findViewById(R.id.devices_list);
 
 
-        /*final IntentFilter filter = new IntentFilter();
+        final IntentFilter filter = new IntentFilter();
         filter.addAction(BluetoothDevice.ACTION_FOUND);
         filter.addAction(BluetoothAdapter.ACTION_DISCOVERY_STARTED);
         filter.addAction(BluetoothAdapter.ACTION_DISCOVERY_FINISHED);
         // the registerReceiver pairs up with startdiscovery i guess
-        Shared.activity.registerReceiver(mReceiver, filter);*/
+        Shared.activity.registerReceiver(mReceiver, filter);
+        Shared.btController.setmReceiver(mReceiver);
 
-        btController.init();
+        /*btController.init();
 
 
         // Register for broadcasts when a device is discovered.

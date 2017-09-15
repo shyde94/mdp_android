@@ -36,6 +36,7 @@ public class BluetoothClass {
     private InputStream inStream;
     private final BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
     private byte[] mmBuffer; // mmBuffer store for the stream
+    private BroadcastReceiver mReceiver;
 
 
     public static BluetoothClass getInstance() {
@@ -43,6 +44,10 @@ public class BluetoothClass {
             mInstance = new BluetoothClass();
         }
         return mInstance;
+    }
+
+    public void setmReceiver(BroadcastReceiver mReceiver) {
+        this.mReceiver = mReceiver;
     }
 
     public Thread getConnectionThread() {
@@ -168,7 +173,7 @@ public class BluetoothClass {
         return mReceiver;
     }
 
-    private final BroadcastReceiver mReceiver = new BroadcastReceiver() {
+    /*private final BroadcastReceiver mReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
@@ -185,7 +190,7 @@ public class BluetoothClass {
 
             }
         }
-    };
+    };*/
 
     public void ConnectToDevice (final BluetoothDevice device) {
         connectionThread = new Thread(new Runnable() {

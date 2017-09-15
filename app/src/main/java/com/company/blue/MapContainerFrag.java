@@ -11,6 +11,8 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ToggleButton;
 
+import java.io.IOException;
+
 /**
  * Created by Shide on 29/8/17.
  */
@@ -54,6 +56,12 @@ public class MapContainerFrag extends Fragment {
             public void onClick(View view) {
 
                 mBoardView.moveForward();
+                try {
+                    Shared.btController.write("MOVE FORWARD");
+                    Log.i(TAG, "command: move forward");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -61,6 +69,12 @@ public class MapContainerFrag extends Fragment {
             @Override
             public void onClick(View view) {
                 mBoardView.moveBackward();
+                try {
+                    Shared.btController.write("MOVE BACKWARD");
+                    Log.i(TAG, "command: move backward");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
