@@ -40,6 +40,7 @@ public class BluetoothClass {
     private String incoming;
 
 
+
     public static BluetoothClass getInstance() {
         if (mInstance == null) {
             mInstance = new BluetoothClass();

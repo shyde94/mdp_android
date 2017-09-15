@@ -57,7 +57,6 @@ public class BluetoothFrag extends Fragment {
     private OutputStream outputStream;
     private InputStream inStream;
     final BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-<<<<<<< HEAD
     private byte[] mmBuffer; // mmBuffer store for the stream*/
 
     private BluetoothClass btController = Shared.btController;
@@ -211,6 +210,7 @@ public class BluetoothFrag extends Fragment {
 
                 String text = sendText.getText().toString();
                 Log.d(TAG, "in send button just sent"+text);
+
                 try {
 
                     btController.write(text);
