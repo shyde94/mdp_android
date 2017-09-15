@@ -25,6 +25,7 @@ public class BoardView extends LinearLayout {
     final public String TAG = "BoardViewClass";
     final private int numRows = 15;
     final private int numCol = 20;
+    private int direction = 0;
 
     private LayoutParams mRowLayoutParams = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
     private LayoutParams mTileLayoutParams;
@@ -218,14 +219,114 @@ public class BoardView extends LinearLayout {
         //assume robot is facing north now, move foward 1 step, y := y+1
         //Should contain code to send bluetooth message to rpi to make robot move forward.
         int y = curPos.getyCoord();
-        curPos.setyCoord(y+1);
+        int x = curPos.getxCoord();
+
+        // facing north
+        if (direction == 0) {
+            if(y<13) {
+                curPos.setyCoord(y+1);
+                refreshMap();
+            }
+        }
+
+        // facing west
+        else if (direction == 1){
+            if(x>1) {
+                curPos.setxCoord(x - 1);
+                refreshMap();
+            }
+        }
+        // facing south
+        else if (direction == 2){
+            if(y>1) {
+                curPos.setyCoord(y - 1);
+                refreshMap();
+            }
+        }
+        // facing east
+        else if (direction == 3){
+            if(x<18) {
+                curPos.setxCoord(x + 1);
+                refreshMap();
+            }
+        }
+
+
         //Cannot just set board, must remove all the views first. hmmmm
-        refreshMap();
+
     }
 
     public void moveBackward(){
+
         int y = curPos.getyCoord();
-        curPos.setyCoord(y-1);
+        int x = curPos.getxCoord();
+
+        // facing north
+        if (direction == 0) {
+
+            if(y>1) {
+                curPos.setyCoord(y - 1);
+                refreshMap();
+            }
+        }
+
+        // facing west
+        else if (direction == 1){
+
+            if(x<18) {
+                curPos.setxCoord(x + 1);
+                refreshMap();
+            }
+        }
+        // facing south
+        else if (direction == 2){
+            if(y<13) {
+                curPos.setyCoord(y+1);
+                refreshMap();
+            }
+        }
+        // facing east
+        else if (direction == 3){
+            if(x>1) {
+                curPos.setxCoord(x - 1);
+                refreshMap();
+            }
+        }
+    }
+
+    public void moveLeftward(){
+
+        if (direction ==1) {
+            direction = 2;
+        }
+        else if (direction == 2){
+            direction = 3;
+        }
+        else if (direction == 3){
+            direction = 0;
+        }
+        else if (direction == 0){
+            direction = 1;
+        }
+        Log.d(TAG, String.valueOf(direction));
+        refreshMap();
+
+    }
+
+    public void moveRightward(){
+        if (direction ==1) {
+            direction = 0;
+        }
+        else if (direction == 2){
+            direction = 1;
+        }
+        else if (direction == 3){
+            direction = 2;
+        }
+        else if (direction == 0){
+            direction = 3;
+        }
+        Log.d(TAG, String.valueOf(direction));
         refreshMap();
     }
 
@@ -236,6 +337,7 @@ public class BoardView extends LinearLayout {
     public void displayCurrentPosition(){
         int x = curPos.getxCoord();
         int y = curPos.getyCoord();
+        int counter =-1;
         GridPoint[] gpArray2 = new GridPoint[9];
         try{
             gpArray2[0] = gpArray[y][x];
@@ -253,10 +355,26 @@ public class BoardView extends LinearLayout {
             e.printStackTrace();
         }
         for(GridPoint tempGp: gpArray2){
+
             SquareView sV = gpMap.get(tempGp);
-            if(sV!=null){
-                Log.i(TAG,"displaying cur position");
-                sV.getGridImage().setImageDrawable(getResources().getDrawable(R.drawable.blue_box,null));
+            if(sV!=null) {
+                counter++;
+                Log.i(TAG, "displaying cur position");
+                if (direction == 0 && counter == 3) {
+                    sV.getGridImage().setImageDrawable(getResources().getDrawable(R.drawable.red_box, null));
+                }
+                else if (direction == 1 && counter == 2){
+                    sV.getGridImage().setImageDrawable(getResources().getDrawable(R.drawable.red_box, null));
+                }
+                else if (direction == 2 && counter == 4){
+                    sV.getGridImage().setImageDrawable(getResources().getDrawable(R.drawable.red_box, null));
+                }
+                else if (direction == 3 && counter == 1){
+                    sV.getGridImage().setImageDrawable(getResources().getDrawable(R.drawable.red_box, null));
+                }
+                else {
+                    sV.getGridImage().setImageDrawable(getResources().getDrawable(R.drawable.blue_box, null));
+                }
             }
         }
 
