@@ -54,6 +54,7 @@ public class BluetoothFrag extends Fragment {
     private InputStream inStream;
     final BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
     private byte[] mmBuffer; // mmBuffer store for the stream
+    private TextView incoming;
 
     @org.jetbrains.annotations.Nullable
     @Override
@@ -70,7 +71,11 @@ public class BluetoothFrag extends Fragment {
         final Button exploreBtn = view.findViewById(R.id.explore);
         final Button persistentBtn = view.findViewById(R.id.persistent);
         final Button savePer_Btn = view.findViewById(R.id.save_per);
-        final EditText persistentText = (EditText)view.findViewById(R.id.persistent_send);
+        final EditText persistentText = view.findViewById(R.id.persistent_send);
+        final EditText sendText = view.findViewById(R.id.ck_send);
+        final TextView incoming = view.findViewById(R.id.incoming);
+
+
 
 
         //huangkai
@@ -152,17 +157,27 @@ public class BluetoothFrag extends Fragment {
             public void onClick(View arg0) {
                 SharedPreferences settings = Shared.context.getSharedPreferences(PREFS_NAME, 0);
                 String test = settings.getString("testing", "wrong");
-                Log.d(TAG,test);
+                try {
+                    Log.d(TAG, "in persistent button, just sent"+test);
+                    write(test);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                catch (NullPointerException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
 
         sendBtn.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                EditText transmitEditText = (EditText)v.findViewById(R.id.ck_send);
+
+                String text = sendText.getText().toString();
+                Log.d(TAG, "in send button just sent"+text);
                 try {
-                    write(transmitEditText.getText().toString());
-                    transmitEditText.setText("");
+                    write(text);
+                    sendText.setText("");
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -170,7 +185,7 @@ public class BluetoothFrag extends Fragment {
                     e.printStackTrace();
                 }
                 try {
-                    transmitEditText.setText("");
+                    sendText.setText("");
                 }   catch (NullPointerException e) {
                     e.printStackTrace();
                 }
@@ -338,6 +353,8 @@ public class BluetoothFrag extends Fragment {
                         //*
                         //=========== a lot of other logic over here such as runOnUIThread
                         //*
+
+                        incoming.setText(readMessage);
 
                     } catch (IOException e) {
                         Log.d(TAG, "Input stream was disconnected", e);
