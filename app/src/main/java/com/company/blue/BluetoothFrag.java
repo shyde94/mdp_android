@@ -57,9 +57,14 @@ public class BluetoothFrag extends Fragment {
     private OutputStream outputStream;
     private InputStream inStream;
     final BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+<<<<<<< HEAD
     private byte[] mmBuffer; // mmBuffer store for the stream*/
 
     private BluetoothClass btController = Shared.btController;
+
+    private byte[] mmBuffer; // mmBuffer store for the stream
+    private TextView incoming;
+
 
     @org.jetbrains.annotations.Nullable
     @Override
@@ -76,7 +81,11 @@ public class BluetoothFrag extends Fragment {
         final Button exploreBtn = view.findViewById(R.id.explore);
         final Button persistentBtn = view.findViewById(R.id.persistent);
         final Button savePer_Btn = view.findViewById(R.id.save_per);
-        final EditText persistentText = (EditText)view.findViewById(R.id.persistent_send);
+        final EditText persistentText = view.findViewById(R.id.persistent_send);
+        final EditText sendText = view.findViewById(R.id.ck_send);
+        final TextView incoming = view.findViewById(R.id.incoming);
+
+
 
         //huangkai
         bluetoothProgress =  view.findViewById(R.id.bluetooth_progress);
@@ -184,17 +193,27 @@ public class BluetoothFrag extends Fragment {
             public void onClick(View arg0) {
                 SharedPreferences settings = Shared.context.getSharedPreferences(PREFS_NAME, 0);
                 String test = settings.getString("testing", "wrong");
-                Log.d(TAG,test);
+                try {
+                    Log.d(TAG, "in persistent button, just sent"+test);
+                    Shared.btController.write(test);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                catch (NullPointerException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
 
         sendBtn.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                EditText transmitEditText = (EditText)v.findViewById(R.id.ck_send);
+
+                String text = sendText.getText().toString();
+                Log.d(TAG, "in send button just sent"+text);
                 try {
-                    btController.write(transmitEditText.getText().toString());
-                    transmitEditText.setText("");
+
+                    btController.write(text);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -202,7 +221,7 @@ public class BluetoothFrag extends Fragment {
                     e.printStackTrace();
                 }
                 try {
-                    transmitEditText.setText("");
+                    sendText.setText("");
                 }   catch (NullPointerException e) {
                     e.printStackTrace();
                 }
@@ -255,9 +274,19 @@ public class BluetoothFrag extends Fragment {
 
                 String selected = (String) nearbyDevicesList.getItemAtPosition(position);
                 String []deviceInfo = selected.split("\n");
-                Log.d(TAG,"hello huangkai2" + deviceInfo[1]);
                 BluetoothDevice mBluetoothDevice = btController.getmBluetoothAdapter().getRemoteDevice(deviceInfo[1]);
                 btController.ConnectToDevice(mBluetoothDevice);
+                try{
+                    if(btController.getConnectedSocket().isConnected()){
+                        Toast.makeText(Shared.context, "Connected to " + deviceInfo[1], Toast.LENGTH_LONG).show();
+                    }
+                    else{
+                        Toast.makeText(Shared.context, "Unable to connect to device", Toast.LENGTH_LONG).show();
+                    }
+                }catch(NullPointerException e){
+                    e.printStackTrace();
+                    Toast.makeText(Shared.context, "Connection error", Toast.LENGTH_LONG).show();
+                }
 
 
 
@@ -371,6 +400,8 @@ public class BluetoothFrag extends Fragment {
                         //*
                         //=========== a lot of other logic over here such as runOnUIThread
                         //*
+
+                        incoming.setText(readMessage);
 
                     } catch (IOException e) {
                         Log.d(TAG, "Input stream was disconnected", e);

@@ -54,7 +54,7 @@ public class MapContainerFrag extends Fragment {
         mForward.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                //By right, if bluetooth isnt connected, map shouldn't display that robot has moved forward
                 mBoardView.moveForward();
                 try {
                     Shared.btController.write("MOVE FORWARD");

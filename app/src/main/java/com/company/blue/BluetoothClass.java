@@ -37,6 +37,7 @@ public class BluetoothClass {
     private final BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
     private byte[] mmBuffer; // mmBuffer store for the stream
     private BroadcastReceiver mReceiver;
+    private String incoming;
 
 
     public static BluetoothClass getInstance() {
@@ -193,6 +194,7 @@ public class BluetoothClass {
     };*/
 
     public void ConnectToDevice (final BluetoothDevice device) {
+        final boolean[] status = {false};
         connectionThread = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -210,8 +212,9 @@ public class BluetoothClass {
                     outputStream = connectedSocket.getOutputStream();
                     inStream = connectedSocket.getInputStream();
                     Log.d(TAG, "connected");
+                    status[0] = true;
                 } catch (IOException e) {
-                    Log.d(TAG, "bad");
+                    Log.d(TAG, "Cannot connect");
                     e.printStackTrace();
                 }
 
@@ -256,6 +259,8 @@ public class BluetoothClass {
                         //*
                         //=========== a lot of other logic over here such as runOnUIThread
                         //*
+                        incoming = readMessage;
+
 
                     } catch (IOException e) {
                         Log.d(TAG, "Input stream was disconnected", e);
@@ -275,6 +280,12 @@ public class BluetoothClass {
 
     public void write(String s) throws IOException {
         Log.d(TAG, "Last send: "+s);
-        outputStream.write((s+"|").getBytes());
+        if(outputStream != null){
+            outputStream.write((s+"|").getBytes());
+        }
+        else{
+            Log.i(TAG, "Bluetooth not connected");
+        }
+
     }
 }
