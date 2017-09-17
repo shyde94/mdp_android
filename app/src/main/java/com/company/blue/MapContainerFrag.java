@@ -8,8 +8,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.FrameLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import java.io.IOException;
@@ -22,13 +25,17 @@ public class MapContainerFrag extends Fragment {
     final public String TAG = "MapContainerFragClass";
     private BoardView mBoardView;
 
-    Button mForward, mReverse, mTurnLeft, mTurnRight, mExplore, mGo;
-    ToggleButton mManualUpdate, mAutoUpdate;
+    Button mForward, mReverse, mTurnLeft, mTurnRight, mManualUpdate, mExplore, mGo;
+    ToggleButton mAutoUpdate;
+    private ProgressBar mProgressBar;
     private TextView mStatus;
 
     public BoardView getmBoardView() {
         return mBoardView;
     }
+
+
+
 
     @Nullable
     @Override
@@ -57,7 +64,11 @@ public class MapContainerFrag extends Fragment {
         mExplore = view.findViewById(R.id.explore);
         mGo = view.findViewById(R.id.go);
         mStatus = view.findViewById(R.id.status);
+        mManualUpdate = view.findViewById(R.id.manual_update);
+        mAutoUpdate = view.findViewById(R.id.auto_update);
+        mProgressBar = view.findViewById(R.id.update_progress_bar);
 
+        mProgressBar.setVisibility(View.INVISIBLE);
 
         //For now, assume that robot faces N at the start. Need to know where robot is facing!!!
         //Forward is just forward, but need to know how to shift current position. Need variable called direction.
@@ -124,8 +135,39 @@ public class MapContainerFrag extends Fragment {
             }
         });
 
+        mAutoUpdate.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(b){
+                    //toggled on, call for auto update.
+                }
+                else {
+                    //Cancel autoupdate? KIV.
+                }
+            }
+        });
+
+        mManualUpdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mProgressBar.setVisibility(View.VISIBLE);
+                try {
+                    Log.i(TAG, "Updating manually");
+                    Shared.btController.write("Update");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    Toast.makeText(Shared.context, "Failed to update", Toast.LENGTH_LONG).show();
+                    mProgressBar.setVisibility(View.INVISIBLE);
+                }
+            }
+        });
+
 
         Log.i(TAG, "test");
         return view;
+    }
+
+    public void hideProgressBar(){
+        mProgressBar.setVisibility(View.INVISIBLE);
     }
 }

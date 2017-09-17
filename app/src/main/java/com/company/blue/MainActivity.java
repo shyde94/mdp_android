@@ -21,27 +21,7 @@ public class MainActivity extends AppCompatActivity {
 
     public Activity activity = this;
 
-    private Handler mHandler = new Handler(Looper.getMainLooper()){
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            String message = "";
-            FragmentManager fManager = Shared.activity.getFragmentManager();
-            Fragment Frag = fManager.findFragmentById(R.id.fragment_container);
-            switch(msg.what){
-                case 0:
-                   message =(String)msg.obj;
-                    Log.i(TAG,"Message: " + message);
-                    //HOW TO PASS THIS DATA TO FRAGMENT???
-                    //Pass data from main activity to fragment, requires interface no? okay. Once this is settled,
-                    //data can be passed from
-                    Log.i(TAG,"Refreshing map");
-                    MapContainerFrag MCFrag =  (MapContainerFrag) Frag;
-                    MCFrag.getmBoardView().setRpiData(message);
-                    MCFrag.getmBoardView().refreshMap();
-            }
-        }
-    };
+
 
 
     @Override
@@ -62,4 +42,27 @@ public class MainActivity extends AppCompatActivity {
             super.onBackPressed();
         }
     }
+
+    private Handler mHandler = new Handler(Looper.getMainLooper()){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            String message = "";
+            FragmentManager fManager = Shared.activity.getFragmentManager();
+            Fragment Frag = fManager.findFragmentById(R.id.fragment_container);
+            switch(msg.what){
+                case 0:
+                    message =(String)msg.obj;
+                    Log.i(TAG,"Message: " + message);
+                    //HOW TO PASS THIS DATA TO FRAGMENT???
+                    //Pass data from main activity to fragment, requires interface no? okay. Once this is settled,
+                    //data can be passed from
+                    Log.i(TAG,"Refreshing map");
+                    MapContainerFrag MCFrag =  (MapContainerFrag) Frag;
+                    MCFrag.getmBoardView().setRpiData(message);
+                    MCFrag.getmBoardView().refreshMap();
+                    MCFrag.hideProgressBar();
+            }
+        }
+    };
 }

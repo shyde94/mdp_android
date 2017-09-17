@@ -255,6 +255,9 @@ public class BluetoothClass {
                         Log.d(TAG,"prepare to receive");
                         numBytes = inStream.read(mmBuffer);
 
+                        //Decide on some format with dhaslie? How to distinguish:
+                        // - Message indicating position of robot
+                        // - Message describing map
                         final String readMessage = new String(mmBuffer, 0, numBytes);
                         //see if correct get
                         Log.d(TAG,readMessage);

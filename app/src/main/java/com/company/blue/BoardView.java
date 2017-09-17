@@ -35,7 +35,7 @@ public class BoardView extends LinearLayout {
 
     //1 - explored/no obstacle, 0 - unexplored/obstacle
     //String length should be 300
-    //private String RpiData = "111111111111011010101111100101010101011000010101001000100100110010101111101101001111000111111101111111111111010101111001100110000000010001001010111100100011100100100110100100111100011011110101010011011100011100001111011010110110001100010001110111101100010111011110011010111101101100000011111111000101";
+    //String data used to display map coordinates.
     private String RpiData = "1";
     //Start, End, Current, Waypoint.
     //Algo to decide where robot is. Take position as center of 9 squares.
@@ -43,8 +43,8 @@ public class BoardView extends LinearLayout {
     private int wayPointSet = 0;
     private GridPoint wayPoint;
 
+    //Need to include touch base function to enter robot start coordinates.
     private GridPoint curPos = new GridPoint(18,1,0);
-
     private HashMap<GridPoint, SquareView> gpMap = new HashMap<>();
     private GridPoint[][] gpArray = new GridPoint[numRows][numCol];
 
