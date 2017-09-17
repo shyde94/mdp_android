@@ -246,7 +246,7 @@ public class BluetoothFrag extends Fragment {
         nearbyDevicesList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-
+                btController.getmBluetoothAdapter().cancelDiscovery();
                 String selected = (String) nearbyDevicesList.getItemAtPosition(position);
                 String []deviceInfo = selected.split("\n");
                 BluetoothDevice mBluetoothDevice = btController.getmBluetoothAdapter().getRemoteDevice(deviceInfo[1]);

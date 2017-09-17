@@ -23,6 +23,7 @@ import java.util.UUID;
  */
 
 //TODO Connectivity issues. Bluetooth should reconnect automatically if connection drops!
+//TODO Bluetooth connection has issues after going to map configuration fragment. HMMMM
 
 public class BluetoothClass {
 
@@ -258,6 +259,7 @@ public class BluetoothClass {
                         //while(!(inStream.available()>0)){};
 
                         Log.d(TAG,"prepare to receive");
+                        //TODO the first instream always has some issues. Somehow.
                         numBytes = inStream.read(mmBuffer);
                         /*TODO Decide on some format with dhaslie? How to distinguish:
                         - Message indicating position of robot

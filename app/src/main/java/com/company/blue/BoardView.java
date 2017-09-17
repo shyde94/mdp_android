@@ -76,13 +76,13 @@ public class BoardView extends LinearLayout {
         mScreenHeight = getResources().getDisplayMetrics().heightPixels - margin - padding*2;
         mScreenWidth = getResources().getDisplayMetrics().widthPixels - padding*2 - (int) (Shared.context.getResources().getDisplayMetrics().density * 20);
 
-        Log.i(TAG, "mScreenHeight: " + mScreenHeight);
-        Log.i(TAG, "mScreenWidth: " + mScreenWidth);
+        //Log.i(TAG, "mScreenHeight: " + mScreenHeight);
+        //Log.i(TAG, "mScreenWidth: " + mScreenWidth);
 
     }
 
     public static BoardView fromXml(Context context, ViewGroup parent){
-        Log.d("BoardView","fromXml");
+        //Log.d("BoardView","fromXml");
         return (BoardView) LayoutInflater.from(context).inflate(R.layout.board_view, parent, false);
     }
 
@@ -94,7 +94,7 @@ public class BoardView extends LinearLayout {
         for (int row = 0; row < numRows; row++) {
             sumMargin += singleMargin * 2;
         }
-        Log.i(TAG,"sumMargin: " + sumMargin);
+        //Log.i(TAG,"sumMargin: " + sumMargin);
 
         //Programmatically calculate tile size based on screen size.
         int tilesHeight = (mScreenHeight - sumMargin) / numRows;
@@ -108,7 +108,7 @@ public class BoardView extends LinearLayout {
 
     private void buildBoard(){
         for(int row=0; row<numRows; row++){
-            Log.i(TAG,"Adding row");
+            //Log.i(TAG,"Adding row");
             addBoardRow(row);
         }
     }
@@ -122,13 +122,13 @@ public class BoardView extends LinearLayout {
 
         //This gives grid points their status.
         for(int i=0;i<numCol;i++){
-            Log.i(TAG, "Adding column - " + i);
+            //Log.i(TAG, "Adding column - " + i);
             GridPoint point = new GridPoint(i,row,0);
 
             //extract status from string using row and column.
             char x = DataStringArray[row].charAt(i);
 
-            Log.i(TAG, "Setting status for coord: ("+i + ", " +row+")," + "status: " + x);
+            //Log.i(TAG, "Setting status for coord: ("+i + ", " +row+")," + "status: " + x);
             point.setStatus(x);
             addSquareView(linearLayout,point);
         }
@@ -141,7 +141,7 @@ public class BoardView extends LinearLayout {
 
     //Used to initialise board. Need to add ways to update board without re-drawing entire board. lol.
     private void addSquareView(ViewGroup parent, GridPoint point) {
-        Log.i(TAG, "Adding square view");
+        //Log.i(TAG, "Adding square view");
         final SquareView sV = SquareView.fromXml(getContext(), parent, point);
 
         gpArray[point.getyCoord()][point.getxCoord()] = point;
@@ -365,7 +365,7 @@ public class BoardView extends LinearLayout {
             SquareView sV = gpMap.get(tempGp);
             if(sV!=null) {
                 counter++;
-                Log.i(TAG, "displaying cur position");
+                //Log.i(TAG, "displaying cur position");
                 if (direction == 0 && counter == 3) {
                     sV.getGridImage().setImageDrawable(getResources().getDrawable(R.drawable.red_box, null));
                 }
@@ -388,7 +388,7 @@ public class BoardView extends LinearLayout {
 
     public void displayWayPoint(){
         if(wayPoint != null){
-            Log.i(TAG, "displaying waypoint");
+            //Log.i(TAG, "displaying waypoint");
             int x = wayPoint.getxCoord();
             int y = wayPoint.getyCoord();
 
@@ -496,11 +496,11 @@ public class BoardView extends LinearLayout {
 
     private void updateImage(SquareView sV){
         if(sV.getPoint().getStatus() == '0'){
-            Log.i(TAG,"unexplored");
+            //Log.i(TAG,"unexplored");
             sV.getGridImage().setImageDrawable(getResources().getDrawable(R.drawable.black_box,null));
         }
         else if(sV.getPoint().getStatus() == '1') {
-            Log.i(TAG, "explored");
+            //Log.i(TAG, "explored");
             sV.getGridImage().setImageDrawable(getResources().getDrawable(R.drawable.white_box,null));
         }
     }
