@@ -1,9 +1,17 @@
 package com.company.blue;
 
 import android.app.Activity;
+import android.app.Fragment;
+import android.app.FragmentManager;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+
+import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -13,6 +21,29 @@ public class MainActivity extends AppCompatActivity {
 
     public Activity activity = this;
 
+    private Handler mHandler = new Handler(Looper.getMainLooper()){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            String message = "";
+            FragmentManager fManager = Shared.activity.getFragmentManager();
+            Fragment Frag = fManager.findFragmentById(R.id.fragment_container);
+            switch(msg.what){
+                case 0:
+                   message =(String)msg.obj;
+                    Log.i(TAG,"Message: " + message);
+                    //HOW TO PASS THIS DATA TO FRAGMENT???
+                    //Pass data from main activity to fragment, requires interface no? okay. Once this is settled,
+                    //data can be passed from
+                    Log.i(TAG,"Refreshing map");
+                    MapContainerFrag MCFrag =  (MapContainerFrag) Frag;
+                    MCFrag.getmBoardView().setRpiData(message);
+                    MCFrag.getmBoardView().refreshMap();
+            }
+        }
+    };
+
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
         Shared.activity = MainActivity.this;
         Shared.context = getApplicationContext();
         Shared.SC.openScreen(ScreenController.Screen.MENU);  //what this
+        Shared.mHandler = mHandler;
     }
     /**
      * Method used when the Back button on phone is pressed

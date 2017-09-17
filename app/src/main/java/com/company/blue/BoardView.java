@@ -35,8 +35,8 @@ public class BoardView extends LinearLayout {
 
     //1 - explored/no obstacle, 0 - unexplored/obstacle
     //String length should be 300
-    //private String Temp = "111111111111011010101111100101010101011000010101001000100100110010101111101101001111000111111101111111111111010101111001100110000000010001001010111100100011100100100110100100111100011011110101010011011100011100001111011010110110001100010001110111101100010111011110011010111101101100000011111111000101";
-    private String Temp = "1";
+    //private String RpiData = "111111111111011010101111100101010101011000010101001000100100110010101111101101001111000111111101111111111111010101111001100110000000010001001010111100100011100100100110100100111100011011110101010011011100011100001111011010110110001100010001110111101100010111011110011010111101101100000011111111000101";
+    private String RpiData = "1";
     //Start, End, Current, Waypoint.
     //Algo to decide where robot is. Take position as center of 9 squares.
     //Based on position, identify which squares to alter? Okay.
@@ -56,7 +56,13 @@ public class BoardView extends LinearLayout {
         this.curPos = curPos;
     }
 
+    public String getRpiData() {
+        return RpiData;
+    }
 
+    public void setRpiData(String rpiData) {
+        RpiData = rpiData;
+    }
 
     public BoardView(Context context) {
         this(context, null);
@@ -112,7 +118,7 @@ public class BoardView extends LinearLayout {
         linearLayout.setOrientation(LinearLayout.HORIZONTAL);
         linearLayout.setGravity(Gravity.CENTER);
 
-        String[] DataStringArray = segmentString(Temp, numRows, numCol);
+        String[] DataStringArray = segmentString(RpiData, numRows, numCol);
 
         //This gives grid points their status.
         for(int i=0;i<numCol;i++){
@@ -470,7 +476,7 @@ public class BoardView extends LinearLayout {
     //Updates waypoint (if any)
     public void refreshMap(){
         //Should contain code to get updated map from rpi and current position. change variable curPos in here!
-        String[] stringArray = segmentString(Temp, numRows, numCol);
+        String[] stringArray = segmentString(RpiData, numRows, numCol);
         for(int i=0;i<numRows;i++){
             for(int j=0;j<numCol;j++){
                 GridPoint tempGp = gpArray[i][j];

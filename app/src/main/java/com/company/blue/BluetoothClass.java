@@ -7,6 +7,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -37,7 +38,9 @@ public class BluetoothClass {
     private final BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
     private byte[] mmBuffer; // mmBuffer store for the stream
     private BroadcastReceiver mReceiver;
-    private String incoming;
+    private String Status;
+    public static String incoming;
+
 
 
 
@@ -199,6 +202,7 @@ public class BluetoothClass {
         connectionThread = new Thread(new Runnable() {
             @Override
             public void run() {
+
                 UUID uuid = UUID.fromString("94f39d29-7d6d-437d-973b-fba39e49d4ee");
                 // Cancel discovery because it otherwise slows down the connection.
                 try {
@@ -207,6 +211,7 @@ public class BluetoothClass {
                     e.printStackTrace();
                 }
                 connectedSocket = mmSocket;
+                mmDevice = device;
                 mBluetoothAdapter.cancelDiscovery();
                 try {
                     connectedSocket.connect();
@@ -220,7 +225,6 @@ public class BluetoothClass {
                 }
 
                 //Being listening for data
-
                 listenForData();
 
             }
@@ -237,7 +241,6 @@ public class BluetoothClass {
         connectionThread.start();
     }
     public void listenForData(){
-
         listenThread = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -255,23 +258,31 @@ public class BluetoothClass {
                         final String readMessage = new String(mmBuffer, 0, numBytes);
                         //see if correct get
                         Log.d(TAG,readMessage);
+                        Message readMsg = Shared.mHandler.obtainMessage(
+                                MessageConstants.MESSAGE_READ, numBytes, -1,
+                                readMessage);
+                        readMsg.sendToTarget();
                         //readMsg.sendToTarget();
 
                         //*
                         //=========== a lot of other logic over here such as runOnUIThread
                         //*
+
+                        //THIS INCOMING MESSAGE IS THE MOST IMPORTANT THING!
                         incoming = readMessage;
+                        Log.i(TAG, "Incoming: " + incoming);
 
 
                     } catch (IOException e) {
+                        //If disconnected should reconnect back? yes. but how.
                         Log.d(TAG, "Input stream was disconnected", e);
+
+
                         break;
                     }catch (NullPointerException e) {
                         Log.d(TAG, "No input detected", e);
                         break;
                     }
-
-
                 }
             }
 
@@ -289,4 +300,14 @@ public class BluetoothClass {
         }
 
     }
+
+    private interface MessageConstants {
+        int MESSAGE_READ = 0;
+        int MESSAGE_WRITE = 1;
+        int MESSAGE_TOAST = 2;
+        int MESSAGE_CONNECTED = 3;
+
+        // ... (Add other message types here as needed.)
+    }
+
 }

@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import java.io.IOException;
@@ -20,8 +21,14 @@ import java.io.IOException;
 public class MapContainerFrag extends Fragment {
     final public String TAG = "MapContainerFragClass";
     private BoardView mBoardView;
-    Button mForward, mReverse, mTurnLeft, mTurnRight;
+
+    Button mForward, mReverse, mTurnLeft, mTurnRight, mExplore, mGo;
     ToggleButton mManualUpdate, mAutoUpdate;
+    private TextView mStatus;
+
+    public BoardView getmBoardView() {
+        return mBoardView;
+    }
 
     @Nullable
     @Override
@@ -47,6 +54,9 @@ public class MapContainerFrag extends Fragment {
         mReverse = view.findViewById(R.id.reverse);
         mTurnLeft = view.findViewById(R.id.turn_left);
         mTurnRight = view.findViewById(R.id.turn_right);
+        mExplore = view.findViewById(R.id.explore);
+        mGo = view.findViewById(R.id.go);
+        mStatus = view.findViewById(R.id.status);
 
 
         //For now, assume that robot faces N at the start. Need to know where robot is facing!!!
@@ -89,6 +99,28 @@ public class MapContainerFrag extends Fragment {
             @Override
             public void onClick(View view) {
                 mBoardView.moveRightward();
+            }
+        });
+
+        mExplore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    Shared.btController.write("EXPLOREEEEE");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        mGo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    Shared.btController.write("GOOOOOOOO");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         });
 

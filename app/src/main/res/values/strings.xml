@@ -4,4 +4,5 @@
     <string name="map_config">Map Config</string>
     <string name="manual_update">Manual Update</string>
     <string name="auto_update">auto update</string>
+    <string name="current_status">Current status:</string>
 </resources>
