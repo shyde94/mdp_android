@@ -50,19 +50,12 @@ public class BluetoothFrag extends Fragment {
     private ArrayAdapter<String> nearbyDevicesAdapter;
 
 
-    /*IntentFilter filter;
-    private Thread connectionThread, listenThread;
-    private BluetoothSocket mmSocket, connectedSocket;
-    private BluetoothDevice mmDevice;
-    private OutputStream outputStream;
-    private InputStream inStream;
-    final BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-    private byte[] mmBuffer; // mmBuffer store for the stream*/
+
 
     private BluetoothClass btController = Shared.btController;
 
     private byte[] mmBuffer; // mmBuffer store for the stream
-    private TextView incoming;
+    private TextView mConnectionStatus;
 
 
     @org.jetbrains.annotations.Nullable
@@ -82,7 +75,7 @@ public class BluetoothFrag extends Fragment {
         final Button savePer_Btn = view.findViewById(R.id.save_per);
         final EditText persistentText = view.findViewById(R.id.persistent_send);
         final EditText sendText = view.findViewById(R.id.ck_send);
-        final TextView incoming = view.findViewById(R.id.incoming);
+        mConnectionStatus = view.findViewById(R.id.connection_status);
 
 
 
@@ -100,35 +93,18 @@ public class BluetoothFrag extends Fragment {
         Shared.activity.registerReceiver(mReceiver, filter);
         Shared.btController.setmReceiver(mReceiver);
 
-        /*btController.init();
-
-
-        // Register for broadcasts when a device is discovered.
-        //final IntentFilter filter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
-        //registerReceiver(mReceiver, filter);
-
-
-
-
-        /*if (mBluetoothAdapter == null) {
-            out.append("device not supported");
-        }*/
-
         //turn on
         button1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
                 if(btController.onBt()){
-                    Toast.makeText(getContext(),"Turning on bluetooth", Toast.LENGTH_LONG).show();
+                    //Toast.makeText(getContext(),"Turning on bluetooth", Toast.LENGTH_LONG).show();
+                    mConnectionStatus.setText("Bluetooth turned on");
                 }
                 else{
-                    Toast.makeText(getContext(), "Device does not support bluetooth", Toast.LENGTH_LONG).show();
+                    //Toast.makeText(getContext(), "Device does not support bluetooth", Toast.LENGTH_LONG).show();
+                    mConnectionStatus.setText("Device does not support bluetooth");
                 }
-
-                /*if (!mBluetoothAdapter.isEnabled()) {
-                    Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-                    startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
-                }*/
             }
         });
 
@@ -136,10 +112,8 @@ public class BluetoothFrag extends Fragment {
         onDiscoverBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
-
                 if(btController.makeDiscoverable()){
-                    Toast.makeText(Shared.context, "MAKING YOUR DEVICE DISCOVERABLE",
-                            Toast.LENGTH_LONG).show();
+                    mConnectionStatus.setText("Making your device discoverable");
                     Log.i(TAG, "Discovering");
                 }else{
                     Log.i(TAG, "Not discovering");
@@ -178,6 +152,7 @@ public class BluetoothFrag extends Fragment {
             @Override
             public void onClick(View arg0) {
                 btController.discover();
+                mConnectionStatus.setText("Discovering");
                 /*if (mBluetoothAdapter.isDiscovering()) {
                     mBluetoothAdapter.cancelDiscovery();
                 }
@@ -278,14 +253,17 @@ public class BluetoothFrag extends Fragment {
                 btController.ConnectToDevice(mBluetoothDevice);
                 try{
                     if(btController.getConnectedSocket().isConnected()){
-                        Toast.makeText(Shared.context, "Connected to " + deviceInfo[1], Toast.LENGTH_LONG).show();
+                        //Toast.makeText(Shared.context, "Connected to " + deviceInfo[1], Toast.LENGTH_LONG).show();
+                        mConnectionStatus.setText("Connected to " + deviceInfo[1]);
                     }
                     else{
-                        Toast.makeText(Shared.context, "Unable to connect to device", Toast.LENGTH_LONG).show();
+                        //Toast.makeText(Shared.context, "Unable to connect to device", Toast.LENGTH_LONG).show();
+                        mConnectionStatus.setText("Unable to connect to device");
                     }
                 }catch(NullPointerException e){
                     e.printStackTrace();
-                    Toast.makeText(Shared.context, "Connection error", Toast.LENGTH_LONG).show();
+                    //Toast.makeText(Shared.context, "Connection error", Toast.LENGTH_LONG).show();
+                    mConnectionStatus.setText("Connection error, try again");
                 }
 
 

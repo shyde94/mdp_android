@@ -2,6 +2,7 @@ package com.company.blue;
 
 import android.app.Fragment;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -29,11 +30,12 @@ public class MapContainerFrag extends Fragment {
     ToggleButton mAutoUpdate;
     private ProgressBar mProgressBar;
     private TextView mStatus;
+    private Handler mHandler;
 
     public BoardView getmBoardView() {
         return mBoardView;
     }
-
+    Runnable periodicUpdate;
 
 
 
@@ -103,6 +105,12 @@ public class MapContainerFrag extends Fragment {
             @Override
             public void onClick(View view) {
                 mBoardView.moveLeftward();
+                try {
+                    Shared.btController.write("TURN LEFT");
+                    Log.i(TAG, "command: turn left");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -110,6 +118,12 @@ public class MapContainerFrag extends Fragment {
             @Override
             public void onClick(View view) {
                 mBoardView.moveRightward();
+                try {
+                    Shared.btController.write("TURN RIGHT");
+                    Log.i(TAG, "command: turn right");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -140,9 +154,12 @@ public class MapContainerFrag extends Fragment {
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if(b){
                     //toggled on, call for auto update.
+                    Log.i(TAG, "AutoUpdateChecked");
+                    autoUpdateMechanism();
                 }
                 else {
                     //Cancel autoupdate? KIV.
+                    mHandler.removeCallbacks(periodicUpdate);
                 }
             }
         });
@@ -153,6 +170,8 @@ public class MapContainerFrag extends Fragment {
                 mProgressBar.setVisibility(View.VISIBLE);
                 try {
                     Log.i(TAG, "Updating manually");
+                    //Used Update as example.
+                    //TODO:  Lias with dhaslie first.
                     Shared.btController.write("Update");
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -169,5 +188,24 @@ public class MapContainerFrag extends Fragment {
 
     public void hideProgressBar(){
         mProgressBar.setVisibility(View.INVISIBLE);
+    }
+
+    private void autoUpdateMechanism() {
+        mHandler = new Handler();
+        final int[] count = {0};
+        periodicUpdate = new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Log.i(TAG, "In AutoUpdateThread");
+                    count[0]++;
+                    Shared.btController.write("Update" + count[0]);
+                    mHandler.postDelayed(this,2000);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+        mHandler.post(periodicUpdate);
     }
 }

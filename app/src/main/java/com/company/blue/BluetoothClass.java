@@ -22,6 +22,8 @@ import java.util.UUID;
  * Created by Shide on 12/9/17.
  */
 
+//TODO Connectivity issues. Bluetooth should reconnect automatically if connection drops!
+
 public class BluetoothClass {
 
     private String TAG = "BluetoothClass";
@@ -142,6 +144,9 @@ public class BluetoothClass {
             Shared.activity.startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
             return true;
         }
+        if(mBluetoothAdapter.isEnabled()){
+            return true;
+        }
         return false;
     }
     public boolean makeDiscoverable(){
@@ -254,10 +259,12 @@ public class BluetoothClass {
 
                         Log.d(TAG,"prepare to receive");
                         numBytes = inStream.read(mmBuffer);
+                        /*TODO Decide on some format with dhaslie? How to distinguish:
+                        - Message indicating position of robot
+                        - Message describing map
+                        From here classify purpose of message, then set MessageConstant
+                        */
 
-                        //Decide on some format with dhaslie? How to distinguish:
-                        // - Message indicating position of robot
-                        // - Message describing map
                         final String readMessage = new String(mmBuffer, 0, numBytes);
                         //see if correct get
                         Log.d(TAG,readMessage);
@@ -265,13 +272,6 @@ public class BluetoothClass {
                                 MessageConstants.MESSAGE_READ, numBytes, -1,
                                 readMessage);
                         readMsg.sendToTarget();
-                        //readMsg.sendToTarget();
-
-                        //*
-                        //=========== a lot of other logic over here such as runOnUIThread
-                        //*
-
-                        //THIS INCOMING MESSAGE IS THE MOST IMPORTANT THING!
                         incoming = readMessage;
                         Log.i(TAG, "Incoming: " + incoming);
 

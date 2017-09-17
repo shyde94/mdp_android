@@ -54,14 +54,25 @@ public class MainActivity extends AppCompatActivity {
                 case 0:
                     message =(String)msg.obj;
                     Log.i(TAG,"Message: " + message);
-                    //HOW TO PASS THIS DATA TO FRAGMENT???
-                    //Pass data from main activity to fragment, requires interface no? okay. Once this is settled,
-                    //data can be passed from
+
                     Log.i(TAG,"Refreshing map");
-                    MapContainerFrag MCFrag =  (MapContainerFrag) Frag;
-                    MCFrag.getmBoardView().setRpiData(message);
-                    MCFrag.getmBoardView().refreshMap();
-                    MCFrag.hideProgressBar();
+                    if(Frag instanceof MapContainerFrag){
+                        try{
+                            MapContainerFrag MCFrag =  (MapContainerFrag) Frag;
+                            MCFrag.getmBoardView().setRpiData(message);
+                            MCFrag.getmBoardView().refreshMap();
+                            MCFrag.hideProgressBar();
+                        }catch(ClassCastException e){
+                            e.printStackTrace();
+                        }
+                    }
+                    if(Frag instanceof BluetoothFrag){
+                        BluetoothFrag btFrag = (BluetoothFrag) Frag;
+                    }
+
+
+
+
             }
         }
     };
