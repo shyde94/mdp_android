@@ -79,6 +79,14 @@
             android:layout_width="match_parent"
             android:layout_height="53dp" />
 
+        <ToggleButton
+            android:id="@+id/set_start_lock"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="ToggleButton"
+            android:textOff="Start lock"
+            android:textOn="Start unlock" />
+
         <Button
             android:id="@+id/explore"
             android:layout_width="match_parent"

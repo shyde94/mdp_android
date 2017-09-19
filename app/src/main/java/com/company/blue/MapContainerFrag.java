@@ -27,7 +27,7 @@ public class MapContainerFrag extends Fragment {
     private BoardView mBoardView;
 
     Button mForward, mReverse, mTurnLeft, mTurnRight, mManualUpdate, mExplore, mGo;
-    ToggleButton mAutoUpdate;
+    ToggleButton mAutoUpdate, mStartLock;
     private ProgressBar mProgressBar;
     private TextView mStatus;
     private Handler mHandler;
@@ -68,6 +68,7 @@ public class MapContainerFrag extends Fragment {
         mStatus = view.findViewById(R.id.status);
         mManualUpdate = view.findViewById(R.id.manual_update);
         mAutoUpdate = view.findViewById(R.id.auto_update);
+        mStartLock = view.findViewById(R.id.set_start_lock);
         mProgressBar = view.findViewById(R.id.update_progress_bar);
 
         mProgressBar.setVisibility(View.INVISIBLE);
@@ -160,6 +161,21 @@ public class MapContainerFrag extends Fragment {
                 else {
                     //Cancel autoupdate? KIV.
                     mHandler.removeCallbacks(periodicUpdate);
+                }
+            }
+        });
+
+        mStartLock.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(b){
+                    //toggled on, can set start position
+                    Log.i(TAG, "Set start");
+                    mBoardView.setStartLock(1);
+
+                }
+                else {
+                    mBoardView.setStartLock(0);
                 }
             }
         });

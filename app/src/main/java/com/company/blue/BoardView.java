@@ -28,6 +28,7 @@ public class BoardView extends LinearLayout {
     final private int numRows = 15;
     final private int numCol = 20;
     private int direction = 0;
+    private int startLock = 0;
 
     private LayoutParams mRowLayoutParams = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
     private LayoutParams mTileLayoutParams;
@@ -67,6 +68,14 @@ public class BoardView extends LinearLayout {
 
     public void setRpiData(String rpiData) {
         RpiData = rpiData;
+    }
+
+    public int getStartLock() {
+        return startLock;
+    }
+
+    public void setStartLock(int startLock) {
+        this.startLock = startLock;
     }
 
     public BoardView(Context context) {
@@ -165,7 +174,7 @@ public class BoardView extends LinearLayout {
                             Toast.makeText(getContext(), sV.getPoint().getxCoord()+" "+sV.getPoint().getyCoord(), Toast.LENGTH_SHORT).show();
                             Log.i(TAG, sV.getPoint().getxCoord() +", " + sV.getPoint().getyCoord());
                         }
-                        if(clickCount==2){
+                        if(clickCount==2 && startLock ==1){
                             Log.i(TAG, "DoubleClick");
                             Log.i(TAG, sV.getPoint().getxCoord() +", " + sV.getPoint().getyCoord());
                             //Set start point!
