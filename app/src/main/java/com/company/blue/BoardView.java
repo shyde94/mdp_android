@@ -1,8 +1,10 @@
 package com.company.blue;
 
 import android.content.Context;
+import android.os.Handler;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.GestureDetector;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,6 +34,7 @@ public class BoardView extends LinearLayout {
     private int mScreenWidth;
     private int mScreenHeight;
     private int mSize;
+    private GestureDetector.OnGestureListener gestureListener;
 
     //1 - explored/no obstacle, 0 - unexplored/obstacle
     //String length should be 300
@@ -43,8 +46,10 @@ public class BoardView extends LinearLayout {
     private int wayPointSet = 0;
     private GridPoint wayPoint;
 
+
+    private int clickCount =0;
     //Need to include touch base function to enter robot start coordinates.
-    private GridPoint curPos = new GridPoint(18,1,0);
+    private GridPoint curPos = new GridPoint(18,1,0); //Initial start position.
     private HashMap<GridPoint, SquareView> gpMap = new HashMap<>();
     private GridPoint[][] gpArray = new GridPoint[numRows][numCol];
 
@@ -143,16 +148,41 @@ public class BoardView extends LinearLayout {
     private void addSquareView(ViewGroup parent, GridPoint point) {
         //Log.i(TAG, "Adding square view");
         final SquareView sV = SquareView.fromXml(getContext(), parent, point);
-
         gpArray[point.getyCoord()][point.getxCoord()] = point;
+        Log.i(TAG, "Inserting: gpArray["+point.getyCoord()+","+point.getxCoord()+"]"+" point: " +point.getxCoord()+"," + point.getyCoord() );
         gpMap.put(point, sV);
 
         sV.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                //When square box is clicked. To set way point! How to refresh from here?? Hmmm....
-                Toast.makeText(getContext(), sV.getPoint().getxCoord()+" "+sV.getPoint().getyCoord(), Toast.LENGTH_SHORT).show();
-                //displayCurrentPosition(curPos);
+                clickCount++;
+                Handler mHandler = new Handler();
+                mHandler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        if(clickCount==1){
+                            //When square box is clicked. To set way point! How to refresh from here?? Hmmm....
+                            Toast.makeText(getContext(), sV.getPoint().getxCoord()+" "+sV.getPoint().getyCoord(), Toast.LENGTH_SHORT).show();
+                            Log.i(TAG, sV.getPoint().getxCoord() +", " + sV.getPoint().getyCoord());
+                        }
+                        if(clickCount==2){
+                            Log.i(TAG, "DoubleClick");
+                            Log.i(TAG, sV.getPoint().getxCoord() +", " + sV.getPoint().getyCoord());
+                            //Set start point!
+                            int x = sV.getPoint().getxCoord();
+                            int y = sV.getPoint().getyCoord();
+                            curPos.setyCoord(x);
+                            curPos.setyCoord(y);
+                            //Problem? Now when i move from that point A, coordinate at A gets changed to current position. Why is the
+                            //gridpoint object being associated with another squareView object?
+                            Toast.makeText(getContext(), "Start point set", Toast.LENGTH_LONG).show();
+                            refreshMap();
+                        }
+                        clickCount = 0;
+                        Log.i(TAG,"Exit run");
+                    }
+                },500);
+
             }
         });
 
@@ -440,6 +470,7 @@ public class BoardView extends LinearLayout {
             int x = wayPoint.getxCoord();
             int y = wayPoint.getyCoord();
 
+            //Temporary array to hold gridpoint objects
             GridPoint[] gpArray2 = new GridPoint[9];
             try{
                 gpArray2[0] = gpArray[y][x];
@@ -475,19 +506,23 @@ public class BoardView extends LinearLayout {
     //Updates robot position
     //Updates waypoint (if any)
     public void refreshMap(){
+        Log.i(TAG,"refresh map");
         //Should contain code to get updated map from rpi and current position. change variable curPos in here!
         String[] stringArray = segmentString(RpiData, numRows, numCol);
         for(int i=0;i<numRows;i++){
             for(int j=0;j<numCol;j++){
                 GridPoint tempGp = gpArray[i][j];
+                Log.i(TAG, "Array i,j: " + i + ","+j + "tempGp: " + tempGp.getxCoord() + ", " + tempGp.getyCoord());
                 SquareView tempSv = gpMap.get(tempGp);
                 tempSv.getPoint().setStatus(stringArray[i].charAt(j));
                 updateImage(tempSv);
+                Log.i(TAG,"Updating " + tempSv.getPoint().getxCoord() + ", " + tempSv.getPoint().getyCoord());
 
             }
         }
         displayCurrentPosition();
         displayWayPoint();
+        Log.i(TAG, "CurPos" + curPos.getxCoord() +","+curPos.getyCoord());
     }
 
 
@@ -505,6 +540,9 @@ public class BoardView extends LinearLayout {
         }
     }
 
+    private void setStartPoint(){
+
+    }
 
 
 
