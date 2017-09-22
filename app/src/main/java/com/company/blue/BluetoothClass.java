@@ -2,6 +2,7 @@ package com.company.blue;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothServerSocket;
 import android.bluetooth.BluetoothSocket;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -33,9 +34,10 @@ public class BluetoothClass {
     private static final int REQUEST_ENABLE_BT = 0;
     private static final int REQUEST_DISCOVERABLE_BT = 0;
 
-    private Thread connectionThread, listenThread;
+    private Thread connectionThread, listenThread, AcceptThread;
     private BluetoothSocket mmSocket, connectedSocket;
     private BluetoothDevice mmDevice;
+    private BluetoothServerSocket btServerSocket;
     private OutputStream outputStream;
     private InputStream inStream;
     private final BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
@@ -202,6 +204,63 @@ public class BluetoothClass {
             }
         }
     };*/
+
+    public void manageConnectionRequests(){
+        AcceptThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Log.i(TAG,"In acceptThread");
+                //UUID uuid = UUID.fromString("94f39d29-7d6d-437d-973b-fba39e49d4ee");
+                 UUID uuid = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
+                 //UUID MY_UUID_INSECURE = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
+                try {
+                    // MY_UUID is the app's UUID string, also used by the client code.
+                    btServerSocket = mBluetoothAdapter.listenUsingRfcommWithServiceRecord("SD", uuid);
+
+                } catch (IOException e) {
+                    Log.i(TAG, "Socket's listen() method failed", e);
+                }
+                try {
+                    Log.i(TAG,"In acceptThreadb");
+                    listenForConnectionRequests(btServerSocket);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                listenForData();
+            }
+        });
+        AcceptThread.start();
+    }
+    private void listenForConnectionRequests(BluetoothServerSocket btServerSocket) throws IOException {
+        while(true){
+            Log.i(TAG,"here");
+            connectedSocket = btServerSocket.accept();
+            Log.i(TAG, " listenForConnectionRequests");
+            if (connectedSocket != null) {
+                // A connection was accepted. Perform work associated with
+                // the connection in a separate thread.
+                Log.i(TAG, "Found connection. ");
+
+                //Call handler here? perhaps.
+                inStream = connectedSocket.getInputStream();
+                outputStream = connectedSocket.getOutputStream();
+                BluetoothDevice btDevice = connectedSocket.getRemoteDevice();
+                String DeviceName = btDevice.getName();
+                Message readMsg = Shared.mHandler.obtainMessage(
+                        MessageConstants.MESSAGE_CONNECTED, DeviceName);
+                readMsg.sendToTarget();
+                try {
+                    Log.i(TAG, "Closing bluetoothServerSocket");
+                    btServerSocket.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                break;
+            }
+
+        }
+        Log.i(TAG,"Exciting listenForConnectionRequests");
+    }
 
     public void ConnectToDevice (final BluetoothDevice device) {
         final boolean[] status = {false};

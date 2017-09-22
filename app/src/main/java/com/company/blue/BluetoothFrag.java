@@ -76,6 +76,7 @@ public class BluetoothFrag extends Fragment {
         final EditText persistentText = view.findViewById(R.id.persistent_send);
         final EditText sendText = view.findViewById(R.id.ck_send);
         mConnectionStatus = view.findViewById(R.id.connection_status);
+        final Button acceptConnectionReq = view.findViewById(R.id.accept_connection_request);
 
 
 
@@ -274,6 +275,13 @@ public class BluetoothFrag extends Fragment {
                 //startActivity(intent);
             }
         });
+
+        acceptConnectionReq.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                btController.manageConnectionRequests();
+            }
+        });
         return view;
     }
 
@@ -311,5 +319,7 @@ public class BluetoothFrag extends Fragment {
             }
         }
     };
+
+
 
 }

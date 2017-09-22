@@ -180,11 +180,11 @@ public class BoardView extends LinearLayout {
                             //Set start point!
                             int x = sV.getPoint().getxCoord();
                             int y = sV.getPoint().getyCoord();
-                            curPos.setyCoord(x);
+                            curPos.setxCoord(x);
                             curPos.setyCoord(y);
                             //Problem? Now when i move from that point A, coordinate at A gets changed to current position. Why is the
                             //gridpoint object being associated with another squareView object?
-                            Toast.makeText(getContext(), "Start point set", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getContext(), "Start point set " + curPos.getxCoord() + ", " + curPos.getyCoord(), Toast.LENGTH_LONG).show();
                             refreshMap();
                         }
                         clickCount = 0;

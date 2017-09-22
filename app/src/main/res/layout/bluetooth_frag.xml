@@ -178,5 +178,13 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp" />
 
+    <Button
+        android:id="@+id/accept_connection_request"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Accept connection request"
+        tools:layout_editor_absoluteX="125dp"
+        tools:layout_editor_absoluteY="547dp" />
+
 
 </android.support.constraint.ConstraintLayout>
