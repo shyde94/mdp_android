@@ -275,7 +275,7 @@ public class BoardView extends LinearLayout {
         if(x.length()<(rows*col)){
             String fill = "";
             for(int i=0;i<(rows*col)-x.length();i++){
-                fill += "1";
+                fill += "0";
             }
             x += fill;
         }
@@ -484,7 +484,7 @@ public class BoardView extends LinearLayout {
             }
             for(GridPoint tempGp: gpArray2){
 
-                if(tempGp.getStatus() == '0'){
+                if(tempGp.getStatus() == '1'){
                     Toast.makeText(getContext(), "There is an obstacle here. Cannot set waypoint here", Toast.LENGTH_SHORT).show();
                     wayPointSet = 0;
                     wayPoint = null;
@@ -575,11 +575,11 @@ public class BoardView extends LinearLayout {
 
 
     private void updateImage(SquareView sV){
-        if(sV.getPoint().getStatus() == '0'){
+        if(sV.getPoint().getStatus() == '1'){
             //Log.i(TAG,"unexplored");
             sV.getGridImage().setImageDrawable(getResources().getDrawable(R.drawable.black_box,null));
         }
-        else if(sV.getPoint().getStatus() == '1') {
+        else if(sV.getPoint().getStatus() == '0') {
             //Log.i(TAG, "explored");
             sV.getGridImage().setImageDrawable(getResources().getDrawable(R.drawable.white_box,null));
         }
