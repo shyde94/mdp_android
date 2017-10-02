@@ -38,7 +38,7 @@ public class BluetoothFrag extends Fragment {
     private static final int REQUEST_ENABLE_BT = 0;
     private static final int REQUEST_DISCOVERABLE_BT = 0;
     private ProgressBar bluetoothProgress;
-    private static final String TAG = "Huangkai";
+    private static final String TAG = "Bluetooth Frag";
     public static final String PREFS_NAME = "MyPrefsFile";
 
 
@@ -64,7 +64,6 @@ public class BluetoothFrag extends Fragment {
         super.onCreateView(inflater, container, savedInstanceState);
         View view = inflater.inflate(R.layout.bluetooth_frag, container, false);
 
-        final TextView out= view.findViewById(R.id.out);
         final Button button1 = view.findViewById(R.id.button1);
         final Button onDiscoverBtn = view.findViewById(R.id.button2);
         final Button offBtn = view.findViewById(R.id.button3);
