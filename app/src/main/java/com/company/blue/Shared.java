@@ -2,6 +2,8 @@ package com.company.blue;
 
 import android.app.Activity;
 import android.content.Context;
+import android.hardware.Sensor;
+import android.hardware.SensorManager;
 import android.os.Handler;
 
 /**
@@ -14,4 +16,7 @@ public class Shared {
     public static ScreenController SC = new ScreenController();
     public static BluetoothClass btController = new BluetoothClass();
     public static Handler mHandler;
+    public static SensorManager sMgr;
+    public static Sensor mAccelerometer;
+    public static Sensor mMagnetometer;
 }
