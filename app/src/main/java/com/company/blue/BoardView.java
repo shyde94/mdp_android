@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import java.io.IOException;
 import java.util.HashMap;
 
 /**
@@ -25,8 +26,8 @@ import java.util.HashMap;
 public class BoardView extends LinearLayout {
 
     final public String TAG = "BoardViewClass";
-    final private int numRows = 15;
-    final private int numCol = 20;
+    final private int numRows = 20;
+    final private int numCol = 15;
     private int direction = 0;
     private int startLock = 0;
 
@@ -50,7 +51,7 @@ public class BoardView extends LinearLayout {
 
     private int clickCount =0;
     //Need to include touch base function to enter robot start coordinates.
-    private GridPoint curPos = new GridPoint(18,1,0); //Initial start position.
+    private GridPoint curPos = new GridPoint(1,1,0); //Initial start position.
     private HashMap<GridPoint, SquareView> gpMap = new HashMap<>();
     private GridPoint[][] gpArray = new GridPoint[numRows][numCol];
 
@@ -81,6 +82,15 @@ public class BoardView extends LinearLayout {
     public BoardView(Context context) {
         this(context, null);
     }
+
+    public int getDirection() {
+        return direction;
+    }
+
+    public void setDirection(int direction) {
+        this.direction = direction;
+    }
+
     public BoardView(Context context, AttributeSet attributeSet) {
         super(context, attributeSet);
         setOrientation(LinearLayout.VERTICAL);
@@ -116,7 +126,7 @@ public class BoardView extends LinearLayout {
         mSize = Math.min(tilesHeight, tilesWidth);
 
         //set layoutparams of SquareGrid
-        mTileLayoutParams = new LayoutParams(mSize, mSize);
+        mTileLayoutParams = new LayoutParams(30, 30);
         buildBoard();
     }
 
@@ -131,6 +141,8 @@ public class BoardView extends LinearLayout {
         LinearLayout linearLayout = new LinearLayout(getContext());
         linearLayout.setOrientation(LinearLayout.HORIZONTAL);
         linearLayout.setGravity(Gravity.CENTER);
+
+
 
         String[] DataStringArray = segmentString(RpiData, numRows, numCol);
 
@@ -180,12 +192,21 @@ public class BoardView extends LinearLayout {
                             //Set start point!
                             int x = sV.getPoint().getxCoord();
                             int y = sV.getPoint().getyCoord();
-                            curPos.setxCoord(x);
-                            curPos.setyCoord(y);
+                            try {
+                                Shared.btController.write("sp,"+x+","+y);
+                                curPos.setxCoord(x);
+                                curPos.setyCoord(y);
+                                Toast.makeText(getContext(), "Start point set " + curPos.getxCoord() + ", " + curPos.getyCoord(), Toast.LENGTH_LONG).show();
+                                refreshMap();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                                Toast.makeText(getContext(), "Error sending message, start point not set", Toast.LENGTH_SHORT).show();
+                            }
+
+
                             //Problem? Now when i move from that point A, coordinate at A gets changed to current position. Why is the
                             //gridpoint object being associated with another squareView object?
-                            Toast.makeText(getContext(), "Start point set " + curPos.getxCoord() + ", " + curPos.getyCoord(), Toast.LENGTH_LONG).show();
-                            refreshMap();
+
                         }
                         clickCount = 0;
                         Log.i(TAG,"Exit run");
@@ -203,11 +224,19 @@ public class BoardView extends LinearLayout {
             public boolean onLongClick(View view) {
                 Log.i(TAG, "long touch");
                 if(wayPointSet==1){
+                    //wayPointSet == 1 means there is an existing waypoint.
                     if(wayPoint == sV.getPoint()){
-                        wayPoint=null;
-                        removeWayPoint();
-                        refreshMap();
-                        wayPointSet = 0;
+                        //make waypoint null.
+                        try {
+                            Shared.btController.write("rw");
+                            wayPoint=null;
+                            removeWayPoint();
+                            refreshMap();
+                            wayPointSet = 0;
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                            Toast.makeText(getContext(), "Message cannot be sent. Waypoint not removed", Toast.LENGTH_SHORT).show();
+                        }
                     }
                     else{
                         Toast.makeText(getContext(), "A way point has already been set. Please unset waypoint first", Toast.LENGTH_SHORT).show();
@@ -215,10 +244,17 @@ public class BoardView extends LinearLayout {
 
                 }
                 else if(wayPointSet==0){
-                    wayPoint = sV.getPoint();
-                    wayPointSet = 1;
-                    refreshMap();
+                    //Set waypoint here
 
+                    try {
+                        Shared.btController.write("sw," + sV.getPoint().getxCoord() + ","+sV.getPoint().getyCoord());
+                        wayPoint = sV.getPoint();
+                        wayPointSet = 1;
+                        refreshMap();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        Toast.makeText(getContext(), "Message cannot be sent. Waypoint not set  ", Toast.LENGTH_SHORT).show();
+                    }
 
                 }
                 return true;
@@ -268,7 +304,7 @@ public class BoardView extends LinearLayout {
 
         // facing north
         if (direction == 0) {
-            if(y<13) {
+            if(y<18) {
                 curPos.setyCoord(y+1);
                 refreshMap();
             }
@@ -290,7 +326,7 @@ public class BoardView extends LinearLayout {
         }
         // facing east
         else if (direction == 3){
-            if(x<18) {
+            if(x<13) {
                 curPos.setxCoord(x + 1);
                 refreshMap();
             }
@@ -318,14 +354,14 @@ public class BoardView extends LinearLayout {
         // facing west
         else if (direction == 1){
 
-            if(x<18) {
+            if(x<13) {
                 curPos.setxCoord(x + 1);
                 refreshMap();
             }
         }
         // facing south
         else if (direction == 2){
-            if(y<13) {
+            if(y<18) {
                 curPos.setyCoord(y+1);
                 refreshMap();
             }
@@ -521,11 +557,11 @@ public class BoardView extends LinearLayout {
         for(int i=0;i<numRows;i++){
             for(int j=0;j<numCol;j++){
                 GridPoint tempGp = gpArray[i][j];
-                Log.i(TAG, "Array i,j: " + i + ","+j + "tempGp: " + tempGp.getxCoord() + ", " + tempGp.getyCoord());
+                //Log.i(TAG, "Array i,j: " + i + ","+j + "tempGp: " + tempGp.getxCoord() + ", " + tempGp.getyCoord());
                 SquareView tempSv = gpMap.get(tempGp);
                 tempSv.getPoint().setStatus(stringArray[i].charAt(j));
                 updateImage(tempSv);
-                Log.i(TAG,"Updating " + tempSv.getPoint().getxCoord() + ", " + tempSv.getPoint().getyCoord());
+                //Log.i(TAG,"Updating " + tempSv.getPoint().getxCoord() + ", " + tempSv.getPoint().getyCoord());
 
             }
         }

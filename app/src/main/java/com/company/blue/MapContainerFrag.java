@@ -171,7 +171,7 @@ public class MapContainerFrag extends Fragment implements SensorEventListener {
             @Override
             public void onClick(View view) {
                 try {
-                    Shared.btController.write("EXPLOREEEEE");
+                    Shared.btController.write("EXPLORE");
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -182,7 +182,7 @@ public class MapContainerFrag extends Fragment implements SensorEventListener {
             @Override
             public void onClick(View view) {
                 try {
-                    Shared.btController.write("GOOOOOOOO");
+                    Shared.btController.write("FASTEST PATH");
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -211,7 +211,6 @@ public class MapContainerFrag extends Fragment implements SensorEventListener {
                     //toggled on, can set start position
                     Log.i(TAG, "Set start");
                     mBoardView.setStartLock(1);
-
                 }
                 else {
                     mBoardView.setStartLock(0);
@@ -329,7 +328,8 @@ public class MapContainerFrag extends Fragment implements SensorEventListener {
                 try {
                     Log.i(TAG, "In AutoUpdateThread");
                     count[0]++;
-                    Shared.btController.write("Update" + count[0]);
+                    Shared.btController.write("Update");
+                    //Shared.btController.write("Update" + count[0]);
                     mHandler.postDelayed(this,2000);
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -337,5 +337,9 @@ public class MapContainerFrag extends Fragment implements SensorEventListener {
             }
         };
         mHandler.post(periodicUpdate);
+    }
+
+    public void setStatus(String status){
+        mStatus.setText(mStatus.getText() + " " + status);
     }
 }

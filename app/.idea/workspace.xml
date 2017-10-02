@@ -10,11 +10,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ae72bd03-39bc-4cc3-8aef-506ae17786ff" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/src/main/AndroidManifest.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../.idea/misc.xml" afterPath="$PROJECT_DIR$/../.idea/misc.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/company/blue/BluetoothClass.java" afterPath="$PROJECT_DIR$/src/main/java/com/company/blue/BluetoothClass.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/company/blue/BoardView.java" afterPath="$PROJECT_DIR$/src/main/java/com/company/blue/BoardView.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/company/blue/MainActivity.java" afterPath="$PROJECT_DIR$/src/main/java/com/company/blue/MainActivity.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/company/blue/MapContainerFrag.java" afterPath="$PROJECT_DIR$/src/main/java/com/company/blue/MapContainerFrag.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/company/blue/Shared.java" afterPath="$PROJECT_DIR$/src/main/java/com/company/blue/Shared.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/map_container_frag.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/map_container_frag.xml" />
     </list>
     <ignored path="app.iws" />
@@ -47,14 +47,14 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="map_container_frag.xml" pinned="false" current-in-tab="false">
+      <file leaf-file-name="map_container_frag.xml" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/res/layout/map_container_frag.xml">
-          <provider selected="true" editor-type-id="android-designer2">
+          <provider editor-type-id="android-designer2">
             <state />
           </provider>
-          <provider editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="240">
+              <caret line="16" column="8" selection-start-line="16" selection-start-column="8" selection-end-line="16" selection-end-column="8" />
               <folding />
             </state>
           </provider>
@@ -72,15 +72,31 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MapContainerFrag.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="MapContainerFrag.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/company/blue/MapContainerFrag.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="82">
-              <caret line="248" column="44" selection-start-line="248" selection-start-column="44" selection-end-line="248" selection-end-column="44" />
+            <state relative-caret-position="337">
+              <caret line="252" column="44" selection-start-line="252" selection-start-column="44" selection-end-line="252" selection-end-column="44" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#3534#4034#0" expanded="true" />
                 <element signature="e#4033#4034#0" expanded="true" />
+                <element signature="e#6189#6489#0" expanded="true" />
+                <element signature="e#6488#6489#0" expanded="true" />
+                <element signature="e#6524#6829#0" expanded="true" />
+                <element signature="e#6828#6829#0" expanded="true" />
+                <element signature="e#6880#7399#0" expanded="true" />
+                <element signature="e#7398#7399#0" expanded="true" />
+                <element signature="e#7449#7906#0" expanded="true" />
+                <element signature="e#7905#7906#0" expanded="true" />
+                <element signature="e#7951#8623#0" expanded="true" />
+                <element signature="e#8622#8623#0" expanded="true" />
+                <element signature="e#10961#10962#0" expanded="true" />
+                <element signature="e#11019#11020#0" expanded="true" />
+                <element signature="e#11155#11639#0" expanded="true" />
+                <element signature="e#11638#11639#0" expanded="true" />
+                <element signature="e#11727#11728#0" expanded="true" />
+                <element signature="e#11792#11793#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -89,8 +105,8 @@
       <file leaf-file-name="MainActivity.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/company/blue/MainActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="315">
-              <caret line="51" column="0" selection-start-line="51" selection-start-column="0" selection-end-line="51" selection-end-column="0" />
+            <state relative-caret-position="540">
+              <caret line="66" column="0" selection-start-line="66" selection-start-column="0" selection-end-line="66" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -1936,8 +1952,8 @@
         <option value="$PROJECT_DIR$/src/main/java/com/company/blue/Shared.java" />
         <option value="$PROJECT_DIR$/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/src/main/java/com/company/blue/MainActivity.java" />
-        <option value="$PROJECT_DIR$/src/main/res/layout/map_container_frag.xml" />
         <option value="$PROJECT_DIR$/src/main/java/com/company/blue/MapContainerFrag.java" />
+        <option value="$PROJECT_DIR$/src/main/res/layout/map_container_frag.xml" />
       </list>
     </option>
   </component>
@@ -2424,8 +2440,8 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="144" y="24" width="1091" height="701" extended-state="1" />
-    <editor active="false" />
+    <frame x="144" y="24" width="1091" height="701" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32991454" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32991454" sideWeight="0.48999047" order="7" side_tool="false" content_ui="tabs" />
@@ -2433,7 +2449,7 @@
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32478634" sideWeight="0.50905627" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Android Monitor" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.36410257" sideWeight="0.48331743" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.36410257" sideWeight="0.48331743" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32983795" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32991454" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32991454" sideWeight="0.49666348" order="7" side_tool="false" content_ui="tabs" />
@@ -2489,8 +2505,8 @@
             <element signature="imports" expanded="true" />
             <element signature="e#1198#1199#0" expanded="false" />
             <element signature="e#1231#1232#0" expanded="false" />
-            <element signature="e#10963#10964#0" expanded="false" />
-            <element signature="e#11021#11022#0" expanded="false" />
+            <element signature="e#10961#10962#0" expanded="true" />
+            <element signature="e#11019#11020#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2567,8 +2583,8 @@
             <element signature="imports" expanded="true" />
             <element signature="e#1198#1199#0" expanded="false" />
             <element signature="e#1231#1232#0" expanded="false" />
-            <element signature="e#10963#10964#0" expanded="false" />
-            <element signature="e#11021#11022#0" expanded="false" />
+            <element signature="e#10961#10962#0" expanded="true" />
+            <element signature="e#11019#11020#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2645,8 +2661,8 @@
             <element signature="imports" expanded="true" />
             <element signature="e#1198#1199#0" expanded="false" />
             <element signature="e#1231#1232#0" expanded="false" />
-            <element signature="e#10963#10964#0" expanded="false" />
-            <element signature="e#11021#11022#0" expanded="false" />
+            <element signature="e#10961#10962#0" expanded="true" />
+            <element signature="e#11019#11020#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2723,8 +2739,8 @@
             <element signature="imports" expanded="true" />
             <element signature="e#1198#1199#0" expanded="false" />
             <element signature="e#1231#1232#0" expanded="false" />
-            <element signature="e#10963#10964#0" expanded="false" />
-            <element signature="e#11021#11022#0" expanded="false" />
+            <element signature="e#10961#10962#0" expanded="true" />
+            <element signature="e#11019#11020#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2907,16 +2923,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/company/blue/Shared.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="20" column="38" selection-start-line="20" selection-start-column="26" selection-end-line="20" selection-end-column="38" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/AndroidManifest.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="240">
@@ -2930,8 +2936,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/company/blue/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="51" column="0" selection-start-line="51" selection-start-column="0" selection-end-line="51" selection-end-column="0" />
+        <state relative-caret-position="540">
+          <caret line="66" column="0" selection-start-line="66" selection-start-column="0" selection-end-line="66" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -2949,26 +2955,52 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/layout/map_container_frag.xml">
-      <provider selected="true" editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/company/blue/MapContainerFrag.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="82">
-          <caret line="248" column="44" selection-start-line="248" selection-start-column="44" selection-end-line="248" selection-end-column="44" />
+        <state relative-caret-position="337">
+          <caret line="252" column="44" selection-start-line="252" selection-start-column="44" selection-end-line="252" selection-end-column="44" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#3534#4034#0" expanded="true" />
             <element signature="e#4033#4034#0" expanded="true" />
+            <element signature="e#6189#6489#0" expanded="true" />
+            <element signature="e#6488#6489#0" expanded="true" />
+            <element signature="e#6524#6829#0" expanded="true" />
+            <element signature="e#6828#6829#0" expanded="true" />
+            <element signature="e#6880#7399#0" expanded="true" />
+            <element signature="e#7398#7399#0" expanded="true" />
+            <element signature="e#7449#7906#0" expanded="true" />
+            <element signature="e#7905#7906#0" expanded="true" />
+            <element signature="e#7951#8623#0" expanded="true" />
+            <element signature="e#8622#8623#0" expanded="true" />
+            <element signature="e#10961#10962#0" expanded="true" />
+            <element signature="e#11019#11020#0" expanded="true" />
+            <element signature="e#11155#11639#0" expanded="true" />
+            <element signature="e#11638#11639#0" expanded="true" />
+            <element signature="e#11727#11728#0" expanded="true" />
+            <element signature="e#11792#11793#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/company/blue/Shared.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="20" column="38" selection-start-line="20" selection-start-column="26" selection-end-line="20" selection-end-column="38" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout/map_container_frag.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="16" column="8" selection-start-line="16" selection-start-column="8" selection-end-line="16" selection-end-column="8" />
+          <folding />
         </state>
       </provider>
     </entry>
