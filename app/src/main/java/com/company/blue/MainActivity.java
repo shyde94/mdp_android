@@ -3,6 +3,10 @@ package com.company.blue;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.hardware.Sensor;
+import android.hardware.SensorManager;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -18,8 +22,9 @@ public class MainActivity extends AppCompatActivity {
     //public ScreenController screenController = new ScreenController();
     //public BluetoothClass btController = new BluetoothClass();
     private static final String TAG = "MainActivityClass";
-
     public Activity activity = this;
+
+
 
 
 
@@ -32,12 +37,19 @@ public class MainActivity extends AppCompatActivity {
         Shared.context = getApplicationContext();
         Shared.SC.openScreen(ScreenController.Screen.MENU);  //what this
         Shared.mHandler = mHandler;
+
+
+
+
     }
     /**
      * Method used when the Back button on phone is pressed
      */
+
+
     @Override
     public void onBackPressed() {
+
         if (ScreenController.getInstance().onBack()) {
             super.onBackPressed();
         }

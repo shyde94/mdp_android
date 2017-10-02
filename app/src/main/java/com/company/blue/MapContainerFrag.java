@@ -1,6 +1,10 @@
 package com.company.blue;
 
 import android.app.Fragment;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -22,13 +26,14 @@ import java.io.IOException;
  * Created by Shide on 29/8/17.
  */
 
-public class MapContainerFrag extends Fragment {
+public class MapContainerFrag extends Fragment implements SensorEventListener {
     final public String TAG = "MapContainerFragClass";
     private BoardView mBoardView;
 
     Button mForward, mReverse, mTurnLeft, mTurnRight, mManualUpdate, mExplore, mGo;
     ToggleButton mAutoUpdate, mStartLock;
     private ProgressBar mProgressBar;
+    private ToggleButton motionBtn;
     private TextView mStatus;
     private Handler mHandler;
 
@@ -36,6 +41,11 @@ public class MapContainerFrag extends Fragment {
         return mBoardView;
     }
     Runnable periodicUpdate;
+    /////////////
+
+    private boolean motionSensor = false;
+
+    ////////////
 
 
 
@@ -70,8 +80,37 @@ public class MapContainerFrag extends Fragment {
         mAutoUpdate = view.findViewById(R.id.auto_update);
         mStartLock = view.findViewById(R.id.set_start_lock);
         mProgressBar = view.findViewById(R.id.update_progress_bar);
+        motionBtn = view.findViewById(R.id.toggleButton2);
 
         mProgressBar.setVisibility(View.INVISIBLE);
+
+
+        //////////// sensors
+        Shared.sMgr = (SensorManager)Shared.activity.getSystemService(Shared.context.SENSOR_SERVICE);
+        if (Shared.sMgr.getDefaultSensor(Sensor.TYPE_ACCELEROMETER) != null) {
+            Shared.mAccelerometer = Shared.sMgr.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        } else {
+            Log.d(TAG, "sorry no sensor");
+        }
+
+        motionBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (motionBtn.isChecked()) {
+
+                    Shared.sMgr.registerListener(MapContainerFrag.this, Shared.mAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);
+                    Log.d(TAG,"registered sensor listener");
+
+                    }
+                else{
+                    Shared.sMgr.unregisterListener(MapContainerFrag.this);
+                }
+                }
+         });
+
+
+
+        ///////////
 
         //For now, assume that robot faces N at the start. Need to know where robot is facing!!!
         //Forward is just forward, but need to know how to shift current position. Need variable called direction.
@@ -200,6 +239,81 @@ public class MapContainerFrag extends Fragment {
         Log.i(TAG, "test");
         return view;
     }
+
+    @Override
+    public void onSensorChanged(SensorEvent sensorEvent) {
+        Sensor mySensor = sensorEvent.sensor;
+        if (mySensor.getType() == Sensor.TYPE_ACCELEROMETER) {
+            float x = sensorEvent.values[0];
+            float y = sensorEvent.values[1];
+
+
+            //long curTime = System.currentTimeMillis();
+
+            //device not tilt, start to sense for motions
+            if (x > (-2) && x < (2) && y > (-2) && y < (2)) {
+                motionSensor = true;
+            }
+
+            // upon every motion sensed, print statement and turn motion sensor off to repeat the process
+            if(motionSensor == true){
+                // Left Right Movement
+                if (Math.abs(x) > Math.abs(y)){
+                    // right motion
+                    if (x<-2){
+                        motionSensor = false;
+                        Log.d(TAG, "You tilt the device right");
+                        mBoardView.moveRightward();
+                    }
+                    if (x>2){
+                        motionSensor = false;
+                        Log.d(TAG, "You tilt the device left");
+                        mBoardView.moveLeftward();
+                    }
+                }
+                else{
+                    if (y<-2){
+                        motionSensor = false;
+                        Log.d(TAG, "You tilt the device down");
+                        mBoardView.moveBackward();
+                    }
+                    if (y>2){
+                        motionSensor = false;
+
+                        Log.d(TAG, "You tilt the device up");
+                        mBoardView.moveForward();
+                    }
+                }
+            }
+
+
+
+            // if ((curTime - lastUpdate) > 100) {
+            //     long diffTime = (curTime - lastUpdate);
+            //     lastUpdate = curTime;
+
+            //     float speed = Math.abs(x + y + z - last_x - last_y - last_z)/ diffTime * 10000;
+
+            //     if (speed > SHAKE_THRESHOLD) {
+
+            //     }
+
+            //     last_x = x;
+            //     last_y = y;
+            //     last_z = z;
+            // }
+
+
+        }
+
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+
+    }
+
+
 
     public void hideProgressBar(){
         mProgressBar.setVisibility(View.INVISIBLE);
