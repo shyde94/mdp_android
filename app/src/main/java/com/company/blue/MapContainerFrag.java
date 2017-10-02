@@ -132,7 +132,7 @@ public class MapContainerFrag extends Fragment {
             @Override
             public void onClick(View view) {
                 try {
-                    Shared.btController.write("EXPLOREEEEE");
+                    Shared.btController.write("EXPLORE");
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -143,7 +143,7 @@ public class MapContainerFrag extends Fragment {
             @Override
             public void onClick(View view) {
                 try {
-                    Shared.btController.write("GOOOOOOOO");
+                    Shared.btController.write("FASTEST PATH");
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

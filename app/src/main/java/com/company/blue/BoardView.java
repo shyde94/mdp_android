@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import java.io.IOException;
 import java.util.HashMap;
 
 /**
@@ -212,11 +213,19 @@ public class BoardView extends LinearLayout {
             public boolean onLongClick(View view) {
                 Log.i(TAG, "long touch");
                 if(wayPointSet==1){
+                    //wayPointSet == 1 means there is an existing waypoint.
                     if(wayPoint == sV.getPoint()){
-                        wayPoint=null;
-                        removeWayPoint();
-                        refreshMap();
-                        wayPointSet = 0;
+                        //make waypoint null.
+                        try {
+                            Shared.btController.write("rw");
+                            wayPoint=null;
+                            removeWayPoint();
+                            refreshMap();
+                            wayPointSet = 0;
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                            Toast.makeText(getContext(), "Message cannot be sent. Waypoint not removed", Toast.LENGTH_SHORT).show();
+                        }
                     }
                     else{
                         Toast.makeText(getContext(), "A way point has already been set. Please unset waypoint first", Toast.LENGTH_SHORT).show();
@@ -224,11 +233,18 @@ public class BoardView extends LinearLayout {
 
                 }
                 else if(wayPointSet==0){
-                    wayPoint = sV.getPoint();
-                    wayPointSet = 1;
-                    refreshMap();
+                    //Set waypoint here
 
-
+                    try {
+                        Shared.btController.write("sw," + sV.getPoint().getxCoord() + ","+sV.getPoint().getyCoord());
+                        wayPoint = sV.getPoint();
+                        wayPointSet = 1;
+                        refreshMap();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        Toast.makeText(getContext(), "Message cannot be sent. Waypoint not set  ", Toast.LENGTH_SHORT).show();
+                    }
+                    
                 }
                 return true;
             }
