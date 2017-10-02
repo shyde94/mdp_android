@@ -192,12 +192,21 @@ public class BoardView extends LinearLayout {
                             //Set start point!
                             int x = sV.getPoint().getxCoord();
                             int y = sV.getPoint().getyCoord();
-                            curPos.setxCoord(x);
-                            curPos.setyCoord(y);
+                            try {
+                                Shared.btController.write("sp,"+x+","+y);
+                                curPos.setxCoord(x);
+                                curPos.setyCoord(y);
+                                Toast.makeText(getContext(), "Start point set " + curPos.getxCoord() + ", " + curPos.getyCoord(), Toast.LENGTH_LONG).show();
+                                refreshMap();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                                Toast.makeText(getContext(), "Error sending message, start point not set", Toast.LENGTH_SHORT).show();
+                            }
+
+
                             //Problem? Now when i move from that point A, coordinate at A gets changed to current position. Why is the
                             //gridpoint object being associated with another squareView object?
-                            Toast.makeText(getContext(), "Start point set " + curPos.getxCoord() + ", " + curPos.getyCoord(), Toast.LENGTH_LONG).show();
-                            refreshMap();
+
                         }
                         clickCount = 0;
                         Log.i(TAG,"Exit run");
