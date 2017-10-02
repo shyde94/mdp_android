@@ -81,6 +81,15 @@ public class BoardView extends LinearLayout {
     public BoardView(Context context) {
         this(context, null);
     }
+
+    public int getDirection() {
+        return direction;
+    }
+
+    public void setDirection(int direction) {
+        this.direction = direction;
+    }
+
     public BoardView(Context context, AttributeSet attributeSet) {
         super(context, attributeSet);
         setOrientation(LinearLayout.VERTICAL);

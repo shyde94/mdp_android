@@ -50,30 +50,46 @@ public class MainActivity extends AppCompatActivity {
             String message = "";
             FragmentManager fManager = Shared.activity.getFragmentManager();
             Fragment Frag = fManager.findFragmentById(R.id.fragment_container);
-            switch(msg.what){
-                case 0:
+            if(Frag instanceof MapContainerFrag){
+                try{
+                    MapContainerFrag MCFrag =  (MapContainerFrag) Frag;
                     message =(String)msg.obj;
-                    Log.i(TAG,"Message: " + message);
+                    switch(msg.what){
+                        //Case 0 - robot status update
+                        case 0:
+                            MCFrag.setStatus(message);
+                            break;
+                        //Case 1 - robot position
+                        case 1:
+                            //split string;
+                            String[] strContents = message.split(",");
+                            int x = Integer.parseInt(strContents[0]);
+                            int y = Integer.parseInt(strContents[1]);
+                            int direction = Integer.parseInt(strContents[2]);
+                            MCFrag.getmBoardView().getCurPos().setxCoord(x);
+                            MCFrag.getmBoardView().getCurPos().setyCoord(y);
+                            MCFrag.getmBoardView().setDirection(direction);
+                            MCFrag.getmBoardView().refreshMap();
 
-                    Log.i(TAG,"Refreshing map");
-                    if(Frag instanceof MapContainerFrag){
-                        try{
-                            MapContainerFrag MCFrag =  (MapContainerFrag) Frag;
+                            break;
+                        //Case 2 - map info
+                        case 2:
+                            Log.i(TAG,"Message: " + message);
                             MCFrag.getmBoardView().setRpiData(message);
                             MCFrag.getmBoardView().refreshMap();
                             MCFrag.hideProgressBar();
-                        }catch(ClassCastException e){
-                            e.printStackTrace();
-                        }
+                            Log.i(TAG,"Refreshing map");
+
+                            break;
                     }
-                    if(Frag instanceof BluetoothFrag){
-                        BluetoothFrag btFrag = (BluetoothFrag) Frag;
-                    }
-
-
-
-
+                }catch(ClassCastException e){
+                    e.printStackTrace();
+                }
             }
+            if(Frag instanceof BluetoothFrag){
+                BluetoothFrag btFrag = (BluetoothFrag) Frag;
+            }
+
         }
     };
 }

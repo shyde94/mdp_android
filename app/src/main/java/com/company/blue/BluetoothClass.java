@@ -14,6 +14,10 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -247,7 +251,7 @@ public class BluetoothClass {
                 BluetoothDevice btDevice = connectedSocket.getRemoteDevice();
                 String DeviceName = btDevice.getName();
                 Message readMsg = Shared.mHandler.obtainMessage(
-                        MessageConstants.MESSAGE_CONNECTED, DeviceName);
+                        3, DeviceName);
                 readMsg.sendToTarget();
                 try {
                     Log.i(TAG, "Closing bluetoothServerSocket");
@@ -324,19 +328,41 @@ public class BluetoothClass {
                         - Message indicating position of robot
                         - Message describing map
                         From here classify purpose of message, then set MessageConstant
+                        do message processing here? hmmm okay based on status? then give message.what a number? okay.
+
                         */
 
-                        final String readMessage = new String(mmBuffer, 0, numBytes);
+                        String incomingMessage = new String(mmBuffer, 0, numBytes);
+                        String msgToHandler = "";
+                        int messageCode = 0;
+                        // 0 - robot status
+                        // 1 - robot position
+                        // 2 - map info
                         //see if correct get
-                        Log.d(TAG,readMessage);
-                        Message readMsg = Shared.mHandler.obtainMessage(
-                                MessageConstants.MESSAGE_READ, numBytes, -1,
-                                readMessage);
+                        Log.d(TAG,incomingMessage);
+                        JSONObject jsonObject = new JSONObject(incomingMessage);
+                        JSONObject objMessage = jsonObject.getJSONObject("message");
+                        String msgType = objMessage.getString("type");
+                        if(msgType.equals("RobotStatus")){
+                            msgToHandler = objMessage.getString("info");
+                            messageCode = 0;
+                        }
+                        else if(msgType.equals("RobotPosition")){
+                            JSONArray posDetails = objMessage.getJSONArray("info");
+                            msgToHandler = posDetails.toString();
+                            messageCode = 1;
+                        }
+                        else if(msgType.equals("MapInfo")){
+                            msgToHandler = objMessage.getString("info");
+                            messageCode = 2;
+                        }
+                        else{
+                            msgToHandler = "Failed to Process message";
+                        }
+                        Message readMsg = Shared.mHandler.obtainMessage(messageCode, numBytes, -1, msgToHandler);
                         readMsg.sendToTarget();
-                        incoming = readMessage;
+                        incoming = incomingMessage;
                         Log.i(TAG, "Incoming: " + incoming);
-
-
                     } catch (IOException e) {
                         //If disconnected should reconnect back? yes. but how.
                         Log.d(TAG, "Input stream was disconnected", e);
@@ -346,6 +372,8 @@ public class BluetoothClass {
                     }catch (NullPointerException e) {
                         Log.d(TAG, "No input detected", e);
                         break;
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
                 }
             }
@@ -365,13 +393,6 @@ public class BluetoothClass {
 
     }
 
-    private interface MessageConstants {
-        int MESSAGE_READ = 0;
-        int MESSAGE_WRITE = 1;
-        int MESSAGE_TOAST = 2;
-        int MESSAGE_CONNECTED = 3;
 
-        // ... (Add other message types here as needed.)
-    }
 
 }

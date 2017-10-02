@@ -172,7 +172,6 @@ public class MapContainerFrag extends Fragment {
                     //toggled on, can set start position
                     Log.i(TAG, "Set start");
                     mBoardView.setStartLock(1);
-
                 }
                 else {
                     mBoardView.setStartLock(0);
@@ -223,5 +222,9 @@ public class MapContainerFrag extends Fragment {
             }
         };
         mHandler.post(periodicUpdate);
+    }
+
+    public void setStatus(String status){
+        mStatus.setText(mStatus.getText() + " " + status);
     }
 }
