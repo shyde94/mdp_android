@@ -26,8 +26,8 @@ import java.util.HashMap;
 public class BoardView extends LinearLayout {
 
     final public String TAG = "BoardViewClass";
-    final private int numRows = 15;
-    final private int numCol = 20;
+    final private int numRows = 20;
+    final private int numCol = 15;
     private int direction = 0;
     private int startLock = 0;
 
@@ -51,7 +51,7 @@ public class BoardView extends LinearLayout {
 
     private int clickCount =0;
     //Need to include touch base function to enter robot start coordinates.
-    private GridPoint curPos = new GridPoint(18,1,0); //Initial start position.
+    private GridPoint curPos = new GridPoint(1,1,0); //Initial start position.
     private HashMap<GridPoint, SquareView> gpMap = new HashMap<>();
     private GridPoint[][] gpArray = new GridPoint[numRows][numCol];
 
@@ -126,7 +126,7 @@ public class BoardView extends LinearLayout {
         mSize = Math.min(tilesHeight, tilesWidth);
 
         //set layoutparams of SquareGrid
-        mTileLayoutParams = new LayoutParams(mSize, mSize);
+        mTileLayoutParams = new LayoutParams(30, 30);
         buildBoard();
     }
 
@@ -141,6 +141,8 @@ public class BoardView extends LinearLayout {
         LinearLayout linearLayout = new LinearLayout(getContext());
         linearLayout.setOrientation(LinearLayout.HORIZONTAL);
         linearLayout.setGravity(Gravity.CENTER);
+
+
 
         String[] DataStringArray = segmentString(RpiData, numRows, numCol);
 
@@ -244,7 +246,7 @@ public class BoardView extends LinearLayout {
                         e.printStackTrace();
                         Toast.makeText(getContext(), "Message cannot be sent. Waypoint not set  ", Toast.LENGTH_SHORT).show();
                     }
-                    
+
                 }
                 return true;
             }
@@ -293,7 +295,7 @@ public class BoardView extends LinearLayout {
 
         // facing north
         if (direction == 0) {
-            if(y<13) {
+            if(y<18) {
                 curPos.setyCoord(y+1);
                 refreshMap();
             }
@@ -315,7 +317,7 @@ public class BoardView extends LinearLayout {
         }
         // facing east
         else if (direction == 3){
-            if(x<18) {
+            if(x<13) {
                 curPos.setxCoord(x + 1);
                 refreshMap();
             }
@@ -343,14 +345,14 @@ public class BoardView extends LinearLayout {
         // facing west
         else if (direction == 1){
 
-            if(x<18) {
+            if(x<13) {
                 curPos.setxCoord(x + 1);
                 refreshMap();
             }
         }
         // facing south
         else if (direction == 2){
-            if(y<13) {
+            if(y<18) {
                 curPos.setyCoord(y+1);
                 refreshMap();
             }
@@ -546,11 +548,11 @@ public class BoardView extends LinearLayout {
         for(int i=0;i<numRows;i++){
             for(int j=0;j<numCol;j++){
                 GridPoint tempGp = gpArray[i][j];
-                Log.i(TAG, "Array i,j: " + i + ","+j + "tempGp: " + tempGp.getxCoord() + ", " + tempGp.getyCoord());
+                //Log.i(TAG, "Array i,j: " + i + ","+j + "tempGp: " + tempGp.getxCoord() + ", " + tempGp.getyCoord());
                 SquareView tempSv = gpMap.get(tempGp);
                 tempSv.getPoint().setStatus(stringArray[i].charAt(j));
                 updateImage(tempSv);
-                Log.i(TAG,"Updating " + tempSv.getPoint().getxCoord() + ", " + tempSv.getPoint().getyCoord());
+                //Log.i(TAG,"Updating " + tempSv.getPoint().getxCoord() + ", " + tempSv.getPoint().getyCoord());
 
             }
         }

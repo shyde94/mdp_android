@@ -214,7 +214,8 @@ public class MapContainerFrag extends Fragment {
                 try {
                     Log.i(TAG, "In AutoUpdateThread");
                     count[0]++;
-                    Shared.btController.write("Update" + count[0]);
+                    Shared.btController.write("Update");
+                    //Shared.btController.write("Update" + count[0]);
                     mHandler.postDelayed(this,2000);
                 } catch (IOException e) {
                     e.printStackTrace();
