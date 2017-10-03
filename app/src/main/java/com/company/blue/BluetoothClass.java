@@ -386,7 +386,7 @@ public class BluetoothClass {
     public void write(String s) throws IOException {
         Log.d(TAG, "Last send: "+s);
         if(outputStream != null){
-            outputStream.write((s+"|").getBytes());
+            outputStream.write(s.getBytes());
         }
         else{
             Log.i(TAG, "Bluetooth not connected");
