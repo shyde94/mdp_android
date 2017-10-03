@@ -294,12 +294,12 @@ public class BoardView extends LinearLayout {
 
     }
 
-    public void moveForward(){
+    public void moveForward() throws IOException {
         //assume robot is facing north now, move foward 1 step, y := y+1
         //Should contain code to send bluetooth message to rpi to make robot move forward.
         int y = curPos.getyCoord();
         int x = curPos.getxCoord();
-
+        Shared.btController.write("MOVE FORWARD");
         // facing north
         if (direction == 0) {
             if(y<18) {
@@ -335,11 +335,11 @@ public class BoardView extends LinearLayout {
 
     }
 
-    public void moveBackward(){
+    public void moveBackward() throws IOException {
 
         int y = curPos.getyCoord();
         int x = curPos.getxCoord();
-
+        Shared.btController.write("MOVE BACKWARD");
         // facing north
         if (direction == 0) {
 
@@ -373,8 +373,9 @@ public class BoardView extends LinearLayout {
         }
     }
 
-    public void moveLeftward(){
+    public void moveLeftward() throws IOException {
 
+        Shared.btController.write("TURN LEFT");
         if (direction ==1) {
             direction = 2;
         }
@@ -392,7 +393,8 @@ public class BoardView extends LinearLayout {
 
     }
 
-    public void moveRightward(){
+    public void moveRightward() throws IOException {
+        Shared.btController.write("TURN RIGHT");
         if (direction ==1) {
             direction = 0;
         }
