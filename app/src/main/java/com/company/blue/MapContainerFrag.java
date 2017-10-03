@@ -36,16 +36,13 @@ public class MapContainerFrag extends Fragment implements SensorEventListener {
     private ToggleButton motionBtn;
     private TextView mStatus;
     private Handler mHandler;
+    private long lastUpdate;
 
     public BoardView getmBoardView() {
         return mBoardView;
     }
     Runnable periodicUpdate;
-    /////////////
 
-    private boolean motionSensor = false;
-
-    ////////////
 
 
 
@@ -83,6 +80,7 @@ public class MapContainerFrag extends Fragment implements SensorEventListener {
         motionBtn = view.findViewById(R.id.toggleButton2);
 
         mProgressBar.setVisibility(View.INVISIBLE);
+        lastUpdate = System.currentTimeMillis();
 
 
         //////////// sensors
@@ -243,42 +241,45 @@ public class MapContainerFrag extends Fragment implements SensorEventListener {
     @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
         Sensor mySensor = sensorEvent.sensor;
+
         if (mySensor.getType() == Sensor.TYPE_ACCELEROMETER) {
             float x = sensorEvent.values[0];
             float y = sensorEvent.values[1];
 
 
-            //long curTime = System.currentTimeMillis();
-
-            //device not tilt, start to sense for motions
-            if (x > (-2) && x < (2) && y > (-2) && y < (2)) {
-                motionSensor = true;
+            long actualTime = System.currentTimeMillis();
+            if (actualTime - lastUpdate < 1000) {
+                return;
             }
+            Log.d(TAG, "X is: "+ String.valueOf(x));
+            Log.d(TAG, "Y is: "+ String.valueOf(y));
+
+            lastUpdate = actualTime;
+            //device not tilt, start to sense for motions
+           // if (x > (-2) && x < (2) && y > (-2) && y < (2)) {
+             //   motionSensor = true;
+            //}
 
             // upon every motion sensed, print statement and turn motion sensor off to repeat the process
-            if(motionSensor == true){
+            if(true){
                 // Left Right Movement
                 if (Math.abs(x) > Math.abs(y)){
                     // right motion
                     if (x<-2){
-                        motionSensor = false;
                         Log.d(TAG, "You tilt the device right");
                         mBoardView.moveRightward();
                     }
                     if (x>2){
-                        motionSensor = false;
                         Log.d(TAG, "You tilt the device left");
                         mBoardView.moveLeftward();
                     }
                 }
                 else{
                     if (y<-2){
-                        motionSensor = false;
                         Log.d(TAG, "You tilt the device down");
                         mBoardView.moveBackward();
                     }
                     if (y>2){
-                        motionSensor = false;
 
                         Log.d(TAG, "You tilt the device up");
                         mBoardView.moveForward();
