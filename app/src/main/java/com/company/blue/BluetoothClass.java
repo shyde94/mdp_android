@@ -45,6 +45,7 @@ public class BluetoothClass {
     private BroadcastReceiver mReceiver;
     private String Status;
     public static String incoming;
+    private UUID uuid = UUID.fromString("94f39d29-7d6d-437d-973b-fba39e49d4ee");
 
 
 
@@ -188,24 +189,6 @@ public class BluetoothClass {
         return mReceiver;
     }
 
-    /*private final BroadcastReceiver mReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            String action = intent.getAction();
-            Log.i(TAG,"Action:" + action);
-            Log.i(TAG,"Here");
-            if (BluetoothAdapter.ACTION_DISCOVERY_FINISHED.equals(action)) {
-                //discovery finishes, dismiss progress dialog
-                Log.i(TAG, "action finish");
-                //bluetoothProgress.setVisibility(View.INVISIBLE);
-            }
-            else if (BluetoothAdapter.ACTION_DISCOVERY_STARTED.equals(action)) {
-                Log.i(TAG,"action started");
-                //discovery starts, show progress dialog
-
-            }
-        }
-    };*/
 
     public void manageConnectionRequests(){
         AcceptThread = new Thread(new Runnable() {
@@ -269,7 +252,7 @@ public class BluetoothClass {
             @Override
             public void run() {
 
-                UUID uuid = UUID.fromString("94f39d29-7d6d-437d-973b-fba39e49d4ee");
+
                 // Cancel discovery because it otherwise slows down the connection.
                 try {
                     mmSocket = device.createRfcommSocketToServiceRecord(uuid);
@@ -299,7 +282,7 @@ public class BluetoothClass {
 
                 listenForData();
                 //cancel();
-
+                Log.i(TAG, "End of ConnectToDevice thread");
             }
 
             // Closes the client socket and causes the thread to finish?.
@@ -371,7 +354,21 @@ public class BluetoothClass {
                     } catch (IOException e) {
                         //If disconnected should reconnect back? yes. but how.
                         Log.d(TAG, "Input stream was disconnected", e);
-                        break;
+                        try {
+                            connectedSocket = mmDevice.createRfcommSocketToServiceRecord(uuid);
+                            connectedSocket.connect();
+                            outputStream = connectedSocket.getOutputStream();
+                            inStream = connectedSocket.getInputStream();
+                            Log.d(TAG, "connected");
+                            String DeviceName = mmDevice.getName();
+                            Message readMsg = Shared.mHandler.obtainMessage(
+                                    0, DeviceName);
+                            readMsg.sendToTarget();
+
+                        } catch (IOException e1) {
+                            e1.printStackTrace();
+                        }
+                        //break;
                     }catch (NullPointerException e) {
                         Log.d(TAG, "No input detected", e);
                         break;
@@ -379,6 +376,7 @@ public class BluetoothClass {
                         e.printStackTrace();
                     }
                 }
+
             }
 
         });
