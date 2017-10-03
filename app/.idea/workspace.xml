@@ -10,12 +10,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ae72bd03-39bc-4cc3-8aef-506ae17786ff" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../.idea/misc.xml" afterPath="$PROJECT_DIR$/../.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/company/blue/BluetoothClass.java" afterPath="$PROJECT_DIR$/src/main/java/com/company/blue/BluetoothClass.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/company/blue/BoardView.java" afterPath="$PROJECT_DIR$/src/main/java/com/company/blue/BoardView.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/company/blue/MainActivity.java" afterPath="$PROJECT_DIR$/src/main/java/com/company/blue/MainActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/company/blue/MapContainerFrag.java" afterPath="$PROJECT_DIR$/src/main/java/com/company/blue/MapContainerFrag.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/map_container_frag.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/map_container_frag.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="app.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -2106,7 +2101,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../Blue" />
-    <property name="device.picker.selection" value="015d4a82915c0809" />
+    <property name="device.picker.selection" value="Nexus_7_API_26" />
   </component>
   <component name="RunManager" selected="Android App.app">
     <configuration default="true" type="AndroidJUnit" factoryName="Android JUnit">
