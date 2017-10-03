@@ -55,13 +55,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="1dp"
         app:layout_constraintBottom_toTopOf="@+id/devices_list"
         android:layout_marginRight="8dp"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toRightOf="@+id/connection_status"
-        android:layout_marginLeft="4dp"
-        android:layout_marginEnd="8dp" />
+        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintHorizontal_bias="0.411"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="8dp"
+        app:layout_constraintVertical_bias="0.363"
+        app:layout_constraintLeft_toLeftOf="parent" />
 
     <Button
         android:id="@+id/send"
@@ -169,17 +173,20 @@
         android:layout_width="wrap_content"
         android:layout_height="38dp"
         android:text="@string/connection_status"
-        tools:layout_editor_absoluteX="135dp"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="8dp" />
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent" />
 
     <Button
         android:id="@+id/accept_connection_request"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Accept connection request"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="823dp" />
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="8dp" />
 
     <android.support.constraint.Guideline
         android:layout_width="wrap_content"

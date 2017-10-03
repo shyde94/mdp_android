@@ -294,8 +294,6 @@ public class BoardView extends LinearLayout {
 
     }
 
-
-
     public void moveForward(){
         //assume robot is facing north now, move foward 1 step, y := y+1
         //Should contain code to send bluetooth message to rpi to make robot move forward.

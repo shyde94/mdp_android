@@ -128,14 +128,16 @@ public class BluetoothClass {
         this.mmBuffer = mmBuffer;
     }
 
-    public void init(){
+    /*public void init(){
         final IntentFilter filter = new IntentFilter();
         filter.addAction(BluetoothDevice.ACTION_FOUND);
         filter.addAction(BluetoothAdapter.ACTION_DISCOVERY_STARTED);
         filter.addAction(BluetoothAdapter.ACTION_DISCOVERY_FINISHED);
+        filter.addAction(BluetoothAdapter.ACTION_CONNECTION_STATE_CHANGED);
+        filter.addAction(BluetoothAdapter.ACTION_STATE_CHANGED);
         // the registerReceiver pairs up with startdiscovery i guess
         Shared.activity.registerReceiver(mReceiver, filter);
-    }
+    }*/
 
     public boolean onBt() {
         if(mBluetoothAdapter==null){
@@ -233,7 +235,6 @@ public class BluetoothClass {
     }
     private void listenForConnectionRequests(BluetoothServerSocket btServerSocket) throws IOException {
         while(true){
-            Log.i(TAG,"here");
             connectedSocket = btServerSocket.accept();
             Log.i(TAG, " listenForConnectionRequests");
             if (connectedSocket != null) {
@@ -262,7 +263,7 @@ public class BluetoothClass {
         Log.i(TAG,"Exciting listenForConnectionRequests");
     }
 
-    public void ConnectToDevice (final BluetoothDevice device) {
+    public void ConnectToDevice (final BluetoothDevice device) throws InterruptedException {
         final boolean[] status = {false};
         connectionThread = new Thread(new Runnable() {
             @Override
@@ -284,19 +285,27 @@ public class BluetoothClass {
                     inStream = connectedSocket.getInputStream();
                     Log.d(TAG, "connected");
                     status[0] = true;
+                    String DeviceName = mmDevice.getName();
+                    Message readMsg = Shared.mHandler.obtainMessage(
+                           0, DeviceName);
+                    readMsg.sendToTarget();
+
                 } catch (IOException e) {
                     Log.d(TAG, "Cannot connect");
                     e.printStackTrace();
                 }
 
                 //Being listening for data
+
                 listenForData();
+                //cancel();
 
             }
 
-            // Closes the client socket and causes the thread to finish.
+            // Closes the client socket and causes the thread to finish?.
             public void cancel() {
                 try {
+                    Log.i(TAG, "Cancel called");
                     mmSocket.close();
                 } catch (IOException e) {
                     Log.e(TAG, "Could not close the client socket", e);
@@ -317,7 +326,7 @@ public class BluetoothClass {
                         // Read from the InputStream.
                         //while(!(inStream.available()>0)){};
 
-                        Log.d(TAG,"prepare to receive");
+                        Log.d(TAG,"Listening to data");
                         //TODO the first instream always has some issues. Somehow.
                         numBytes = inStream.read(mmBuffer);
                         /*TODO Decide on some format with dhaslie? How to distinguish:
@@ -362,8 +371,6 @@ public class BluetoothClass {
                     } catch (IOException e) {
                         //If disconnected should reconnect back? yes. but how.
                         Log.d(TAG, "Input stream was disconnected", e);
-
-
                         break;
                     }catch (NullPointerException e) {
                         Log.d(TAG, "No input detected", e);

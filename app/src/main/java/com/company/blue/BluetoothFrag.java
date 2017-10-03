@@ -89,6 +89,8 @@ public class BluetoothFrag extends Fragment {
         filter.addAction(BluetoothDevice.ACTION_FOUND);
         filter.addAction(BluetoothAdapter.ACTION_DISCOVERY_STARTED);
         filter.addAction(BluetoothAdapter.ACTION_DISCOVERY_FINISHED);
+        filter.addAction(BluetoothAdapter.ACTION_CONNECTION_STATE_CHANGED);
+        filter.addAction(BluetoothAdapter.ACTION_STATE_CHANGED);
         // the registerReceiver pairs up with startdiscovery i guess
         Shared.activity.registerReceiver(mReceiver, filter);
         Shared.btController.setmReceiver(mReceiver);
@@ -250,8 +252,13 @@ public class BluetoothFrag extends Fragment {
                 String selected = (String) nearbyDevicesList.getItemAtPosition(position);
                 String []deviceInfo = selected.split("\n");
                 BluetoothDevice mBluetoothDevice = btController.getmBluetoothAdapter().getRemoteDevice(deviceInfo[1]);
-                btController.ConnectToDevice(mBluetoothDevice);
-                try{
+                try {
+                    btController.ConnectToDevice(mBluetoothDevice);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                    Log.i(TAG, "Interrupted Exception");
+                }
+                /*try{
                     if(btController.getConnectedSocket().isConnected()){
                         //Toast.makeText(Shared.context, "Connected to " + deviceInfo[1], Toast.LENGTH_LONG).show();
                         mConnectionStatus.setText("Connected to " + deviceInfo[1]);
@@ -264,10 +271,7 @@ public class BluetoothFrag extends Fragment {
                     e.printStackTrace();
                     //Toast.makeText(Shared.context, "Connection error", Toast.LENGTH_LONG).show();
                     mConnectionStatus.setText("Connection error, try again");
-                }
-
-
-
+                }*/
                 //Intent intent = new Intent(MainActivity.this, RobotActivity.class);
                 //intent.putExtra("deviceAdd", deviceInfo[1]);
                 //finish();
@@ -291,8 +295,6 @@ public class BluetoothFrag extends Fragment {
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
             Log.i(TAG,"Action:" + action);
-            Log.i(TAG,"Here");
-
             if (BluetoothAdapter.ACTION_DISCOVERY_FINISHED.equals(action)) {
                 //discovery finishes, dismiss progress dialog
                 Log.i(TAG, "action finish");
@@ -313,12 +315,43 @@ public class BluetoothFrag extends Fragment {
                 nearbyDevices.add(device.getName() + "\n" + device.getAddress());
                 nearbyDevicesAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_list_item_1, nearbyDevices);
                 nearbyDevicesList.setAdapter(nearbyDevicesAdapter);
-            }else{
+            }
+            else if (BluetoothAdapter.ACTION_CONNECTION_STATE_CHANGED.equals(action)){
+                //This isn't broadcasted when a connection is initiated with a device. Hmmmmm......
+                //This is broadcasted when you turn bluetooth on local device from off to on.
+                int prev_state;
+                prev_state = intent.getIntExtra(BluetoothAdapter.EXTRA_PREVIOUS_CONNECTION_STATE, -1);
+                /*
+                1 = STATE_CONNECTING
+                2 = STATE_CONNECTED
+                0 = STATE_DISCONNECTED
+                3 = STATE_DISCONNECTING
+                */
+                Log.i(TAG, "prev connection state: " + prev_state);
+                int curr_state = intent.getIntExtra(BluetoothAdapter.EXTRA_CONNECTION_STATE,-1);
+                Log.i(TAG, "current connection state: " + curr_state);
+                //String extra_device = intent.getStringExtra(BluetoothDevice.EXTRA_DEVICE);
+                //Log.i(TAG, "extra device: " + extra_device);
+            }
+            else if (BluetoothAdapter.ACTION_STATE_CHANGED.equals(action)){
+                Log.i(TAG, "Action state changed");
+                if(intent.getIntExtra(BluetoothAdapter.EXTRA_STATE, -1)== BluetoothAdapter.STATE_OFF){
+                    Log.i(TAG, "Bluetooth Turned Off");
+                    setStatus("Bluetooth Turned Off");
+                }
+            }
+
+            else{
                 Log.i(TAG,"Action:"+action);
             }
+
         }
     };
 
+
+    public void setStatus(String message){
+        mConnectionStatus.setText("Connected to: " + message);
+    }
 
 
 }
