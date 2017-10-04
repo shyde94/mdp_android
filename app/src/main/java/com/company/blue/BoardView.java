@@ -41,7 +41,7 @@ public class BoardView extends LinearLayout {
     //1 - explored/no obstacle, 0 - unexplored/obstacle
     //String length should be 300
     //String data used to display map coordinates.
-    private String RpiData = "1";
+    private String RpiData = "0";
     //Start, End, Current, Waypoint.
     //Algo to decide where robot is. Take position as center of 9 squares.
     //Based on position, identify which squares to alter? Okay.

@@ -19,4 +19,5 @@ public class Shared {
     public static SensorManager sMgr;
     public static Sensor mAccelerometer;
     public static Sensor mMagnetometer;
+    public static Boolean PickUpMessages = false;
 }
