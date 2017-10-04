@@ -225,6 +225,8 @@ public class MapContainerFrag extends Fragment implements SensorEventListener {
                     //Used Update as example.
                     //TODO:  Lias with dhaslie first.
                     Shared.btController.write("Update");
+                    Shared.PickUpMessages = true;
+                    Shared.btController.listenForData();
                 } catch (IOException e) {
                     e.printStackTrace();
                     Toast.makeText(Shared.context, "Failed to update", Toast.LENGTH_LONG).show();
@@ -330,6 +332,8 @@ public class MapContainerFrag extends Fragment implements SensorEventListener {
                     Log.i(TAG, "In AutoUpdateThread");
                     count[0]++;
                     Shared.btController.write("Update");
+                    Shared.PickUpMessages = true;
+                    Shared.btController.listenForData();
                     //Shared.btController.write("Update" + count[0]);
                     mHandler.postDelayed(this,2000);
                 } catch (IOException e) {

@@ -6,7 +6,6 @@ import android.bluetooth.BluetoothServerSocket;
 import android.bluetooth.BluetoothSocket;
 import android.content.BroadcastReceiver;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Message;
 import android.util.Log;
 
@@ -304,7 +303,7 @@ public class BluetoothClass {
                 mmBuffer = new byte[1024];
                 int numBytes; // bytes returned from read()
                 // hk - handler and message constant are needed to do stuffs
-                while (true) {
+                while (Shared.PickUpMessages) {
                     try {
                         // Read from the InputStream.
                         //while(!(inStream.available()>0)){};
@@ -312,6 +311,7 @@ public class BluetoothClass {
                         Log.d(TAG,"Listening to data");
                         //TODO the first instream always has some issues. Somehow.
                         numBytes = inStream.read(mmBuffer);
+                        Shared.PickUpMessages = false;
                         /*TODO Decide on some format with dhaslie? How to distinguish:
                         - Message indicating position of robot
                         - Message describing map
@@ -375,6 +375,7 @@ public class BluetoothClass {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
+                    Log.i(TAG,"end of listening thread");
                 }
 
             }
