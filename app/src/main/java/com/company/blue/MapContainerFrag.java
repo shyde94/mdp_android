@@ -224,9 +224,8 @@ public class MapContainerFrag extends Fragment implements SensorEventListener {
                     //Used Update as example.
                     //TODO:  Lias with dhaslie first.
                     Shared.btController.write("Update");
-                    Shared.PickUpMessages = true;
-                    Shared.btController.listenForData();
                 } catch (IOException e) {
+                    Log.i(TAG, "Update problems");
                     e.printStackTrace();
                     Toast.makeText(Shared.context, "Failed to update", Toast.LENGTH_LONG).show();
                     mProgressBar.setVisibility(View.INVISIBLE);
@@ -347,8 +346,6 @@ public class MapContainerFrag extends Fragment implements SensorEventListener {
                     Log.i(TAG, "In AutoUpdateThread");
                     count[0]++;
                     Shared.btController.write("Update");
-                    Shared.PickUpMessages = true;
-                    Shared.btController.listenForData();
                     //Shared.btController.write("Update" + count[0]);
                     mHandler.postDelayed(this,2000);
                 } catch (IOException e) {
@@ -360,6 +357,6 @@ public class MapContainerFrag extends Fragment implements SensorEventListener {
     }
 
     public void setStatus(String status){
-        mStatus.setText(mStatus.getText() + " " + status);
+        mStatus.setText("Current Status: " + " " + status);
     }
 }

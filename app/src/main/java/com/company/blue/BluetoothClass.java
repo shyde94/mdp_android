@@ -303,7 +303,7 @@ public class BluetoothClass {
                 mmBuffer = new byte[1024];
                 int numBytes; // bytes returned from read()
                 // hk - handler and message constant are needed to do stuffs
-                while (Shared.PickUpMessages) {
+                while (true) {
                     try {
                         // Read from the InputStream.
                         //while(!(inStream.available()>0)){};
@@ -311,7 +311,6 @@ public class BluetoothClass {
                         Log.d(TAG,"Listening to data");
                         //TODO the first instream always has some issues. Somehow.
                         numBytes = inStream.read(mmBuffer);
-                        Shared.PickUpMessages = false;
                         /*TODO Decide on some format with dhaslie? How to distinguish:
                         - Message indicating position of robot
                         - Message describing map
