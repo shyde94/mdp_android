@@ -210,11 +210,8 @@ public class BluetoothClass {
             @Override
             public void run() {
                 Log.i(TAG,"In acceptThread");
-                //UUID uuid = UUID.fromString("94f39d29-7d6d-437d-973b-fba39e49d4ee");
-                 UUID uuid = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
-                 //UUID MY_UUID_INSECURE = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
+                UUID uuid = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
                 try {
-                    // MY_UUID is the app's UUID string, also used by the client code.
                     btServerSocket = mBluetoothAdapter.listenUsingRfcommWithServiceRecord("SD", uuid);
 
                 } catch (IOException e) {
@@ -233,15 +230,10 @@ public class BluetoothClass {
     }
     private void listenForConnectionRequests(BluetoothServerSocket btServerSocket) throws IOException {
         while(true){
-            Log.i(TAG,"here");
             connectedSocket = btServerSocket.accept();
             Log.i(TAG, " listenForConnectionRequests");
             if (connectedSocket != null) {
-                // A connection was accepted. Perform work associated with
-                // the connection in a separate thread.
                 Log.i(TAG, "Found connection. ");
-
-                //Call handler here? perhaps.
                 inStream = connectedSocket.getInputStream();
                 outputStream = connectedSocket.getOutputStream();
                 BluetoothDevice btDevice = connectedSocket.getRemoteDevice();
@@ -259,8 +251,9 @@ public class BluetoothClass {
             }
 
         }
-        Log.i(TAG,"Exciting listenForConnectionRequests");
+        Log.i(TAG,"Exiting listenForConnectionRequests");
     }
+
 
     public void ConnectToDevice (final BluetoothDevice device) {
         final boolean[] status = {false};
@@ -311,22 +304,14 @@ public class BluetoothClass {
             public void run() {
                 mmBuffer = new byte[1024];
                 int numBytes; // bytes returned from read()
-                // hk - handler and message constant are needed to do stuffs
                 while (true) {
                     try {
                         // Read from the InputStream.
                         //while(!(inStream.available()>0)){};
 
                         Log.d(TAG,"prepare to receive");
-                        //TODO the first instream always has some issues. Somehow.
                         numBytes = inStream.read(mmBuffer);
-                        /*TODO Decide on some format with dhaslie? How to distinguish:
-                        - Message indicating position of robot
-                        - Message describing map
-                        From here classify purpose of message, then set MessageConstant
-                        do message processing here? hmmm okay based on status? then give message.what a number? okay.
 
-                        */
 
                         String incomingMessage = new String(mmBuffer, 0, numBytes);
                         String msgToHandler = "";
