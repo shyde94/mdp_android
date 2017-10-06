@@ -348,7 +348,7 @@ public class BluetoothClass {
                             msgToHandler = objMessage.getString("info");
                             messageCode = 2;
                             //hk- maybe wrong... hmmm
-                            msgToHandler = hexToBin(msgToHandler);
+                            //msgToHandler = hexToBin(msgToHandler);
                             Log.d(TAG, msgToHandler);
 
                             //

@@ -12,12 +12,6 @@
     <list default="true" id="ae72bd03-39bc-4cc3-8aef-506ae17786ff" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/company/blue/BluetoothClass.java" afterPath="$PROJECT_DIR$/src/main/java/com/company/blue/BluetoothClass.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/company/blue/BluetoothFrag.java" afterPath="$PROJECT_DIR$/src/main/java/com/company/blue/BluetoothFrag.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/company/blue/BoardView.java" afterPath="$PROJECT_DIR$/src/main/java/com/company/blue/BoardView.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/company/blue/MainActivity.java" afterPath="$PROJECT_DIR$/src/main/java/com/company/blue/MainActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/company/blue/MapContainerFrag.java" afterPath="$PROJECT_DIR$/src/main/java/com/company/blue/MapContainerFrag.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/bluetooth_frag.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/bluetooth_frag.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/map_container_frag.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/map_container_frag.xml" />
     </list>
     <ignored path="app.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -151,11 +145,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="BluetoothClass.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="BluetoothClass.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/company/blue/BluetoothClass.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="84">
-              <caret line="317" column="0" selection-start-line="317" selection-start-column="0" selection-end-line="317" selection-end-column="0" />
+            <state relative-caret-position="162">
+              <caret line="351" column="28" selection-start-line="351" selection-start-column="28" selection-end-line="351" selection-end-column="28" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#1668#1669#0" expanded="true" />
@@ -196,8 +190,8 @@
                 <element signature="e#5562#5563#0" expanded="true" />
                 <element signature="e#5644#6670#0" expanded="true" />
                 <element signature="e#6669#6670#0" expanded="true" />
-                <element signature="e#9953#14312#0" expanded="true" />
-                <element signature="e#14311#14312#0" expanded="true" />
+                <element signature="e#9953#14314#0" expanded="true" />
+                <element signature="e#14313#14314#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -213,10 +207,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MainActivity.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="MainActivity.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/company/blue/MainActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="53">
+            <state relative-caret-position="81">
               <caret line="77" column="0" selection-start-line="77" selection-start-column="0" selection-end-line="77" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -2495,7 +2489,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="102" y="24" width="1152" height="701" extended-state="0" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32991454" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32991454" sideWeight="0.48999047" order="7" side_tool="false" content_ui="tabs" />
@@ -2503,7 +2497,7 @@
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32478634" sideWeight="0.50905627" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.43076923" sideWeight="0.48331743" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Monitor" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.44615385" sideWeight="0.48331743" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32983795" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32991454" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32991454" sideWeight="0.49666348" order="7" side_tool="false" content_ui="tabs" />
@@ -3067,20 +3061,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/company/blue/MainActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="53">
-          <caret line="77" column="0" selection-start-line="77" selection-start-column="0" selection-end-line="77" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/company/blue/BluetoothClass.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="84">
-          <caret line="317" column="0" selection-start-line="317" selection-start-column="0" selection-end-line="317" selection-end-column="0" />
+        <state relative-caret-position="162">
+          <caret line="351" column="28" selection-start-line="351" selection-start-column="28" selection-end-line="351" selection-end-column="28" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#1668#1669#0" expanded="true" />
@@ -3121,8 +3105,18 @@
             <element signature="e#5562#5563#0" expanded="true" />
             <element signature="e#5644#6670#0" expanded="true" />
             <element signature="e#6669#6670#0" expanded="true" />
-            <element signature="e#9953#14312#0" expanded="true" />
-            <element signature="e#14311#14312#0" expanded="true" />
+            <element signature="e#9953#14314#0" expanded="true" />
+            <element signature="e#14313#14314#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/company/blue/MainActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="81">
+          <caret line="77" column="0" selection-start-line="77" selection-start-column="0" selection-end-line="77" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
