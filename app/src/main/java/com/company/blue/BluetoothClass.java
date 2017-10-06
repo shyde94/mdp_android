@@ -47,7 +47,7 @@ public class BluetoothClass {
     public static String incoming;
     private UUID uuid = UUID.fromString("94f39d29-7d6d-437d-973b-fba39e49d4ee");
 
-    static String hexToBin(String s) {
+    static String hexToDec(String s) {
         return new BigInteger(s, 16).toString(2);
     }
 
@@ -360,7 +360,7 @@ public class BluetoothClass {
                             msgToHandler = objMessage.getString("info");
                             messageCode = 2;
                             //hk- maybe wrong... hmmm
-                            //msgToHandler = hexToBin(msgToHandler);
+                            msgToHandler = hexToDec(msgToHandler);
                             Log.d(TAG, msgToHandler);
 
                             //
