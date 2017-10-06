@@ -41,7 +41,7 @@ public class BoardView extends LinearLayout {
     //1 - explored/no obstacle, 0 - unexplored/obstacle
     //String length should be 300
     //String data used to display map coordinates.
-    private String RpiData = "1";
+    private String RpiData = "0";
     //Start, End, Current, Waypoint.
     //Algo to decide where robot is. Take position as center of 9 squares.
     //Based on position, identify which squares to alter? Okay.
@@ -294,14 +294,12 @@ public class BoardView extends LinearLayout {
 
     }
 
-
-
-    public void moveForward(){
+    public void moveForward() throws IOException {
         //assume robot is facing north now, move foward 1 step, y := y+1
         //Should contain code to send bluetooth message to rpi to make robot move forward.
         int y = curPos.getyCoord();
         int x = curPos.getxCoord();
-
+        Shared.btController.write("MOVE FORWARD");
         // facing north
         if (direction == 0) {
             if(y<18) {
@@ -337,11 +335,11 @@ public class BoardView extends LinearLayout {
 
     }
 
-    public void moveBackward(){
+    public void moveBackward() throws IOException {
 
         int y = curPos.getyCoord();
         int x = curPos.getxCoord();
-
+        Shared.btController.write("MOVE BACKWARD");
         // facing north
         if (direction == 0) {
 
@@ -375,8 +373,9 @@ public class BoardView extends LinearLayout {
         }
     }
 
-    public void moveLeftward(){
+    public void moveLeftward() throws IOException {
 
+        Shared.btController.write("TURN LEFT");
         if (direction ==1) {
             direction = 2;
         }
@@ -394,7 +393,8 @@ public class BoardView extends LinearLayout {
 
     }
 
-    public void moveRightward(){
+    public void moveRightward() throws IOException {
+        Shared.btController.write("TURN RIGHT");
         if (direction ==1) {
             direction = 0;
         }

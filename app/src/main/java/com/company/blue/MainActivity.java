@@ -99,9 +99,29 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
             if(Frag instanceof BluetoothFrag){
-                BluetoothFrag btFrag = (BluetoothFrag) Frag;
+                    BluetoothFrag btFrag = (BluetoothFrag) Frag;
+                switch(msg.what){
+                    case 0:
+                        message =(String)msg.obj;
+                        btFrag.setStatus(message);
+                        break;
+                    case 1:
+                        message =(String)msg.obj;
+                        btFrag.setStatus(message);
+                    default:
+                        Log.i(TAG,"Message error");
+                }
+
+
             }
 
         }
     };
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.i(TAG,"On destroy");
+        Shared.activity.unregisterReceiver(Shared.btController.getmReceiver());
+    }
 }

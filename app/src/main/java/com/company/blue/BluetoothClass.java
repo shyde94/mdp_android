@@ -6,7 +6,6 @@ import android.bluetooth.BluetoothServerSocket;
 import android.bluetooth.BluetoothSocket;
 import android.content.BroadcastReceiver;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Message;
 import android.util.Log;
 
@@ -17,6 +16,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.math.BigInteger;
 import java.util.UUID;
 
 /**
@@ -45,6 +45,11 @@ public class BluetoothClass {
     private BroadcastReceiver mReceiver;
     private String Status;
     public static String incoming;
+    private UUID uuid = UUID.fromString("94f39d29-7d6d-437d-973b-fba39e49d4ee");
+
+    static String hexToBin(String s) {
+        return new BigInteger(s, 16).toString(2);
+    }
 
 
 
@@ -128,14 +133,16 @@ public class BluetoothClass {
         this.mmBuffer = mmBuffer;
     }
 
-    public void init(){
+    /*public void init(){
         final IntentFilter filter = new IntentFilter();
         filter.addAction(BluetoothDevice.ACTION_FOUND);
         filter.addAction(BluetoothAdapter.ACTION_DISCOVERY_STARTED);
         filter.addAction(BluetoothAdapter.ACTION_DISCOVERY_FINISHED);
+        filter.addAction(BluetoothAdapter.ACTION_CONNECTION_STATE_CHANGED);
+        filter.addAction(BluetoothAdapter.ACTION_STATE_CHANGED);
         // the registerReceiver pairs up with startdiscovery i guess
         Shared.activity.registerReceiver(mReceiver, filter);
-    }
+    }*/
 
     public boolean onBt() {
         if(mBluetoothAdapter==null){
@@ -186,32 +193,17 @@ public class BluetoothClass {
         return mReceiver;
     }
 
-    /*private final BroadcastReceiver mReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            String action = intent.getAction();
-            Log.i(TAG,"Action:" + action);
-            Log.i(TAG,"Here");
-            if (BluetoothAdapter.ACTION_DISCOVERY_FINISHED.equals(action)) {
-                //discovery finishes, dismiss progress dialog
-                Log.i(TAG, "action finish");
-                //bluetoothProgress.setVisibility(View.INVISIBLE);
-            }
-            else if (BluetoothAdapter.ACTION_DISCOVERY_STARTED.equals(action)) {
-                Log.i(TAG,"action started");
-                //discovery starts, show progress dialog
-
-            }
-        }
-    };*/
 
     public void manageConnectionRequests(){
         AcceptThread = new Thread(new Runnable() {
             @Override
             public void run() {
                 Log.i(TAG,"In acceptThread");
+                //UUID uuid = UUID.fromString("94f39d29-7d6d-437d-973b-fba39e49d4ee");
                 UUID uuid = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
+                //UUID MY_UUID_INSECURE = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
                 try {
+                    // MY_UUID is the app's UUID string, also used by the client code.
                     btServerSocket = mBluetoothAdapter.listenUsingRfcommWithServiceRecord("SD", uuid);
 
                 } catch (IOException e) {
@@ -233,7 +225,11 @@ public class BluetoothClass {
             connectedSocket = btServerSocket.accept();
             Log.i(TAG, " listenForConnectionRequests");
             if (connectedSocket != null) {
+                // A connection was accepted. Perform work associated with
+                // the connection in a separate thread.
                 Log.i(TAG, "Found connection. ");
+
+                //Call handler here? perhaps.
                 inStream = connectedSocket.getInputStream();
                 outputStream = connectedSocket.getOutputStream();
                 BluetoothDevice btDevice = connectedSocket.getRemoteDevice();
@@ -251,17 +247,16 @@ public class BluetoothClass {
             }
 
         }
-        Log.i(TAG,"Exiting listenForConnectionRequests");
+        Log.i(TAG,"Exciting listenForConnectionRequests");
     }
 
-
-    public void ConnectToDevice (final BluetoothDevice device) {
+    public void ConnectToDevice (final BluetoothDevice device) throws InterruptedException {
         final boolean[] status = {false};
         connectionThread = new Thread(new Runnable() {
             @Override
             public void run() {
 
-                UUID uuid = UUID.fromString("94f39d29-7d6d-437d-973b-fba39e49d4ee");
+
                 // Cancel discovery because it otherwise slows down the connection.
                 try {
                     mmSocket = device.createRfcommSocketToServiceRecord(uuid);
@@ -277,19 +272,27 @@ public class BluetoothClass {
                     inStream = connectedSocket.getInputStream();
                     Log.d(TAG, "connected");
                     status[0] = true;
+                    String DeviceName = mmDevice.getName();
+                    Message readMsg = Shared.mHandler.obtainMessage(
+                            0, DeviceName);
+                    readMsg.sendToTarget();
+
                 } catch (IOException e) {
                     Log.d(TAG, "Cannot connect");
                     e.printStackTrace();
                 }
 
                 //Being listening for data
-                listenForData();
 
+                listenForData();
+                //cancel();
+                Log.i(TAG, "End of ConnectToDevice thread");
             }
 
-            // Closes the client socket and causes the thread to finish.
+            // Closes the client socket and causes the thread to finish?.
             public void cancel() {
                 try {
+                    Log.i(TAG, "Cancel called");
                     mmSocket.close();
                 } catch (IOException e) {
                     Log.e(TAG, "Could not close the client socket", e);
@@ -304,14 +307,22 @@ public class BluetoothClass {
             public void run() {
                 mmBuffer = new byte[1024];
                 int numBytes; // bytes returned from read()
+                // hk - handler and message constant are needed to do stuffs
                 while (true) {
                     try {
                         // Read from the InputStream.
                         //while(!(inStream.available()>0)){};
 
-                        Log.d(TAG,"prepare to receive");
+                        Log.d(TAG,"Listening to data");
+                        //TODO the first instream always has some issues. Somehow.
                         numBytes = inStream.read(mmBuffer);
+                        /*TODO Decide on some format with dhaslie? How to distinguish:
+                        - Message indicating position of robot
+                        - Message describing map
+                        From here classify purpose of message, then set MessageConstant
+                        do message processing here? hmmm okay based on status? then give message.what a number? okay.
 
+                        */
 
                         String incomingMessage = new String(mmBuffer, 0, numBytes);
                         String msgToHandler = "";
@@ -336,10 +347,16 @@ public class BluetoothClass {
                         else if(msgType.equals("MapInfo")){
                             msgToHandler = objMessage.getString("info");
                             messageCode = 2;
+                            //hk- maybe wrong... hmmm
+                            msgToHandler = hexToBin(msgToHandler);
+                            Log.d(TAG, msgToHandler);
+
+                            //
                         }
                         else{
                             msgToHandler = "Failed to Process message";
                         }
+
                         Message readMsg = Shared.mHandler.obtainMessage(messageCode, numBytes, -1, msgToHandler);
                         readMsg.sendToTarget();
                         incoming = incomingMessage;
@@ -347,16 +364,30 @@ public class BluetoothClass {
                     } catch (IOException e) {
                         //If disconnected should reconnect back? yes. but how.
                         Log.d(TAG, "Input stream was disconnected", e);
+                        try {
+                            connectedSocket = mmDevice.createRfcommSocketToServiceRecord(uuid);
+                            connectedSocket.connect();
+                            outputStream = connectedSocket.getOutputStream();
+                            inStream = connectedSocket.getInputStream();
+                            Log.d(TAG, "connected");
+                            String DeviceName = mmDevice.getName();
+                            Message readMsg = Shared.mHandler.obtainMessage(
+                                    0, DeviceName);
+                            readMsg.sendToTarget();
 
-
-                        break;
+                        } catch (IOException e1) {
+                            e1.printStackTrace();
+                        }
+                        //break;
                     }catch (NullPointerException e) {
                         Log.d(TAG, "No input detected", e);
                         break;
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
+                    Log.i(TAG,"end of listening thread");
                 }
+
             }
 
         });
@@ -366,7 +397,7 @@ public class BluetoothClass {
     public void write(String s) throws IOException {
         Log.d(TAG, "Last send: "+s);
         if(outputStream != null){
-            outputStream.write((s+"|").getBytes());
+            outputStream.write(s.getBytes());
         }
         else{
             Log.i(TAG, "Bluetooth not connected");

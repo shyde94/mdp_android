@@ -116,52 +116,51 @@ public class MapContainerFrag extends Fragment implements SensorEventListener {
             @Override
             public void onClick(View view) {
                 //By right, if bluetooth isnt connected, map shouldn't display that robot has moved forward
-                mBoardView.moveForward();
                 try {
-                    Shared.btController.write("MOVE FORWARD");
-                    Log.i(TAG, "command: move forward");
+                    mBoardView.moveForward();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+                Log.i(TAG, "command: move forward");
             }
         });
 
         mReverse.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                mBoardView.moveBackward();
                 try {
-                    Shared.btController.write("MOVE BACKWARD");
-                    Log.i(TAG, "command: move backward");
+                    mBoardView.moveBackward();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+
+                Log.i(TAG, "command: move backward");
             }
         });
 
         mTurnLeft.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                mBoardView.moveLeftward();
                 try {
-                    Shared.btController.write("TURN LEFT");
-                    Log.i(TAG, "command: turn left");
+                    mBoardView.moveLeftward();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+
+                Log.i(TAG, "command: turn left");
             }
         });
 
         mTurnRight.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                mBoardView.moveRightward();
                 try {
-                    Shared.btController.write("TURN RIGHT");
-                    Log.i(TAG, "command: turn right");
+                    mBoardView.moveRightward();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+
+                Log.i(TAG, "command: turn right");
             }
         });
 
@@ -226,6 +225,7 @@ public class MapContainerFrag extends Fragment implements SensorEventListener {
                     //TODO:  Lias with dhaslie first.
                     Shared.btController.write("Update");
                 } catch (IOException e) {
+                    Log.i(TAG, "Update problems");
                     e.printStackTrace();
                     Toast.makeText(Shared.context, "Failed to update", Toast.LENGTH_LONG).show();
                     mProgressBar.setVisibility(View.INVISIBLE);
@@ -267,22 +267,38 @@ public class MapContainerFrag extends Fragment implements SensorEventListener {
                     // right motion
                     if (x<-2){
                         Log.d(TAG, "You tilt the device right");
-                        mBoardView.moveRightward();
+                        try {
+                            mBoardView.moveRightward();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                     }
                     if (x>2){
                         Log.d(TAG, "You tilt the device left");
-                        mBoardView.moveLeftward();
+                        try {
+                            mBoardView.moveLeftward();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
                 else{
                     if (y<-2){
                         Log.d(TAG, "You tilt the device down");
-                        mBoardView.moveBackward();
+                        try {
+                            mBoardView.moveBackward();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                     }
                     if (y>2){
 
                         Log.d(TAG, "You tilt the device up");
-                        mBoardView.moveForward();
+                        try {
+                            mBoardView.moveForward();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
             }
@@ -341,6 +357,6 @@ public class MapContainerFrag extends Fragment implements SensorEventListener {
     }
 
     public void setStatus(String status){
-        mStatus.setText(mStatus.getText() + " " + status);
+        mStatus.setText("Current Status: " + " " + status);
     }
 }
