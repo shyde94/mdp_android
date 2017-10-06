@@ -66,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
                 try{
                     MapContainerFrag MCFrag =  (MapContainerFrag) Frag;
                     message =(String)msg.obj;
+                    Log.i(TAG,"message: " + message);
                     switch(msg.what){
                         //Case 0 - robot status update
                         case 0:
@@ -74,10 +75,16 @@ public class MainActivity extends AppCompatActivity {
                         //Case 1 - robot position
                         case 1:
                             //split string;
+                            int direction = 0;
                             String[] strContents = message.split(",");
-                            int x = Integer.parseInt(strContents[0]);
-                            int y = Integer.parseInt(strContents[1]);
-                            int direction = Integer.parseInt(strContents[2]);
+                            int x = Integer.parseInt(strContents[1]);
+                            int y = Integer.parseInt(strContents[0]);
+                            String str = strContents[2];
+                            if(str.contains("NORTH"))direction = 0;
+                            else if(str.contains("EAST")) direction =3;
+                            else if(str.contains("SOUTH")) direction =2;
+                            else if(str.contains("WEST")) direction =1;
+
                             MCFrag.getmBoardView().getCurPos().setxCoord(x);
                             MCFrag.getmBoardView().getCurPos().setyCoord(y);
                             MCFrag.getmBoardView().setDirection(direction);

@@ -341,14 +341,26 @@ public class BluetoothClass {
                         }
                         else if(msgType.equals("RobotPosition")){
                             JSONArray posDetails = objMessage.getJSONArray("info");
-                            msgToHandler = posDetails.toString();
+                            StringBuffer sb = new StringBuffer(posDetails.toString());
+                            for(int i=0;i<sb.length();i++) {
+                                if (sb.charAt(i) == '['|| sb.charAt(i) == ']' || sb.charAt(i) == '\'') {
+                                    sb.deleteCharAt(i);
+                                }
+                            }
+                            for(int i=0;i<sb.length();i++){
+                                if(sb.charAt(i) == '"'){
+                                    sb.deleteCharAt(i);
+                                }
+                            }
+                            Log.i(TAG,"Apple: " + sb.toString());
+                            msgToHandler = sb.toString();
                             messageCode = 1;
                         }
                         else if(msgType.equals("MapInfo")){
                             msgToHandler = objMessage.getString("info");
                             messageCode = 2;
                             //hk- maybe wrong... hmmm
-                            msgToHandler = hexToBin(msgToHandler);
+                            //msgToHandler = hexToBin(msgToHandler);
                             Log.d(TAG, msgToHandler);
 
                             //
