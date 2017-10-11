@@ -352,7 +352,7 @@ public class BluetoothClass {
                                     sb.deleteCharAt(i);
                                 }
                             }
-                            Log.i(TAG,"Apple: " + sb.toString());
+                            
                             msgToHandler = sb.toString();
                             messageCode = 1;
                         }
