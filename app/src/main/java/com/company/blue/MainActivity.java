@@ -88,7 +88,9 @@ public class MainActivity extends AppCompatActivity {
                         //Case 2 - map info
                         case 2:
                             Log.i(TAG,"Message: " + message);
-                            MCFrag.getmBoardView().setObstacleOrNot(message);
+                            String[] tempArray = message.split(",");
+                            MCFrag.getmBoardView().setExploredOrNot(tempArray[0]);
+                            MCFrag.getmBoardView().setObstacleOrNot(tempArray[1]);
                             MCFrag.getmBoardView().refreshMap();
                             MCFrag.hideProgressBar();
                             Log.i(TAG,"Refreshing map");

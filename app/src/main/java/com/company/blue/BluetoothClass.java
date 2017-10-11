@@ -357,18 +357,19 @@ public class BluetoothClass {
                             messageCode = 1;
                         }
                         else if(msgType.equals("MapInfo")){
-                            msgToHandler = objMessage.getString("info");
+                            String path1 = objMessage.getString("path1");
+                            String path2 = objMessage.getString("path2");
+                            path1 = hexToBin(path1);
+                            path2 = hexToBin(path2);
+                            path1 = path1.substring(2,path1.length()-2);
+                            path2 = path2.substring(2);
                             messageCode = 2;
-                            //hk- maybe wrong... hmmm
+                            //hk- maybe wrong... hmm
 
-                            //msgToHandler = hexToBin(msgToHandler);
-
-                            msgToHandler = hexToBin(msgToHandler);
-                            msgToHandler = msgToHandler.substring(1);
-
+                            msgToHandler = path1 + "," + path2;
                             Log.d(TAG, "map info to handler:" + msgToHandler);
 
-                            //
+
                         }
                         else{
                             msgToHandler = "Failed to Process message";
