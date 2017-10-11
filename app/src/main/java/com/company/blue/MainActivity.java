@@ -3,10 +3,6 @@ package com.company.blue;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
-import android.hardware.Sensor;
-import android.hardware.SensorManager;
-import android.hardware.SensorEvent;
-import android.hardware.SensorEventListener;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -14,8 +10,6 @@ import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-
-import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -94,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
                         //Case 2 - map info
                         case 2:
                             Log.i(TAG,"Message: " + message);
-                            MCFrag.getmBoardView().setRpiData(message);
+                            MCFrag.getmBoardView().setObstacleOrNot(message);
                             MCFrag.getmBoardView().refreshMap();
                             MCFrag.hideProgressBar();
                             Log.i(TAG,"Refreshing map");

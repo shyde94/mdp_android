@@ -41,7 +41,8 @@ public class BoardView extends LinearLayout {
     //1 - explored/no obstacle, 0 - unexplored/obstacle
     //String length should be 300
     //String data used to display map coordinates.
-    private String RpiData = "0";
+    private String ObstacleOrNot = "0";
+    private String ExploredOrNot = "0";
     //Start, End, Current, Waypoint.
     //Algo to decide where robot is. Take position as center of 9 squares.
     //Based on position, identify which squares to alter? Okay.
@@ -63,12 +64,12 @@ public class BoardView extends LinearLayout {
         this.curPos = curPos;
     }
 
-    public String getRpiData() {
-        return RpiData;
+    public String getObstacleOrNot() {
+        return ObstacleOrNot;
     }
 
-    public void setRpiData(String rpiData) {
-        RpiData = rpiData;
+    public void setObstacleOrNot(String obstacleOrNot) {
+        ObstacleOrNot = obstacleOrNot;
     }
 
     public int getStartLock() {
@@ -144,7 +145,7 @@ public class BoardView extends LinearLayout {
 
 
 
-        String[] DataStringArray = segmentString(RpiData, numRows, numCol);
+        String[] DataStringArray = segmentString(ObstacleOrNot, numRows, numCol);
 
         //This gives grid points their status.
         for(int i=0;i<numCol;i++){
@@ -277,7 +278,7 @@ public class BoardView extends LinearLayout {
         if(x.length()<(rows*col)){
             String fill = "";
             for(int i=0;i<(rows*col)-x.length();i++){
-                fill += "0";
+                fill += "2";
             }
             x += fill;
         }
@@ -555,7 +556,7 @@ public class BoardView extends LinearLayout {
     public void refreshMap(){
         Log.i(TAG,"refresh map");
         //Should contain code to get updated map from rpi and current position. change variable curPos in here!
-        String[] stringArray = segmentString(RpiData, numRows, numCol);
+        String[] stringArray = segmentString(ObstacleOrNot, numRows, numCol);
         for(int i=0;i<numRows;i++){
             for(int j=0;j<numCol;j++){
                 GridPoint tempGp = gpArray[i][j];
@@ -577,13 +578,19 @@ public class BoardView extends LinearLayout {
 
 
     private void updateImage(SquareView sV){
-        if(sV.getPoint().getStatus() == '0'){
+        //Now i have 3 different statuses.
+
+        if(sV.getPoint().getStatus() == '1'){
             //Log.i(TAG,"unexplored");
             sV.getGridImage().setImageDrawable(getResources().getDrawable(R.drawable.black_box,null));
         }
-        else if(sV.getPoint().getStatus() == '1') {
+        else if(sV.getPoint().getStatus() == '0') {
             //Log.i(TAG, "explored");
             sV.getGridImage().setImageDrawable(getResources().getDrawable(R.drawable.white_box,null));
+        }
+        else if(sV.getPoint().getStatus() == '2'){
+
+            sV.getGridImage().setImageDrawable(getResources().getDrawable(R.drawable.grey_square, null));
         }
     }
 
