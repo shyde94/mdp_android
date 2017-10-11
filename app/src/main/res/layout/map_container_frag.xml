@@ -124,6 +124,16 @@
                 android:text="@string/current_status"
                 android:textSize="25sp" />
 
+            <EditText
+                android:id="@+id/msgOut"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <Button
+                android:id="@+id/sendMsg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Send" />
+
 
         </LinearLayout>
     </ScrollView>

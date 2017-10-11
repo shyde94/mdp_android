@@ -331,7 +331,7 @@ public class BluetoothClass {
                         // 1 - robot position
                         // 2 - map info
                         //see if correct get
-                        Log.d(TAG,incomingMessage);
+                        Log.d(TAG,"Incoming message: " + incomingMessage);
                         JSONObject jsonObject = new JSONObject(incomingMessage);
                         JSONObject objMessage = jsonObject.getJSONObject("message");
                         String msgType = objMessage.getString("type");
@@ -365,7 +365,7 @@ public class BluetoothClass {
 
                             msgToHandler = hexToBin(msgToHandler);
 
-                            Log.d(TAG, msgToHandler);
+                            Log.d(TAG, "map info to handler:" + msgToHandler);
 
                             //
                         }
@@ -375,8 +375,7 @@ public class BluetoothClass {
 
                         Message readMsg = Shared.mHandler.obtainMessage(messageCode, numBytes, -1, msgToHandler);
                         readMsg.sendToTarget();
-                        incoming = incomingMessage;
-                        Log.i(TAG, "Incoming: " + incoming);
+
                     } catch (IOException e) {
                         //If disconnected should reconnect back? yes. but how.
                         Log.d(TAG, "Input stream was disconnected", e);

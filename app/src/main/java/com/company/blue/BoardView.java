@@ -487,7 +487,8 @@ public class BoardView extends LinearLayout {
             }
             for(GridPoint tempGp: gpArray2){
                 // hk changed ==
-                if(tempGp.getStatus() != '0'){
+                if(tempGp.getStatus() == '1'){
+                    Log.i(TAG, "Obstacle");
                     Toast.makeText(getContext(), "There is an obstacle here. Cannot set waypoint here", Toast.LENGTH_SHORT).show();
                     wayPointSet = 0;
                     wayPoint = null;
