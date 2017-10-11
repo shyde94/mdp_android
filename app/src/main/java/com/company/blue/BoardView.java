@@ -281,6 +281,7 @@ public class BoardView extends LinearLayout {
                 fill += "2";
             }
             x += fill;
+            Log.i(TAG,"string used:" + x);
         }
         String[] x_array = new String[rows]; //array of strings of size 2
         int start_pos = 0;
@@ -556,7 +557,9 @@ public class BoardView extends LinearLayout {
     public void refreshMap(){
         Log.i(TAG,"refresh map");
         //Should contain code to get updated map from rpi and current position. change variable curPos in here!
+
         String[] stringArray = segmentString(ObstacleOrNot, numRows, numCol);
+        for(int p=stringArray.length-1;p>-1;p--)Log.i(TAG, stringArray[p]);
         for(int i=0;i<numRows;i++){
             for(int j=0;j<numCol;j++){
                 GridPoint tempGp = gpArray[i][j];
