@@ -364,6 +364,7 @@ public class BluetoothClass {
                             //msgToHandler = hexToBin(msgToHandler);
 
                             msgToHandler = hexToBin(msgToHandler);
+                            msgToHandler = msgToHandler.substring(1);
 
                             Log.d(TAG, "map info to handler:" + msgToHandler);
 
