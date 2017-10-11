@@ -185,6 +185,8 @@ public class BoardView extends LinearLayout {
                             //When square box is clicked. To set way point! How to refresh from here?? Hmmm....
                             Toast.makeText(getContext(), sV.getPoint().getxCoord()+" "+sV.getPoint().getyCoord(), Toast.LENGTH_SHORT).show();
                             Log.i(TAG, sV.getPoint().getxCoord() +", " + sV.getPoint().getyCoord());
+                            //hk here send
+                            Log.d(TAG,"hello here boardview waypoint");
                         }
                         if(clickCount==2 && startLock ==1){
                             Log.i(TAG, "DoubleClick");
@@ -247,7 +249,7 @@ public class BoardView extends LinearLayout {
                     //Set waypoint here
 
                     try {
-                        Shared.btController.write("sw," + sV.getPoint().getxCoord() + ","+sV.getPoint().getyCoord());
+                        Shared.btController.write("SET WP," + sV.getPoint().getxCoord() + ":"+sV.getPoint().getyCoord());
                         wayPoint = sV.getPoint();
                         wayPointSet = 1;
                         refreshMap();
@@ -483,8 +485,8 @@ public class BoardView extends LinearLayout {
                 e.printStackTrace();
             }
             for(GridPoint tempGp: gpArray2){
-
-                if(tempGp.getStatus() == '1'){
+                // hk changed ==
+                if(tempGp.getStatus() != '0'){
                     Toast.makeText(getContext(), "There is an obstacle here. Cannot set waypoint here", Toast.LENGTH_SHORT).show();
                     wayPointSet = 0;
                     wayPoint = null;
@@ -575,11 +577,11 @@ public class BoardView extends LinearLayout {
 
 
     private void updateImage(SquareView sV){
-        if(sV.getPoint().getStatus() == '1'){
+        if(sV.getPoint().getStatus() == '0'){
             //Log.i(TAG,"unexplored");
             sV.getGridImage().setImageDrawable(getResources().getDrawable(R.drawable.black_box,null));
         }
-        else if(sV.getPoint().getStatus() == '0') {
+        else if(sV.getPoint().getStatus() == '1') {
             //Log.i(TAG, "explored");
             sV.getGridImage().setImageDrawable(getResources().getDrawable(R.drawable.white_box,null));
         }
