@@ -361,8 +361,8 @@ public class BluetoothClass {
                             String path2 = objMessage.getString("path2");
                             path1 = hexToBin(path1);
                             path2 = hexToBin(path2);
-                            path1 = path1.substring(2,path1.length()-2);
-                            path2 = path2.substring(2);
+                            path1 = path1.substring(1);
+                            path2 = path2.substring(1);
                             messageCode = 2;
                             //hk- maybe wrong... hmm
 
