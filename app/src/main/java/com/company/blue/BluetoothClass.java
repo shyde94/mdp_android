@@ -331,7 +331,7 @@ public class BluetoothClass {
                         // 1 - robot position
                         // 2 - map info
                         //see if correct get
-                        Log.d(TAG,incomingMessage);
+                        Log.d(TAG,"Incoming message: " + incomingMessage);
                         JSONObject jsonObject = new JSONObject(incomingMessage);
                         JSONObject objMessage = jsonObject.getJSONObject("message");
                         String msgType = objMessage.getString("type");
@@ -357,17 +357,19 @@ public class BluetoothClass {
                             messageCode = 1;
                         }
                         else if(msgType.equals("MapInfo")){
-                            msgToHandler = objMessage.getString("info");
+                            String path1 = objMessage.getString("path1");
+                            String path2 = objMessage.getString("path2");
+                            path1 = hexToBin(path1);
+                            path2 = hexToBin(path2);
+                            path1 = path1.substring(1);
+                            path2 = path2.substring(1);
                             messageCode = 2;
-                            //hk- maybe wrong... hmmm
+                            //hk- maybe wrong... hmm
 
-                            //msgToHandler = hexToBin(msgToHandler);
+                            msgToHandler = path1 + "," + path2;
+                            Log.d(TAG, "map info to handler:" + msgToHandler);
 
-                            msgToHandler = hexToBin(msgToHandler);
 
-                            Log.d(TAG, msgToHandler);
-
-                            //
                         }
                         else{
                             msgToHandler = "Failed to Process message";
@@ -375,8 +377,7 @@ public class BluetoothClass {
 
                         Message readMsg = Shared.mHandler.obtainMessage(messageCode, numBytes, -1, msgToHandler);
                         readMsg.sendToTarget();
-                        incoming = incomingMessage;
-                        Log.i(TAG, "Incoming: " + incoming);
+
                     } catch (IOException e) {
                         //If disconnected should reconnect back? yes. but how.
                         Log.d(TAG, "Input stream was disconnected", e);

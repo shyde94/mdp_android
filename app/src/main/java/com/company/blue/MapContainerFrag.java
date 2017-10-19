@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -37,6 +38,9 @@ public class MapContainerFrag extends Fragment implements SensorEventListener {
     private TextView mStatus;
     private Handler mHandler;
     private long lastUpdate;
+
+    EditText mMsgOut;
+    Button mMsgSend;
 
     public BoardView getmBoardView() {
         return mBoardView;
@@ -81,6 +85,10 @@ public class MapContainerFrag extends Fragment implements SensorEventListener {
 
         mProgressBar.setVisibility(View.INVISIBLE);
         lastUpdate = System.currentTimeMillis();
+
+
+        mMsgOut = view.findViewById(R.id.msgOut);
+        mMsgSend = view.findViewById(R.id.sendMsg);
 
 
         //////////// sensors
@@ -233,6 +241,18 @@ public class MapContainerFrag extends Fragment implements SensorEventListener {
             }
         });
 
+
+        mMsgSend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String msg = mMsgOut.getText().toString();
+                try {
+                    Shared.btController.write(msg);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
 
         Log.i(TAG, "test");
         return view;

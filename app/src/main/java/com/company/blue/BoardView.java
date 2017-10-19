@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.LinkedList;
 
 /**
  * Created by Shide on 29/8/17.
@@ -41,8 +42,8 @@ public class BoardView extends LinearLayout {
     //1 - explored/no obstacle, 0 - unexplored/obstacle
     //String length should be 300
     //String data used to display map coordinates.
-    private String ObstacleOrNot = "0";
-    private String ExploredOrNot = "0";
+    private String ObstacleOrNot = "";
+    private String ExploredOrNot = "";
     //Start, End, Current, Waypoint.
     //Algo to decide where robot is. Take position as center of 9 squares.
     //Based on position, identify which squares to alter? Okay.
@@ -70,6 +71,14 @@ public class BoardView extends LinearLayout {
 
     public void setObstacleOrNot(String obstacleOrNot) {
         ObstacleOrNot = obstacleOrNot;
+    }
+
+    public String getExploredOrNot() {
+        return ExploredOrNot;
+    }
+
+    public void setExploredOrNot(String exploredOrNot) {
+        ExploredOrNot = exploredOrNot;
     }
 
     public int getStartLock() {
@@ -278,9 +287,10 @@ public class BoardView extends LinearLayout {
         if(x.length()<(rows*col)){
             String fill = "";
             for(int i=0;i<(rows*col)-x.length();i++){
-                fill += "2";
+                fill += "0";
             }
             x += fill;
+            Log.i(TAG,"string used:" + x);
         }
         String[] x_array = new String[rows]; //array of strings of size 2
         int start_pos = 0;
@@ -487,7 +497,8 @@ public class BoardView extends LinearLayout {
             }
             for(GridPoint tempGp: gpArray2){
                 // hk changed ==
-                if(tempGp.getStatus() != '0'){
+                if(tempGp.getStatus() == '2'){
+                    Log.i(TAG, "Obstacle");
                     Toast.makeText(getContext(), "There is an obstacle here. Cannot set waypoint here", Toast.LENGTH_SHORT).show();
                     wayPointSet = 0;
                     wayPoint = null;
@@ -556,17 +567,39 @@ public class BoardView extends LinearLayout {
     public void refreshMap(){
         Log.i(TAG,"refresh map");
         //Should contain code to get updated map from rpi and current position. change variable curPos in here!
-        String[] stringArray = segmentString(ObstacleOrNot, numRows, numCol);
+        LinkedList<SquareView> exploredSquares = new LinkedList<SquareView>();
+
+
+        String[] stringArray = segmentString(ExploredOrNot, numRows, numCol);
+        for(int p=stringArray.length-1;p>-1;p--)Log.i(TAG, stringArray[p]);
+
+        //Use the string ExploredOrNot here. then put Explored Grids into an array List. Explored
         for(int i=0;i<numRows;i++){
             for(int j=0;j<numCol;j++){
                 GridPoint tempGp = gpArray[i][j];
                 //Log.i(TAG, "Array i,j: " + i + ","+j + "tempGp: " + tempGp.getxCoord() + ", " + tempGp.getyCoord());
                 SquareView tempSv = gpMap.get(tempGp);
                 tempSv.getPoint().setStatus(stringArray[i].charAt(j));
+                if(stringArray[i].charAt(j) == '1'){
+                    exploredSquares.add(tempSv);
+                }
                 updateImage(tempSv);
                 //Log.i(TAG,"Updating " + tempSv.getPoint().getxCoord() + ", " + tempSv.getPoint().getyCoord());
-
             }
+        }
+
+        //Use the string ObstacleOrNot to iterate through exploredSquares
+        Log.i(TAG,"size of exploredSquares list: "+ exploredSquares.size());
+        Log.i(TAG,"size of obstacleList: " + ObstacleOrNot.length());
+        for(int j=0;j<exploredSquares.size();j++){
+            SquareView tempSv = exploredSquares.get(j);
+            if(ObstacleOrNot.charAt(j) == '1'){
+                tempSv.getPoint().setStatus('2');
+            }
+            else{
+                tempSv.getPoint().setStatus('1');
+            }
+            updateImage(tempSv);
         }
         displayCurrentPosition();
         displayWayPoint();
@@ -580,16 +613,16 @@ public class BoardView extends LinearLayout {
     private void updateImage(SquareView sV){
         //Now i have 3 different statuses.
 
-        if(sV.getPoint().getStatus() == '1'){
-            //Log.i(TAG,"unexplored");
+        if(sV.getPoint().getStatus() == '2'){
+            //Log.i(TAG,"obstacle");
             sV.getGridImage().setImageDrawable(getResources().getDrawable(R.drawable.black_box,null));
         }
-        else if(sV.getPoint().getStatus() == '0') {
+        else if(sV.getPoint().getStatus() == '1') {
             //Log.i(TAG, "explored");
             sV.getGridImage().setImageDrawable(getResources().getDrawable(R.drawable.white_box,null));
         }
-        else if(sV.getPoint().getStatus() == '2'){
-
+        else if(sV.getPoint().getStatus() == '0'){
+            //Log.i(TAG, "unexplored");
             sV.getGridImage().setImageDrawable(getResources().getDrawable(R.drawable.grey_square, null));
         }
     }
