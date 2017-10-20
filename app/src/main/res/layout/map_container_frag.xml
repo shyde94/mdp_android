@@ -134,6 +134,11 @@
                 android:layout_height="wrap_content"
                 android:text="Send" />
 
+            <TextView
+                android:id="@+id/map_descriptor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
 
         </LinearLayout>
     </ScrollView>

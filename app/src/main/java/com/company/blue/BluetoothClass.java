@@ -368,7 +368,7 @@ public class BluetoothClass {
 
                             msgToHandler = path1 + "," + path2;
                             Log.d(TAG, "map info to handler:" + msgToHandler);
-
+                            write("!");
 
                         }
                         else{

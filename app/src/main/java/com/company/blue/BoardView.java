@@ -57,6 +57,14 @@ public class BoardView extends LinearLayout {
     private HashMap<GridPoint, SquareView> gpMap = new HashMap<>();
     private GridPoint[][] gpArray = new GridPoint[numRows][numCol];
 
+    public int getNumRows() {
+        return numRows;
+    }
+
+    public int getNumCol() {
+        return numCol;
+    }
+
     public GridPoint getCurPos() {
         return curPos;
     }
