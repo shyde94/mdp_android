@@ -9,7 +9,10 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ae72bd03-39bc-4cc3-8aef-506ae17786ff" name="Default" comment="" />
+    <list default="true" id="ae72bd03-39bc-4cc3-8aef-506ae17786ff" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/company/blue/BluetoothClass.java" afterPath="$PROJECT_DIR$/src/main/java/com/company/blue/BluetoothClass.java" />
+    </list>
     <ignored path="app.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -40,6 +43,18 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="MapContainerFrag.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/company/blue/MapContainerFrag.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-448">
+              <caret line="307" column="21" selection-start-line="307" selection-start-column="21" selection-end-line="307" selection-end-column="21" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="map_container_frag.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/res/layout/map_container_frag.xml">
           <provider editor-type-id="android-designer2">
@@ -47,49 +62,11 @@
           </provider>
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="345">
-              <caret line="23" column="21" selection-start-line="23" selection-start-column="21" selection-end-line="23" selection-end-column="21" />
+              <caret line="33" column="21" selection-start-line="33" selection-start-column="21" selection-end-line="33" selection-end-column="21" />
               <folding>
-                <marker date="1507275678000" expanded="false" signature="2898:2921" ph="&quot;Manual Update&quot;" />
-                <marker date="1507275678000" expanded="false" signature="3198:3221" ph="&quot;Manual Update&quot;" />
-                <marker date="1507275678000" expanded="false" signature="4508:4532" ph="&quot;Current status:&quot;" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MapContainerFrag.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/company/blue/MapContainerFrag.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-45">
-              <caret line="286" column="21" selection-start-line="286" selection-start-column="21" selection-end-line="286" selection-end-column="21" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#3534#4034#0" expanded="true" />
-                <element signature="e#4033#4034#0" expanded="true" />
-                <element signature="e#4309#4758#0" expanded="true" />
-                <element signature="e#4757#4758#0" expanded="true" />
-                <element signature="e#4798#5141#0" expanded="true" />
-                <element signature="e#5140#5141#0" expanded="true" />
-                <element signature="e#5182#5521#0" expanded="true" />
-                <element signature="e#5520#5521#0" expanded="true" />
-                <element signature="e#5563#5904#0" expanded="true" />
-                <element signature="e#5903#5904#0" expanded="true" />
-                <element signature="e#5944#6244#0" expanded="true" />
-                <element signature="e#6243#6244#0" expanded="true" />
-                <element signature="e#6279#6584#0" expanded="true" />
-                <element signature="e#6583#6584#0" expanded="true" />
-                <element signature="e#6635#7154#0" expanded="true" />
-                <element signature="e#7153#7154#0" expanded="true" />
-                <element signature="e#7204#7661#0" expanded="true" />
-                <element signature="e#7660#7661#0" expanded="true" />
-                <element signature="e#7706#8429#0" expanded="true" />
-                <element signature="e#8428#8429#0" expanded="true" />
-                <element signature="e#11442#11443#0" expanded="true" />
-                <element signature="e#11500#11501#0" expanded="true" />
-                <element signature="e#11636#12120#0" expanded="true" />
-                <element signature="e#12119#12120#0" expanded="true" />
-                <element signature="e#12208#12209#0" expanded="true" />
-                <element signature="e#12274#12275#0" expanded="true" />
+                <marker date="1508381414000" expanded="false" signature="2898:2921" ph="&quot;Manual Update&quot;" />
+                <marker date="1508381414000" expanded="false" signature="3198:3221" ph="&quot;Manual Update&quot;" />
+                <marker date="1508381414000" expanded="false" signature="4508:4532" ph="&quot;Current status:&quot;" />
               </folding>
             </state>
           </provider>
@@ -105,91 +82,23 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="BluetoothClass.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/company/blue/BluetoothClass.java">
+      <file leaf-file-name="BluetoothFrag.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/company/blue/BluetoothFrag.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="116">
-              <caret line="411" column="0" selection-start-line="412" selection-start-column="16" selection-end-line="412" selection-end-column="21" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#1668#1669#0" expanded="true" />
-                <element signature="e#1724#1725#0" expanded="true" />
-                <element signature="e#1959#1960#0" expanded="true" />
-                <element signature="e#2001#2002#0" expanded="true" />
-                <element signature="e#2044#2045#0" expanded="true" />
-                <element signature="e#2083#2084#0" expanded="true" />
-                <element signature="e#2242#2243#0" expanded="true" />
-                <element signature="e#2277#2278#0" expanded="true" />
-                <element signature="e#2333#2334#0" expanded="true" />
-                <element signature="e#2381#2382#0" expanded="true" />
-                <element signature="e#2425#2426#0" expanded="true" />
-                <element signature="e#2456#2457#0" expanded="true" />
-                <element signature="e#2513#2514#0" expanded="true" />
-                <element signature="e#2553#2554#0" expanded="true" />
-                <element signature="e#2604#2605#0" expanded="true" />
-                <element signature="e#2642#2643#0" expanded="true" />
-                <element signature="e#2811#2812#0" expanded="true" />
-                <element signature="e#2842#2843#0" expanded="true" />
-                <element signature="e#2899#2900#0" expanded="true" />
-                <element signature="e#2939#2940#0" expanded="true" />
-                <element signature="e#2984#2985#0" expanded="true" />
-                <element signature="e#3019#3020#0" expanded="true" />
-                <element signature="e#3081#3082#0" expanded="true" />
-                <element signature="e#3129#3130#0" expanded="true" />
-                <element signature="e#3169#3170#0" expanded="true" />
-                <element signature="e#3200#3201#0" expanded="true" />
-                <element signature="e#3253#3254#0" expanded="true" />
-                <element signature="e#3293#3294#0" expanded="true" />
-                <element signature="e#3347#3348#0" expanded="true" />
-                <element signature="e#3387#3388#0" expanded="true" />
-                <element signature="e#3422#3423#0" expanded="true" />
-                <element signature="e#3453#3454#0" expanded="true" />
-                <element signature="e#3501#3502#0" expanded="true" />
-                <element signature="e#3541#3542#0" expanded="true" />
-                <element signature="e#5530#5531#0" expanded="true" />
-                <element signature="e#5562#5563#0" expanded="true" />
-                <element signature="e#5644#6670#0" expanded="true" />
-                <element signature="e#6669#6670#0" expanded="true" />
-                <element signature="e#9953#15015#0" expanded="true" />
-                <element signature="e#15014#15015#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="555">
+              <caret line="192" column="38" selection-start-line="192" selection-start-column="33" selection-end-line="192" selection-end-column="38" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="BoardView.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/company/blue/BoardView.java">
+      <file leaf-file-name="BluetoothClass.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/company/blue/BluetoothClass.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="8060">
-              <caret line="578" column="0" selection-start-line="578" selection-start-column="0" selection-end-line="578" selection-end-column="0" />
+            <state relative-caret-position="5">
+              <caret line="363" column="49" selection-start-line="363" selection-start-column="49" selection-end-line="363" selection-end-column="49" />
               <folding>
-                <element signature="e#2042#2043#0" expanded="true" />
-                <element signature="e#2071#2072#0" expanded="true" />
-                <element signature="e#2118#2119#0" expanded="true" />
-                <element signature="e#2154#2155#0" expanded="true" />
-                <element signature="e#2194#2195#0" expanded="true" />
-                <element signature="e#2230#2231#0" expanded="true" />
-                <element signature="e#2288#2289#0" expanded="true" />
-                <element signature="e#2333#2334#0" expanded="true" />
-                <element signature="e#2366#2367#0" expanded="true" />
-                <element signature="e#2398#2399#0" expanded="true" />
-                <element signature="e#2445#2446#0" expanded="true" />
-                <element signature="e#2487#2488#0" expanded="true" />
-                <element signature="e#2528#2529#0" expanded="true" />
-                <element signature="e#2563#2564#0" expanded="true" />
-                <element signature="e#2596#2597#0" expanded="true" />
-                <element signature="e#2628#2629#0" expanded="true" />
-                <element signature="e#2675#2676#0" expanded="true" />
-                <element signature="e#2717#2718#0" expanded="true" />
-                <element signature="e#2929#2986#0" expanded="true" />
-                <element signature="e#3010#3069#0" expanded="true" />
-                <element signature="e#3717#3774#0" expanded="true" />
-                <element signature="e#6148#8477#0" expanded="true" />
-                <element signature="e#6356#8446#0" expanded="true" />
-                <element signature="e#8445#8446#0" expanded="true" />
-                <element signature="e#8476#8477#0" expanded="true" />
-                <element signature="e#8582#10365#0" expanded="true" />
-                <element signature="e#10364#10365#0" expanded="true" />
+                <element signature="imports" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -198,8 +107,8 @@
       <file leaf-file-name="MainActivity.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/company/blue/MainActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="36">
-              <caret line="89" column="47" selection-start-line="89" selection-start-column="47" selection-end-line="89" selection-end-column="47" />
+            <state relative-caret-position="66">
+              <caret line="91" column="47" selection-start-line="91" selection-start-column="47" selection-end-line="91" selection-end-column="47" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -2046,8 +1955,8 @@
         <option value="$PROJECT_DIR$/src/main/res/layout/map_container_frag.xml" />
         <option value="$PROJECT_DIR$/src/main/java/com/company/blue/MapContainerFrag.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/company/blue/MainActivity.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/company/blue/BluetoothClass.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/company/blue/BoardView.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/company/blue/BluetoothClass.java" />
       </list>
     </option>
   </component>
@@ -2531,10 +2440,8 @@
           <caret line="15" column="13" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1227#1228#0" expanded="false" />
-            <element signature="e#1260#1261#0" expanded="false" />
-            <element signature="e#11442#11443#0" expanded="true" />
-            <element signature="e#11500#11501#0" expanded="true" />
+            <element signature="e#12015#12016#0" expanded="true" />
+            <element signature="e#12073#12074#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2609,10 +2516,8 @@
           <caret line="15" column="13" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1227#1228#0" expanded="false" />
-            <element signature="e#1260#1261#0" expanded="false" />
-            <element signature="e#11442#11443#0" expanded="true" />
-            <element signature="e#11500#11501#0" expanded="true" />
+            <element signature="e#12015#12016#0" expanded="true" />
+            <element signature="e#12073#12074#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2687,10 +2592,8 @@
           <caret line="15" column="13" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1227#1228#0" expanded="false" />
-            <element signature="e#1260#1261#0" expanded="false" />
-            <element signature="e#11442#11443#0" expanded="true" />
-            <element signature="e#11500#11501#0" expanded="true" />
+            <element signature="e#12015#12016#0" expanded="true" />
+            <element signature="e#12073#12074#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2765,10 +2668,8 @@
           <caret line="15" column="13" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1227#1228#0" expanded="false" />
-            <element signature="e#1260#1261#0" expanded="false" />
-            <element signature="e#11442#11443#0" expanded="true" />
-            <element signature="e#11500#11501#0" expanded="true" />
+            <element signature="e#12015#12016#0" expanded="true" />
+            <element signature="e#12073#12074#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2935,8 +2836,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/company/blue/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="36">
-          <caret line="89" column="47" selection-start-line="89" selection-start-column="47" selection-end-line="89" selection-end-column="47" />
+        <state relative-caret-position="66">
+          <caret line="91" column="47" selection-start-line="91" selection-start-column="47" selection-end-line="91" selection-end-column="47" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -2969,6 +2870,29 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout/map_container_frag.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="345">
+          <caret line="33" column="21" selection-start-line="33" selection-start-column="21" selection-end-line="33" selection-end-column="21" />
+          <folding>
+            <marker date="1508381414000" expanded="false" signature="2898:2921" ph="&quot;Manual Update&quot;" />
+            <marker date="1508381414000" expanded="false" signature="3198:3221" ph="&quot;Manual Update&quot;" />
+            <marker date="1508381414000" expanded="false" signature="4508:4532" ph="&quot;Current status:&quot;" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/company/blue/BoardView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="8570">
+          <caret line="612" column="0" selection-start-line="612" selection-start-column="0" selection-end-line="612" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/company/blue/ScreenController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-97">
@@ -2979,170 +2903,28 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/company/blue/MapContainerFrag.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-45">
-          <caret line="286" column="21" selection-start-line="286" selection-start-column="21" selection-end-line="286" selection-end-column="21" />
+        <state relative-caret-position="-448">
+          <caret line="307" column="21" selection-start-line="307" selection-start-column="21" selection-end-line="307" selection-end-column="21" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#3534#4034#0" expanded="true" />
-            <element signature="e#4033#4034#0" expanded="true" />
-            <element signature="e#4309#4758#0" expanded="true" />
-            <element signature="e#4757#4758#0" expanded="true" />
-            <element signature="e#4798#5141#0" expanded="true" />
-            <element signature="e#5140#5141#0" expanded="true" />
-            <element signature="e#5182#5521#0" expanded="true" />
-            <element signature="e#5520#5521#0" expanded="true" />
-            <element signature="e#5563#5904#0" expanded="true" />
-            <element signature="e#5903#5904#0" expanded="true" />
-            <element signature="e#5944#6244#0" expanded="true" />
-            <element signature="e#6243#6244#0" expanded="true" />
-            <element signature="e#6279#6584#0" expanded="true" />
-            <element signature="e#6583#6584#0" expanded="true" />
-            <element signature="e#6635#7154#0" expanded="true" />
-            <element signature="e#7153#7154#0" expanded="true" />
-            <element signature="e#7204#7661#0" expanded="true" />
-            <element signature="e#7660#7661#0" expanded="true" />
-            <element signature="e#7706#8429#0" expanded="true" />
-            <element signature="e#8428#8429#0" expanded="true" />
-            <element signature="e#11442#11443#0" expanded="true" />
-            <element signature="e#11500#11501#0" expanded="true" />
-            <element signature="e#11636#12120#0" expanded="true" />
-            <element signature="e#12119#12120#0" expanded="true" />
-            <element signature="e#12208#12209#0" expanded="true" />
-            <element signature="e#12274#12275#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/company/blue/BluetoothFrag.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-16">
-          <caret line="184" column="0" selection-start-line="184" selection-start-column="0" selection-end-line="184" selection-end-column="0" />
-          <folding>
-            <element signature="e#3835#4399#0" expanded="true" />
-            <element signature="e#4398#4399#0" expanded="true" />
-            <element signature="e#4467#5332#0" expanded="true" />
-            <element signature="e#5331#5332#0" expanded="true" />
-            <element signature="e#5388#5917#0" expanded="true" />
-            <element signature="e#5916#5917#0" expanded="true" />
-            <element signature="e#5979#6387#0" expanded="true" />
-            <element signature="e#6386#6387#0" expanded="true" />
-            <element signature="e#6432#7074#0" expanded="true" />
-            <element signature="e#7073#7074#0" expanded="true" />
-            <element signature="e#7114#7862#0" expanded="true" />
-            <element signature="e#7861#7862#0" expanded="true" />
-            <element signature="e#7905#8741#0" expanded="true" />
-            <element signature="e#8740#8741#0" expanded="true" />
-            <element signature="e#8809#9237#0" expanded="true" />
-            <element signature="e#9236#9237#0" expanded="true" />
-            <element signature="e#9290#11115#0" expanded="true" />
-            <element signature="e#11114#11115#0" expanded="true" />
-            <element signature="e#11166#11342#0" expanded="true" />
-            <element signature="e#11341#11342#0" expanded="true" />
-            <element signature="e#11498#14410#0" expanded="true" />
-            <element signature="e#14409#14410#0" expanded="true" />
-            <element signature="e#14455#14456#0" expanded="true" />
-            <element signature="e#14524#14525#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/layout/map_container_frag.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="23" column="21" selection-start-line="23" selection-start-column="21" selection-end-line="23" selection-end-column="21" />
-          <folding>
-            <marker date="1507275678000" expanded="false" signature="2898:2921" ph="&quot;Manual Update&quot;" />
-            <marker date="1507275678000" expanded="false" signature="3198:3221" ph="&quot;Manual Update&quot;" />
-            <marker date="1507275678000" expanded="false" signature="4508:4532" ph="&quot;Current status:&quot;" />
-          </folding>
+        <state relative-caret-position="555">
+          <caret line="192" column="38" selection-start-line="192" selection-start-column="33" selection-end-line="192" selection-end-column="38" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/company/blue/BluetoothClass.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="116">
-          <caret line="411" column="0" selection-start-line="412" selection-start-column="16" selection-end-line="412" selection-end-column="21" />
+        <state relative-caret-position="5">
+          <caret line="363" column="49" selection-start-line="363" selection-start-column="49" selection-end-line="363" selection-end-column="49" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1668#1669#0" expanded="true" />
-            <element signature="e#1724#1725#0" expanded="true" />
-            <element signature="e#1959#1960#0" expanded="true" />
-            <element signature="e#2001#2002#0" expanded="true" />
-            <element signature="e#2044#2045#0" expanded="true" />
-            <element signature="e#2083#2084#0" expanded="true" />
-            <element signature="e#2242#2243#0" expanded="true" />
-            <element signature="e#2277#2278#0" expanded="true" />
-            <element signature="e#2333#2334#0" expanded="true" />
-            <element signature="e#2381#2382#0" expanded="true" />
-            <element signature="e#2425#2426#0" expanded="true" />
-            <element signature="e#2456#2457#0" expanded="true" />
-            <element signature="e#2513#2514#0" expanded="true" />
-            <element signature="e#2553#2554#0" expanded="true" />
-            <element signature="e#2604#2605#0" expanded="true" />
-            <element signature="e#2642#2643#0" expanded="true" />
-            <element signature="e#2811#2812#0" expanded="true" />
-            <element signature="e#2842#2843#0" expanded="true" />
-            <element signature="e#2899#2900#0" expanded="true" />
-            <element signature="e#2939#2940#0" expanded="true" />
-            <element signature="e#2984#2985#0" expanded="true" />
-            <element signature="e#3019#3020#0" expanded="true" />
-            <element signature="e#3081#3082#0" expanded="true" />
-            <element signature="e#3129#3130#0" expanded="true" />
-            <element signature="e#3169#3170#0" expanded="true" />
-            <element signature="e#3200#3201#0" expanded="true" />
-            <element signature="e#3253#3254#0" expanded="true" />
-            <element signature="e#3293#3294#0" expanded="true" />
-            <element signature="e#3347#3348#0" expanded="true" />
-            <element signature="e#3387#3388#0" expanded="true" />
-            <element signature="e#3422#3423#0" expanded="true" />
-            <element signature="e#3453#3454#0" expanded="true" />
-            <element signature="e#3501#3502#0" expanded="true" />
-            <element signature="e#3541#3542#0" expanded="true" />
-            <element signature="e#5530#5531#0" expanded="true" />
-            <element signature="e#5562#5563#0" expanded="true" />
-            <element signature="e#5644#6670#0" expanded="true" />
-            <element signature="e#6669#6670#0" expanded="true" />
-            <element signature="e#9953#15015#0" expanded="true" />
-            <element signature="e#15014#15015#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/company/blue/BoardView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="8060">
-          <caret line="578" column="0" selection-start-line="578" selection-start-column="0" selection-end-line="578" selection-end-column="0" />
-          <folding>
-            <element signature="e#2042#2043#0" expanded="true" />
-            <element signature="e#2071#2072#0" expanded="true" />
-            <element signature="e#2118#2119#0" expanded="true" />
-            <element signature="e#2154#2155#0" expanded="true" />
-            <element signature="e#2194#2195#0" expanded="true" />
-            <element signature="e#2230#2231#0" expanded="true" />
-            <element signature="e#2288#2289#0" expanded="true" />
-            <element signature="e#2333#2334#0" expanded="true" />
-            <element signature="e#2366#2367#0" expanded="true" />
-            <element signature="e#2398#2399#0" expanded="true" />
-            <element signature="e#2445#2446#0" expanded="true" />
-            <element signature="e#2487#2488#0" expanded="true" />
-            <element signature="e#2528#2529#0" expanded="true" />
-            <element signature="e#2563#2564#0" expanded="true" />
-            <element signature="e#2596#2597#0" expanded="true" />
-            <element signature="e#2628#2629#0" expanded="true" />
-            <element signature="e#2675#2676#0" expanded="true" />
-            <element signature="e#2717#2718#0" expanded="true" />
-            <element signature="e#2929#2986#0" expanded="true" />
-            <element signature="e#3010#3069#0" expanded="true" />
-            <element signature="e#3717#3774#0" expanded="true" />
-            <element signature="e#6148#8477#0" expanded="true" />
-            <element signature="e#6356#8446#0" expanded="true" />
-            <element signature="e#8445#8446#0" expanded="true" />
-            <element signature="e#8476#8477#0" expanded="true" />
-            <element signature="e#8582#10365#0" expanded="true" />
-            <element signature="e#10364#10365#0" expanded="true" />
           </folding>
         </state>
       </provider>
