@@ -51,6 +51,9 @@ public class BluetoothClass {
         return new BigInteger(s, 16).toString(2);
     }
 
+    static String BinTohex(String s){
+        return new BigInteger(s, 2).toString(16);
+    }
 
 
 

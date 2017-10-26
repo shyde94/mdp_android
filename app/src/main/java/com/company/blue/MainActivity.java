@@ -94,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
                             MCFrag.getmBoardView().refreshMap();
                             MCFrag.hideProgressBar();
                             MCFrag.printMapDescriptorText("Obstacle: " + tempArray[1]);
-                            MCFrag.printMapDescriptorText2("Explored: " + tempArray[0]);
+                            MCFrag.printMapDescriptorText2("Returned: " + BluetoothClass.BinTohex(tempArray[0]) + BluetoothClass.BinTohex(tempArray[1]));
                             Log.i(TAG,"Refreshing map");
 
                             break;
