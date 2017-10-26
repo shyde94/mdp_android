@@ -31,23 +31,26 @@ public class MapContainerFrag extends Fragment implements SensorEventListener {
     final public String TAG = "MapContainerFragClass";
     private BoardView mBoardView;
 
-    Button mForward, mReverse, mTurnLeft, mTurnRight, mManualUpdate, mExplore, mGo;
+    Button mForward, mReverse, mTurnLeft, mTurnRight, mManualUpdate, mExplore, mGo, mSendWayPoint;
     ToggleButton mAutoUpdate, mStartLock;
     private ProgressBar mProgressBar;
     private ToggleButton motionBtn;
     private TextView mStatus;
     private Handler mHandler;
     private long lastUpdate;
+    //hk
+    private GridPoint mGridPoint;
 
     EditText mMsgOut;
     Button mMsgSend;
 
+    private TextView mMapDescriptor;
+
     public BoardView getmBoardView() {
         return mBoardView;
     }
+
     Runnable periodicUpdate;
-
-
 
 
     @Nullable
@@ -82,6 +85,8 @@ public class MapContainerFrag extends Fragment implements SensorEventListener {
         mStartLock = view.findViewById(R.id.set_start_lock);
         mProgressBar = view.findViewById(R.id.update_progress_bar);
         motionBtn = view.findViewById(R.id.toggleButton2);
+        mMapDescriptor = view.findViewById(R.id.map_descriptor);
+        mSendWayPoint = view.findViewById(R.id.sendwaypoint);
 
         mProgressBar.setVisibility(View.INVISIBLE);
         lastUpdate = System.currentTimeMillis();
@@ -92,7 +97,7 @@ public class MapContainerFrag extends Fragment implements SensorEventListener {
 
 
         //////////// sensors
-        Shared.sMgr = (SensorManager)Shared.activity.getSystemService(Shared.context.SENSOR_SERVICE);
+        Shared.sMgr = (SensorManager) Shared.activity.getSystemService(Shared.context.SENSOR_SERVICE);
         if (Shared.sMgr.getDefaultSensor(Sensor.TYPE_ACCELEROMETER) != null) {
             Shared.mAccelerometer = Shared.sMgr.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         } else {
@@ -105,14 +110,31 @@ public class MapContainerFrag extends Fragment implements SensorEventListener {
                 if (motionBtn.isChecked()) {
 
                     Shared.sMgr.registerListener(MapContainerFrag.this, Shared.mAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);
-                    Log.d(TAG,"registered sensor listener");
+                    Log.d(TAG, "registered sensor listener");
 
-                    }
-                else{
+                } else {
                     Shared.sMgr.unregisterListener(MapContainerFrag.this);
                 }
+            }
+        });
+        ////////hk
+
+        mSendWayPoint.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //By right, if bluetooth isnt connected, map shouldn't display that robot has moved forward
+                try {
+                    mGridPoint = mBoardView.getWayPoint();
+                    Toast.makeText(Shared.context, mGridPoint.getxCoord()+" "+mGridPoint.getyCoord(), Toast.LENGTH_SHORT).show();
+                    Shared.btController.write("SET WP," + mGridPoint.getxCoord() + ":"+ mGridPoint.getyCoord());
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    Toast.makeText(Shared.context, "Message cannot be sent. Waypoint not set  ", Toast.LENGTH_SHORT).show();
                 }
-         });
+                Log.i(TAG, "command: move forward");
+            }
+        });
 
 
 
@@ -133,7 +155,7 @@ public class MapContainerFrag extends Fragment implements SensorEventListener {
             }
         });
 
-        mReverse.setOnClickListener(new View.OnClickListener(){
+        mReverse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 try {
@@ -146,7 +168,7 @@ public class MapContainerFrag extends Fragment implements SensorEventListener {
             }
         });
 
-        mTurnLeft.setOnClickListener(new View.OnClickListener(){
+        mTurnLeft.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 try {
@@ -159,7 +181,7 @@ public class MapContainerFrag extends Fragment implements SensorEventListener {
             }
         });
 
-        mTurnRight.setOnClickListener(new View.OnClickListener(){
+        mTurnRight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 try {
@@ -197,12 +219,11 @@ public class MapContainerFrag extends Fragment implements SensorEventListener {
         mAutoUpdate.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if(b){
+                if (b) {
                     //toggled on, call for auto update.
                     Log.i(TAG, "AutoUpdateChecked");
                     autoUpdateMechanism();
-                }
-                else {
+                } else {
                     //Cancel autoupdate? KIV.
                     mHandler.removeCallbacks(periodicUpdate);
                 }
@@ -212,12 +233,11 @@ public class MapContainerFrag extends Fragment implements SensorEventListener {
         mStartLock.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if(b){
+                if (b) {
                     //toggled on, can set start position
                     Log.i(TAG, "Set start");
                     mBoardView.setStartLock(1);
-                }
-                else {
+                } else {
                     mBoardView.setStartLock(0);
                 }
             }
@@ -271,21 +291,21 @@ public class MapContainerFrag extends Fragment implements SensorEventListener {
             if (actualTime - lastUpdate < 1000) {
                 return;
             }
-            Log.d(TAG, "X is: "+ String.valueOf(x));
-            Log.d(TAG, "Y is: "+ String.valueOf(y));
+            Log.d(TAG, "X is: " + String.valueOf(x));
+            Log.d(TAG, "Y is: " + String.valueOf(y));
 
             lastUpdate = actualTime;
             //device not tilt, start to sense for motions
-           // if (x > (-2) && x < (2) && y > (-2) && y < (2)) {
-             //   motionSensor = true;
+            // if (x > (-2) && x < (2) && y > (-2) && y < (2)) {
+            //   motionSensor = true;
             //}
 
             // upon every motion sensed, print statement and turn motion sensor off to repeat the process
-            if(true){
+            if (true) {
                 // Left Right Movement
-                if (Math.abs(x) > Math.abs(y)){
+                if (Math.abs(x) > Math.abs(y)) {
                     // right motion
-                    if (x<-2){
+                    if (x < -2) {
                         Log.d(TAG, "You tilt the device right");
                         try {
                             mBoardView.moveRightward();
@@ -293,7 +313,7 @@ public class MapContainerFrag extends Fragment implements SensorEventListener {
                             e.printStackTrace();
                         }
                     }
-                    if (x>2){
+                    if (x > 2) {
                         Log.d(TAG, "You tilt the device left");
                         try {
                             mBoardView.moveLeftward();
@@ -301,9 +321,8 @@ public class MapContainerFrag extends Fragment implements SensorEventListener {
                             e.printStackTrace();
                         }
                     }
-                }
-                else{
-                    if (y<-2){
+                } else {
+                    if (y < -2) {
                         Log.d(TAG, "You tilt the device down");
                         try {
                             mBoardView.moveBackward();
@@ -311,7 +330,7 @@ public class MapContainerFrag extends Fragment implements SensorEventListener {
                             e.printStackTrace();
                         }
                     }
-                    if (y>2){
+                    if (y > 2) {
 
                         Log.d(TAG, "You tilt the device up");
                         try {
@@ -322,7 +341,6 @@ public class MapContainerFrag extends Fragment implements SensorEventListener {
                     }
                 }
             }
-
 
 
             // if ((curTime - lastUpdate) > 100) {
@@ -351,8 +369,7 @@ public class MapContainerFrag extends Fragment implements SensorEventListener {
     }
 
 
-
-    public void hideProgressBar(){
+    public void hideProgressBar() {
         mProgressBar.setVisibility(View.INVISIBLE);
     }
 
@@ -367,7 +384,7 @@ public class MapContainerFrag extends Fragment implements SensorEventListener {
                     count[0]++;
                     Shared.btController.write("Update");
                     //Shared.btController.write("Update" + count[0]);
-                    mHandler.postDelayed(this,2000);
+                    mHandler.postDelayed(this, 2000);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -376,7 +393,40 @@ public class MapContainerFrag extends Fragment implements SensorEventListener {
         mHandler.post(periodicUpdate);
     }
 
-    public void setStatus(String status){
+    public void setStatus(String status) {
         mStatus.setText("Current Status: " + " " + status);
     }
+
+    public void printMapDescriptorText(String s) {
+        mMapDescriptor.setText(s);
+
+
+    }
+
+    String[] segmentString(String x, int rows, int col) {
+
+        //if string given somehow has less than 300 digits. discuss with dhaslie.
+        if (x.length() < (rows * col)) {
+            String fill = "";
+            for (int i = 0; i < (rows * col) - x.length(); i++) {
+                fill += "0";
+            }
+            x += fill;
+            Log.i(TAG, "string used:" + x);
+        }
+        String[] x_array = new String[rows]; //array of strings of size 2
+        int start_pos = 0;
+        int end_pos = start_pos + col;
+        for (int i = 0; i < rows; i++) {
+            //System.out.println("start pos: " + start_pos);
+            String a = x.substring(start_pos, end_pos);
+            //System.out.println("insert: "+a);
+            x_array[i] = a;
+            start_pos += col;
+            end_pos = start_pos + col;
+        }
+        return x_array;
+
+    }
+
 }

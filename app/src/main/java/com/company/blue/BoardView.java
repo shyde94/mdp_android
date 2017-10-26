@@ -57,6 +57,14 @@ public class BoardView extends LinearLayout {
     private HashMap<GridPoint, SquareView> gpMap = new HashMap<>();
     private GridPoint[][] gpArray = new GridPoint[numRows][numCol];
 
+    public int getNumRows() {
+        return numRows;
+    }
+
+    public int getNumCol() {
+        return numCol;
+    }
+
     public GridPoint getCurPos() {
         return curPos;
     }
@@ -257,16 +265,16 @@ public class BoardView extends LinearLayout {
                 }
                 else if(wayPointSet==0){
                     //Set waypoint here
-
-                    try {
-                        Shared.btController.write("SET WP," + sV.getPoint().getxCoord() + ":"+sV.getPoint().getyCoord());
+                    //hk commented it out
+                    //try {
+                        //Shared.btController.write("SET WP," + sV.getPoint().getxCoord() + ":"+sV.getPoint().getyCoord());
                         wayPoint = sV.getPoint();
                         wayPointSet = 1;
                         refreshMap();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                        Toast.makeText(getContext(), "Message cannot be sent. Waypoint not set  ", Toast.LENGTH_SHORT).show();
-                    }
+                    //} catch (IOException e) {
+                      //  e.printStackTrace();
+                       // Toast.makeText(getContext(), "Message cannot be sent. Waypoint not set  ", Toast.LENGTH_SHORT).show();
+                    //}
 
                 }
                 return true;
@@ -627,8 +635,8 @@ public class BoardView extends LinearLayout {
         }
     }
 
-    private void setStartPoint(){
-
+    public GridPoint getWayPoint(){
+        return wayPoint;
     }
 
 

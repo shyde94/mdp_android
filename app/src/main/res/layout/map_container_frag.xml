@@ -91,6 +91,12 @@
                     android:textOn="Auto Update On" />
             </LinearLayout>
 
+            <Button
+                android:id="@+id/sendwaypoint"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Send Waypoint" />
+
             <ProgressBar
                 android:id="@+id/update_progress_bar"
                 android:layout_width="match_parent"
@@ -133,6 +139,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Send" />
+
+            <TextView
+                android:id="@+id/map_descriptor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
 
         </LinearLayout>
