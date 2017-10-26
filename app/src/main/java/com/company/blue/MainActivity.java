@@ -93,7 +93,8 @@ public class MainActivity extends AppCompatActivity {
                             MCFrag.getmBoardView().setObstacleOrNot(tempArray[1]);
                             MCFrag.getmBoardView().refreshMap();
                             MCFrag.hideProgressBar();
-                            MCFrag.printMapDescriptorText(tempArray[1]);
+                            MCFrag.printMapDescriptorText("Obstacle: " + tempArray[1]);
+                            MCFrag.printMapDescriptorText2("Explored: " + tempArray[0]);
                             Log.i(TAG,"Refreshing map");
 
                             break;

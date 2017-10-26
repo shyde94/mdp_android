@@ -45,6 +45,7 @@ public class MapContainerFrag extends Fragment implements SensorEventListener {
     Button mMsgSend;
 
     private TextView mMapDescriptor;
+    private TextView mMapDescriptor2;
 
     public BoardView getmBoardView() {
         return mBoardView;
@@ -86,6 +87,7 @@ public class MapContainerFrag extends Fragment implements SensorEventListener {
         mProgressBar = view.findViewById(R.id.update_progress_bar);
         motionBtn = view.findViewById(R.id.toggleButton2);
         mMapDescriptor = view.findViewById(R.id.map_descriptor);
+        mMapDescriptor2 = view.findViewById(R.id.map_descriptor2);
         mSendWayPoint = view.findViewById(R.id.sendwaypoint);
 
         mProgressBar.setVisibility(View.INVISIBLE);
@@ -400,7 +402,10 @@ public class MapContainerFrag extends Fragment implements SensorEventListener {
     public void printMapDescriptorText(String s) {
         mMapDescriptor.setText(s);
 
+    }
 
+    public void printMapDescriptorText2(String s){
+        mMapDescriptor2.setText(s);
     }
 
     String[] segmentString(String x, int rows, int col) {
