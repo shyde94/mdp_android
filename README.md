@@ -1,5 +1,5 @@
 # mdp_android
-For NTU Kids taking CS, this is the android app that controlled our robot. 
+For NTU Kids taking CS, this is the android app that controlled our robot for our Multi Disciplinary Project (MDP) class. 
 
 The UI is really basic, but it satisfies the required functions. 
 
